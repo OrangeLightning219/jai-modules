@@ -12,7 +12,8 @@ main :: ()
     }
     else
     {
-        #run build_cpp_dynamic_lib( "unix/harfbuzz", "/Users/marcel/Programming/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["--target=x86_64", "-std=c++11", "-DHB_DLL_EXPORT"]);
+        // #run build_cpp_dynamic_lib( "unix/harfbuzz", "/Users/marcel/Programming/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-std=c++11", "-DHB_DLL_EXPORT"]);
+        // #run build_cpp_dynamic_lib( "unix/harfbuzz", "/mnt/e/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-std=c++11", "-DHB_DLL_EXPORT"]);
     }
     generate_bindings();
 }
@@ -34,7 +35,8 @@ generate_bindings :: () -> bool
         {
             output_filename = "unix.jai";
             paths := "unix";
-            source := "/Users/marcel/Programming/harfbuzz/src/hb.h";
+            // source := "/Users/marcel/Programming/harfbuzz/src/hb.h";
+            // source := "/mnt/e/Tools/harfbuzz/src/hb.h";
         }
         
         // cl -LD -DHB_DLL_EXPORT ../harfbuzz.cc
