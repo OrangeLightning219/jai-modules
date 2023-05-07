@@ -1,0 +1,6 @@
+*.pdb
+*.exe
+SimpDX
+direct_composition
+build
+.build
