@@ -4,3 +4,6 @@ SimpDX
 direct_composition
 build
 .build
+**/generate_bindings.dSYM
+generate_bindings
+.DS_Store

@@ -12,7 +12,7 @@ main :: ()
     }
     else
     {
-        success := build_cpp_dynamic_lib("unix/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT"]);
+        #run build_cpp_dynamic_lib( "unix/harfbuzz", "/Users/marcel/Programming/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["--target=x86_64", "-std=c++11", "-DHB_DLL_EXPORT"]);
     }
     generate_bindings();
 }
@@ -34,14 +34,18 @@ generate_bindings :: () -> bool
         {
             output_filename = "unix.jai";
             paths := "unix";
-            source := "E:/Tools/harfbuzz/src/hb.h";
+            source := "/Users/marcel/Programming/harfbuzz/src/hb.h";
         }
         
         // cl -LD -DHB_DLL_EXPORT ../harfbuzz.cc
-        array_add( *libpaths, paths );
         array_add( *libnames, "harfbuzz" );
+        array_add( *libpaths, paths );
         array_add( *system_include_paths, GENERATOR_DEFAULT_SYSTEM_INCLUDE_PATH );
+        
         array_add( *source_files, source );
+        array_add( *path_fragments_to_treat_as_non_system_paths, source );
+
+        array_add( *extra_clang_arguments, "-x", "c++", "-DWIN32_LEAN_AND_MEAN" );
     }
 
     return generate_bindings( opts, output_filename );

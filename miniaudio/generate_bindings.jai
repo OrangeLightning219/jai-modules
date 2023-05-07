@@ -14,10 +14,10 @@ main :: ()
     }
     else
     {
-        success := build_cpp_dynamic_lib("unix/miniaudio", "miniaudio.c", debug = false, extra = .["-DMA_DLL", "-DMA_ENABLE_ONLY_SPECIFIC_BACKENDS", "-DMA_ENABLE_COREAUDIO"]);
+        #run build_cpp_dynamic_lib("unix/miniaudio", "miniaudio.c", debug = false, extra = .["-lpthread", "-DMA_DLL", "-DMA_ENABLE_ONLY_SPECIFIC_BACKENDS", "-DMA_ENABLE_COREAUDIO"]);
     }
 
-    success = generate_bindings();
+    success := generate_bindings();
 
     if success
     {
@@ -58,6 +58,10 @@ generate_bindings :: () -> bool
         array_add( *libnames, "miniaudio" );
         array_add( *libpaths, paths );
         array_add( *system_include_paths, GENERATOR_DEFAULT_SYSTEM_INCLUDE_PATH );
+        #if OS == .MACOS
+        {
+            array_add( *system_include_paths, "/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include" );
+        }
 
         files := string.["miniaudio.h"];
 
