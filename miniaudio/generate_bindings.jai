@@ -12,11 +12,9 @@ main :: ()
     {
         success := build_cpp_dynamic_lib("win/miniaudio", "miniaudio.c", debug = false, extra = .["-DMA_DLL", "-DMA_ENABLE_ONLY_SPECIFIC_BACKENDS", "-DMA_ENABLE_WASAPI"]);
     }
-    else
-    {
-        #run build_cpp_dynamic_lib("unix/miniaudio", "miniaudio.c", debug = false, extra = .["-lpthread", "-DMA_DLL", "-DMA_ENABLE_ONLY_SPECIFIC_BACKENDS", "-DMA_ENABLE_COREAUDIO"]);
-    }
 
+    // NOTE: Build manually for mac.
+    
     success := generate_bindings();
 
     if success
@@ -63,14 +61,12 @@ generate_bindings :: () -> bool
             array_add( *system_include_paths, "/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include" );
         }
 
-        files := string.["miniaudio.h"];
+        source := "miniaudio.h";
 
-        array_add( *source_files, ..files );
-        array_add( *path_fragments_to_treat_as_non_system_paths, ..files );
+        array_add( *source_files, source );
+        array_add( *path_fragments_to_treat_as_non_system_paths, source );
 
         array_add( *extra_clang_arguments, "-x", "c++", "-DWIN32_LEAN_AND_MEAN" );
-
-
     }
 
     return generate_bindings( opts, output_filename );

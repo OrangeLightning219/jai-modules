@@ -1,14 +1,15 @@
 #scope_file
 #import "Basic";
-#import "Windows";
 
 #scope_export
 
 #if OS == .WINDOWS
 {
+    #import "Windows";
     #load "windows.jai";
 }
 else
 {
+    #import "POSIX";
     #load "unix.jai";
 }
