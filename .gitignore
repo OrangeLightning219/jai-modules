@@ -7,3 +7,4 @@ build
 **/generate_bindings.dSYM
 generate_bindings
 .DS_Store
+freetype/freetype

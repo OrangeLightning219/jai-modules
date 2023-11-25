@@ -36,7 +36,25 @@ TYPES_WHITELIST :: string.[
 ];
 
 TYPES_TO_OMIT :: string.[
+    "WKPDID_D3DDebugObjectName", // Defined manually
     "INTERFACE", // Frequently re-declared macro
+
+     // We want these to be part of module "d3d_compiler" instead.
+    "ID3D10Blob",
+    "ID3D11Linker",
+    "ID3D11Module",
+    "ID3D11ModuleInstance",
+    "ID3DBlob",
+    "ID3DInclude",
+    "_D3D_INCLUDE_TYPE",
+    "_D3D_SHADER_MACRO",
+
+    "IEnumString",
+    "IID",
+    "GUID",
+    "ID3DDestructionNotifier",
+    "PFN_DESTRUCTION_CALLBACK",
+    "D3D_SHADER_VARIABLE_CLASS"
 ];
 
 
@@ -60,35 +78,31 @@ generate_bindings :: () -> bool
         generate_compile_time_struct_checks = false;
 
 
-        // paths := string.["C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22000.0/um/x64"];
-        // libs := string.["xaudio2.lib"];
-        // libs := string.["Windows.Media.Audio.dll"];
-        libs := string.["xaudio2_9.dll"];
+        libs := string.["shdocvw.dll", "shell32.dll"];
 
-        // array_add( *libpaths, ..paths );
         array_add( *libnames, ..libs );
-        // array_add( *system_library_names, ..libs );
         array_add( *system_include_paths, GENERATOR_DEFAULT_SYSTEM_INCLUDE_PATH );
 
-        files := string.["xaudio2.h", "Audioclient.h"];
+        files := string.["shobjidl.h", "exdisp.h", "shobjidl_core.h", "shtypes.h", "oaidl.h"];
+        // files := string.["dcomp.h"];
 
         array_add( *source_files, ..files );
         array_add( *path_fragments_to_treat_as_non_system_paths, ..files );
 
-        // types := string.["byte", "PCWSTR", "CLSID", "D3DMATRIX"];
+        types := string.["byte", "PCWSTR", "CLSID"];
         // types := string.["byte", "RPC_IF_HANDLE", "IStream", "COSERVERINFO", "LPOLESTR", "LPBINDCTX", "LPCLSID", "STATSTG", "tagSTATSTG", "ISequentialStream", "PCWSTR"];
-        // array_add( *system_types_to_include, ..types);
+        array_add( *system_types_to_include, ..types);
 
         array_add( *extra_clang_arguments, "-x", "c++", "-DWIN32_LEAN_AND_MEAN" );
 
-        visitor = xaudio2_visitor;
+        visitor = d3d_visitor;
 
     }
 
     return generate_bindings( opts, output_filename );
 }
 
-xaudio2_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> Declaration_Visit_Result {
+d3d_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> Declaration_Visit_Result {
     // Make unnecessary typedefs for enums and structs disappear 
     if (decl.kind == .STRUCT || decl.kind == .ENUM) && decl.output_name.count > 2 && decl.output_name[0] == #char "_" && decl.output_name[1] !=  #char "_" {
         advance(*decl.output_name);
