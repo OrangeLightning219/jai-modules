@@ -8,3 +8,5 @@ build
 generate_bindings
 .DS_Store
 freetype/freetype
+imgui_sdl_d3d11/imgui
+imgui_sdl_d3d11/SDL
