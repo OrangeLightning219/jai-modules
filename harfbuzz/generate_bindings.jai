@@ -8,7 +8,7 @@ main :: ()
 {
     #if OS == .WINDOWS 
     {
-        success := build_cpp_dynamic_lib("win/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT"]);
+        success := build_cpp_dynamic_lib("win/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
     }
 
     // NOTE: Build manually for mac.

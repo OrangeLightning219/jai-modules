@@ -1,7 +1,7 @@
 //
 // This file was auto-generated using the following command:
 //
-// generate_bindings.exe
+// E:/Projects/jai-modules/harfbuzz/generate_bindings.exe
 //
 
 
@@ -73,22 +73,6 @@ _hb_var_int_t :: union {
     _u8:  [4] u8;
     i8:   [4] s8;
 }
-#run {
-    instance: _hb_var_int_t;
-    assert(((cast(*void)(*instance._u32)) - cast(*void)(*instance)) == 0, "_hb_var_int_t._u32 has unexpected offset % instead of 0", ((cast(*void)(*instance._u32)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_int_t._u32)) == 4, "_hb_var_int_t._u32 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t._u32)));
-    assert(((cast(*void)(*instance.i32)) - cast(*void)(*instance)) == 0, "_hb_var_int_t.i32 has unexpected offset % instead of 0", ((cast(*void)(*instance.i32)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_int_t.i32)) == 4, "_hb_var_int_t.i32 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t.i32)));
-    assert(((cast(*void)(*instance._u16)) - cast(*void)(*instance)) == 0, "_hb_var_int_t._u16 has unexpected offset % instead of 0", ((cast(*void)(*instance._u16)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_int_t._u16)) == 4, "_hb_var_int_t._u16 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t._u16)));
-    assert(((cast(*void)(*instance.i16)) - cast(*void)(*instance)) == 0, "_hb_var_int_t.i16 has unexpected offset % instead of 0", ((cast(*void)(*instance.i16)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_int_t.i16)) == 4, "_hb_var_int_t.i16 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t.i16)));
-    assert(((cast(*void)(*instance._u8)) - cast(*void)(*instance)) == 0, "_hb_var_int_t._u8 has unexpected offset % instead of 0", ((cast(*void)(*instance._u8)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_int_t._u8)) == 4, "_hb_var_int_t._u8 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t._u8)));
-    assert(((cast(*void)(*instance.i8)) - cast(*void)(*instance)) == 0, "_hb_var_int_t.i8 has unexpected offset % instead of 0", ((cast(*void)(*instance.i8)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_int_t.i8)) == 4, "_hb_var_int_t.i8 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t.i8)));
-    assert(size_of(_hb_var_int_t) == 4, "_hb_var_int_t has size % instead of 4", size_of(_hb_var_int_t));
-}
 
 hb_var_int_t :: _hb_var_int_t;
 
@@ -100,24 +84,6 @@ _hb_var_num_t :: union {
     i16:  [2] s16;
     _u8:  [4] u8;
     i8:   [4] s8;
-}
-#run {
-    instance: _hb_var_num_t;
-    assert(((cast(*void)(*instance.f)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.f has unexpected offset % instead of 0", ((cast(*void)(*instance.f)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_num_t.f)) == 4, "_hb_var_num_t.f has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.f)));
-    assert(((cast(*void)(*instance._u32)) - cast(*void)(*instance)) == 0, "_hb_var_num_t._u32 has unexpected offset % instead of 0", ((cast(*void)(*instance._u32)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_num_t._u32)) == 4, "_hb_var_num_t._u32 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t._u32)));
-    assert(((cast(*void)(*instance.i32)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.i32 has unexpected offset % instead of 0", ((cast(*void)(*instance.i32)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_num_t.i32)) == 4, "_hb_var_num_t.i32 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.i32)));
-    assert(((cast(*void)(*instance._u16)) - cast(*void)(*instance)) == 0, "_hb_var_num_t._u16 has unexpected offset % instead of 0", ((cast(*void)(*instance._u16)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_num_t._u16)) == 4, "_hb_var_num_t._u16 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t._u16)));
-    assert(((cast(*void)(*instance.i16)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.i16 has unexpected offset % instead of 0", ((cast(*void)(*instance.i16)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_num_t.i16)) == 4, "_hb_var_num_t.i16 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.i16)));
-    assert(((cast(*void)(*instance._u8)) - cast(*void)(*instance)) == 0, "_hb_var_num_t._u8 has unexpected offset % instead of 0", ((cast(*void)(*instance._u8)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_num_t._u8)) == 4, "_hb_var_num_t._u8 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t._u8)));
-    assert(((cast(*void)(*instance.i8)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.i8 has unexpected offset % instead of 0", ((cast(*void)(*instance.i8)) - cast(*void)(*instance)));
-    assert(size_of(type_of(_hb_var_num_t.i8)) == 4, "_hb_var_num_t.i8 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.i8)));
-    assert(size_of(_hb_var_num_t) == 4, "_hb_var_num_t has size % instead of 4", size_of(_hb_var_num_t));
 }
 
 hb_var_num_t :: _hb_var_num_t;
@@ -601,12 +567,6 @@ hb_user_data_key_t :: struct {
     /*< private >*/
     unused: u8;
 }
-#run {
-    instance: hb_user_data_key_t;
-    assert(((cast(*void)(*instance.unused)) - cast(*void)(*instance)) == 0, "hb_user_data_key_t.unused has unexpected offset % instead of 0", ((cast(*void)(*instance.unused)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_user_data_key_t.unused)) == 1, "hb_user_data_key_t.unused has unexpected size % instead of 1", size_of(type_of(hb_user_data_key_t.unused)));
-    assert(size_of(hb_user_data_key_t) == 1, "hb_user_data_key_t has size % instead of 1", size_of(hb_user_data_key_t));
-}
 
 /**
 * hb_destroy_func_t:
@@ -638,18 +598,6 @@ hb_feature_t :: struct {
     start: u32;
     end:   u32;
 }
-#run {
-    instance: hb_feature_t;
-    assert(((cast(*void)(*instance.tag)) - cast(*void)(*instance)) == 0, "hb_feature_t.tag has unexpected offset % instead of 0", ((cast(*void)(*instance.tag)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_feature_t.tag)) == 4, "hb_feature_t.tag has unexpected size % instead of 4", size_of(type_of(hb_feature_t.tag)));
-    assert(((cast(*void)(*instance.value)) - cast(*void)(*instance)) == 4, "hb_feature_t.value has unexpected offset % instead of 4", ((cast(*void)(*instance.value)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_feature_t.value)) == 4, "hb_feature_t.value has unexpected size % instead of 4", size_of(type_of(hb_feature_t.value)));
-    assert(((cast(*void)(*instance.start)) - cast(*void)(*instance)) == 8, "hb_feature_t.start has unexpected offset % instead of 8", ((cast(*void)(*instance.start)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_feature_t.start)) == 4, "hb_feature_t.start has unexpected size % instead of 4", size_of(type_of(hb_feature_t.start)));
-    assert(((cast(*void)(*instance.end)) - cast(*void)(*instance)) == 12, "hb_feature_t.end has unexpected offset % instead of 12", ((cast(*void)(*instance.end)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_feature_t.end)) == 4, "hb_feature_t.end has unexpected size % instead of 4", size_of(type_of(hb_feature_t.end)));
-    assert(size_of(hb_feature_t) == 16, "hb_feature_t has size % instead of 16", size_of(hb_feature_t));
-}
 
 hb_feature_from_string :: (str: *u8, len: s32, feature: *hb_feature_t) -> hb_bool_t #foreign harfbuzz;
 
@@ -669,14 +617,6 @@ hb_feature_to_string :: (feature: *hb_feature_t, buf: *u8, size: u32) -> void #f
 hb_variation_t :: struct {
     tag:   hb_tag_t;
     value: float;
-}
-#run {
-    instance: hb_variation_t;
-    assert(((cast(*void)(*instance.tag)) - cast(*void)(*instance)) == 0, "hb_variation_t.tag has unexpected offset % instead of 0", ((cast(*void)(*instance.tag)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_variation_t.tag)) == 4, "hb_variation_t.tag has unexpected size % instead of 4", size_of(type_of(hb_variation_t.tag)));
-    assert(((cast(*void)(*instance.value)) - cast(*void)(*instance)) == 4, "hb_variation_t.value has unexpected offset % instead of 4", ((cast(*void)(*instance.value)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_variation_t.value)) == 4, "hb_variation_t.value has unexpected size % instead of 4", size_of(type_of(hb_variation_t.value)));
-    assert(size_of(hb_variation_t) == 8, "hb_variation_t has size % instead of 8", size_of(hb_variation_t));
 }
 
 hb_variation_from_string :: (str: *u8, len: s32, variation: *hb_variation_t) -> hb_bool_t #foreign harfbuzz;
@@ -717,18 +657,6 @@ hb_glyph_extents_t :: struct {
     y_bearing: hb_position_t;
     width:     hb_position_t;
     height:    hb_position_t;
-}
-#run {
-    instance: hb_glyph_extents_t;
-    assert(((cast(*void)(*instance.x_bearing)) - cast(*void)(*instance)) == 0, "hb_glyph_extents_t.x_bearing has unexpected offset % instead of 0", ((cast(*void)(*instance.x_bearing)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_extents_t.x_bearing)) == 4, "hb_glyph_extents_t.x_bearing has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.x_bearing)));
-    assert(((cast(*void)(*instance.y_bearing)) - cast(*void)(*instance)) == 4, "hb_glyph_extents_t.y_bearing has unexpected offset % instead of 4", ((cast(*void)(*instance.y_bearing)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_extents_t.y_bearing)) == 4, "hb_glyph_extents_t.y_bearing has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.y_bearing)));
-    assert(((cast(*void)(*instance.width)) - cast(*void)(*instance)) == 8, "hb_glyph_extents_t.width has unexpected offset % instead of 8", ((cast(*void)(*instance.width)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_extents_t.width)) == 4, "hb_glyph_extents_t.width has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.width)));
-    assert(((cast(*void)(*instance.height)) - cast(*void)(*instance)) == 12, "hb_glyph_extents_t.height has unexpected offset % instead of 12", ((cast(*void)(*instance.height)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_extents_t.height)) == 4, "hb_glyph_extents_t.height has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.height)));
-    assert(size_of(hb_glyph_extents_t) == 16, "hb_glyph_extents_t has size % instead of 16", size_of(hb_glyph_extents_t));
 }
 
 hb_font_t :: struct {}
@@ -1587,34 +1515,6 @@ hb_draw_state_t :: struct {
     reserved6:    hb_var_num_t;
     reserved7:    hb_var_num_t;
 }
-#run {
-    instance: hb_draw_state_t;
-    assert(((cast(*void)(*instance.path_open)) - cast(*void)(*instance)) == 0, "hb_draw_state_t.path_open has unexpected offset % instead of 0", ((cast(*void)(*instance.path_open)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.path_open)) == 4, "hb_draw_state_t.path_open has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.path_open)));
-    assert(((cast(*void)(*instance.path_start_x)) - cast(*void)(*instance)) == 4, "hb_draw_state_t.path_start_x has unexpected offset % instead of 4", ((cast(*void)(*instance.path_start_x)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.path_start_x)) == 4, "hb_draw_state_t.path_start_x has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.path_start_x)));
-    assert(((cast(*void)(*instance.path_start_y)) - cast(*void)(*instance)) == 8, "hb_draw_state_t.path_start_y has unexpected offset % instead of 8", ((cast(*void)(*instance.path_start_y)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.path_start_y)) == 4, "hb_draw_state_t.path_start_y has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.path_start_y)));
-    assert(((cast(*void)(*instance.current_x)) - cast(*void)(*instance)) == 12, "hb_draw_state_t.current_x has unexpected offset % instead of 12", ((cast(*void)(*instance.current_x)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.current_x)) == 4, "hb_draw_state_t.current_x has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.current_x)));
-    assert(((cast(*void)(*instance.current_y)) - cast(*void)(*instance)) == 16, "hb_draw_state_t.current_y has unexpected offset % instead of 16", ((cast(*void)(*instance.current_y)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.current_y)) == 4, "hb_draw_state_t.current_y has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.current_y)));
-    assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 20, "hb_draw_state_t.reserved1 has unexpected offset % instead of 20", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.reserved1)) == 4, "hb_draw_state_t.reserved1 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved1)));
-    assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 24, "hb_draw_state_t.reserved2 has unexpected offset % instead of 24", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.reserved2)) == 4, "hb_draw_state_t.reserved2 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved2)));
-    assert(((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)) == 28, "hb_draw_state_t.reserved3 has unexpected offset % instead of 28", ((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.reserved3)) == 4, "hb_draw_state_t.reserved3 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved3)));
-    assert(((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)) == 32, "hb_draw_state_t.reserved4 has unexpected offset % instead of 32", ((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.reserved4)) == 4, "hb_draw_state_t.reserved4 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved4)));
-    assert(((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)) == 36, "hb_draw_state_t.reserved5 has unexpected offset % instead of 36", ((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.reserved5)) == 4, "hb_draw_state_t.reserved5 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved5)));
-    assert(((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)) == 40, "hb_draw_state_t.reserved6 has unexpected offset % instead of 40", ((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.reserved6)) == 4, "hb_draw_state_t.reserved6 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved6)));
-    assert(((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)) == 44, "hb_draw_state_t.reserved7 has unexpected offset % instead of 44", ((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_draw_state_t.reserved7)) == 4, "hb_draw_state_t.reserved7 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved7)));
-    assert(size_of(hb_draw_state_t) == 48, "hb_draw_state_t has size % instead of 48", size_of(hb_draw_state_t));
-}
 
 hb_draw_funcs_t :: struct {}
 
@@ -1979,16 +1879,6 @@ hb_color_stop_t :: struct {
     is_foreground: hb_bool_t;
     color:         hb_color_t;
 }
-#run {
-    instance: hb_color_stop_t;
-    assert(((cast(*void)(*instance.offset)) - cast(*void)(*instance)) == 0, "hb_color_stop_t.offset has unexpected offset % instead of 0", ((cast(*void)(*instance.offset)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_stop_t.offset)) == 4, "hb_color_stop_t.offset has unexpected size % instead of 4", size_of(type_of(hb_color_stop_t.offset)));
-    assert(((cast(*void)(*instance.is_foreground)) - cast(*void)(*instance)) == 4, "hb_color_stop_t.is_foreground has unexpected offset % instead of 4", ((cast(*void)(*instance.is_foreground)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_stop_t.is_foreground)) == 4, "hb_color_stop_t.is_foreground has unexpected size % instead of 4", size_of(type_of(hb_color_stop_t.is_foreground)));
-    assert(((cast(*void)(*instance.color)) - cast(*void)(*instance)) == 8, "hb_color_stop_t.color has unexpected offset % instead of 8", ((cast(*void)(*instance.color)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_stop_t.color)) == 4, "hb_color_stop_t.color has unexpected size % instead of 4", size_of(type_of(hb_color_stop_t.color)));
-    assert(size_of(hb_color_stop_t) == 12, "hb_color_stop_t has size % instead of 12", size_of(hb_color_stop_t));
-}
 
 /**
 * hb_paint_extend_t:
@@ -2076,36 +1966,6 @@ hb_color_line_t :: struct {
     reserved6:                 *void;
     reserved7:                 *void;
     reserved8:                 *void;
-}
-#run {
-    instance: hb_color_line_t;
-    assert(((cast(*void)(*instance.data)) - cast(*void)(*instance)) == 0, "hb_color_line_t.data has unexpected offset % instead of 0", ((cast(*void)(*instance.data)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.data)) == 8, "hb_color_line_t.data has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.data)));
-    assert(((cast(*void)(*instance.get_color_stops)) - cast(*void)(*instance)) == 8, "hb_color_line_t.get_color_stops has unexpected offset % instead of 8", ((cast(*void)(*instance.get_color_stops)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.get_color_stops)) == 8, "hb_color_line_t.get_color_stops has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_color_stops)));
-    assert(((cast(*void)(*instance.get_color_stops_user_data)) - cast(*void)(*instance)) == 16, "hb_color_line_t.get_color_stops_user_data has unexpected offset % instead of 16", ((cast(*void)(*instance.get_color_stops_user_data)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.get_color_stops_user_data)) == 8, "hb_color_line_t.get_color_stops_user_data has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_color_stops_user_data)));
-    assert(((cast(*void)(*instance.get_extend)) - cast(*void)(*instance)) == 24, "hb_color_line_t.get_extend has unexpected offset % instead of 24", ((cast(*void)(*instance.get_extend)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.get_extend)) == 8, "hb_color_line_t.get_extend has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_extend)));
-    assert(((cast(*void)(*instance.get_extend_user_data)) - cast(*void)(*instance)) == 32, "hb_color_line_t.get_extend_user_data has unexpected offset % instead of 32", ((cast(*void)(*instance.get_extend_user_data)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.get_extend_user_data)) == 8, "hb_color_line_t.get_extend_user_data has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_extend_user_data)));
-    assert(((cast(*void)(*instance.reserved0)) - cast(*void)(*instance)) == 40, "hb_color_line_t.reserved0 has unexpected offset % instead of 40", ((cast(*void)(*instance.reserved0)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved0)) == 8, "hb_color_line_t.reserved0 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved0)));
-    assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 48, "hb_color_line_t.reserved1 has unexpected offset % instead of 48", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved1)) == 8, "hb_color_line_t.reserved1 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved1)));
-    assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 56, "hb_color_line_t.reserved2 has unexpected offset % instead of 56", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved2)) == 8, "hb_color_line_t.reserved2 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved2)));
-    assert(((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)) == 64, "hb_color_line_t.reserved3 has unexpected offset % instead of 64", ((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved3)) == 8, "hb_color_line_t.reserved3 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved3)));
-    assert(((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)) == 72, "hb_color_line_t.reserved5 has unexpected offset % instead of 72", ((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved5)) == 8, "hb_color_line_t.reserved5 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved5)));
-    assert(((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)) == 80, "hb_color_line_t.reserved6 has unexpected offset % instead of 80", ((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved6)) == 8, "hb_color_line_t.reserved6 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved6)));
-    assert(((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)) == 88, "hb_color_line_t.reserved7 has unexpected offset % instead of 88", ((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved7)) == 8, "hb_color_line_t.reserved7 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved7)));
-    assert(((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)) == 96, "hb_color_line_t.reserved8 has unexpected offset % instead of 96", ((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_color_line_t.reserved8)) == 8, "hb_color_line_t.reserved8 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved8)));
-    assert(size_of(hb_color_line_t) == 104, "hb_color_line_t has size % instead of 104", size_of(hb_color_line_t));
 }
 
 hb_color_line_get_color_stops :: (color_line: *hb_color_line_t, start: u32, count: *u32, color_stops: *hb_color_stop_t) -> u32 #foreign harfbuzz;
@@ -2623,34 +2483,6 @@ hb_font_extents_t :: struct {
     reserved3: hb_position_t;
     reserved2: hb_position_t;
     reserved1: hb_position_t;
-}
-#run {
-    instance: hb_font_extents_t;
-    assert(((cast(*void)(*instance.ascender)) - cast(*void)(*instance)) == 0, "hb_font_extents_t.ascender has unexpected offset % instead of 0", ((cast(*void)(*instance.ascender)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.ascender)) == 4, "hb_font_extents_t.ascender has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.ascender)));
-    assert(((cast(*void)(*instance.descender)) - cast(*void)(*instance)) == 4, "hb_font_extents_t.descender has unexpected offset % instead of 4", ((cast(*void)(*instance.descender)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.descender)) == 4, "hb_font_extents_t.descender has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.descender)));
-    assert(((cast(*void)(*instance.line_gap)) - cast(*void)(*instance)) == 8, "hb_font_extents_t.line_gap has unexpected offset % instead of 8", ((cast(*void)(*instance.line_gap)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.line_gap)) == 4, "hb_font_extents_t.line_gap has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.line_gap)));
-    assert(((cast(*void)(*instance.reserved9)) - cast(*void)(*instance)) == 12, "hb_font_extents_t.reserved9 has unexpected offset % instead of 12", ((cast(*void)(*instance.reserved9)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved9)) == 4, "hb_font_extents_t.reserved9 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved9)));
-    assert(((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)) == 16, "hb_font_extents_t.reserved8 has unexpected offset % instead of 16", ((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved8)) == 4, "hb_font_extents_t.reserved8 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved8)));
-    assert(((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)) == 20, "hb_font_extents_t.reserved7 has unexpected offset % instead of 20", ((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved7)) == 4, "hb_font_extents_t.reserved7 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved7)));
-    assert(((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)) == 24, "hb_font_extents_t.reserved6 has unexpected offset % instead of 24", ((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved6)) == 4, "hb_font_extents_t.reserved6 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved6)));
-    assert(((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)) == 28, "hb_font_extents_t.reserved5 has unexpected offset % instead of 28", ((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved5)) == 4, "hb_font_extents_t.reserved5 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved5)));
-    assert(((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)) == 32, "hb_font_extents_t.reserved4 has unexpected offset % instead of 32", ((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved4)) == 4, "hb_font_extents_t.reserved4 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved4)));
-    assert(((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)) == 36, "hb_font_extents_t.reserved3 has unexpected offset % instead of 36", ((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved3)) == 4, "hb_font_extents_t.reserved3 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved3)));
-    assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 40, "hb_font_extents_t.reserved2 has unexpected offset % instead of 40", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved2)) == 4, "hb_font_extents_t.reserved2 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved2)));
-    assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 44, "hb_font_extents_t.reserved1 has unexpected offset % instead of 44", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_font_extents_t.reserved1)) == 4, "hb_font_extents_t.reserved1 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved1)));
-    assert(size_of(hb_font_extents_t) == 48, "hb_font_extents_t has size % instead of 48", size_of(hb_font_extents_t));
 }
 
 /**
@@ -3449,20 +3281,6 @@ hb_glyph_info_t :: struct {
     var1:      hb_var_int_t;
     var2:      hb_var_int_t;
 }
-#run {
-    instance: hb_glyph_info_t;
-    assert(((cast(*void)(*instance.codepoint)) - cast(*void)(*instance)) == 0, "hb_glyph_info_t.codepoint has unexpected offset % instead of 0", ((cast(*void)(*instance.codepoint)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_info_t.codepoint)) == 4, "hb_glyph_info_t.codepoint has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.codepoint)));
-    assert(((cast(*void)(*instance.mask)) - cast(*void)(*instance)) == 4, "hb_glyph_info_t.mask has unexpected offset % instead of 4", ((cast(*void)(*instance.mask)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_info_t.mask)) == 4, "hb_glyph_info_t.mask has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.mask)));
-    assert(((cast(*void)(*instance.cluster)) - cast(*void)(*instance)) == 8, "hb_glyph_info_t.cluster has unexpected offset % instead of 8", ((cast(*void)(*instance.cluster)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_info_t.cluster)) == 4, "hb_glyph_info_t.cluster has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.cluster)));
-    assert(((cast(*void)(*instance.var1)) - cast(*void)(*instance)) == 12, "hb_glyph_info_t.var1 has unexpected offset % instead of 12", ((cast(*void)(*instance.var1)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_info_t.var1)) == 4, "hb_glyph_info_t.var1 has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.var1)));
-    assert(((cast(*void)(*instance.var2)) - cast(*void)(*instance)) == 16, "hb_glyph_info_t.var2 has unexpected offset % instead of 16", ((cast(*void)(*instance.var2)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_info_t.var2)) == 4, "hb_glyph_info_t.var2 has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.var2)));
-    assert(size_of(hb_glyph_info_t) == 20, "hb_glyph_info_t has size % instead of 20", size_of(hb_glyph_info_t));
-}
 
 /**
 * hb_glyph_flags_t:
@@ -3591,20 +3409,6 @@ hb_glyph_position_t :: struct {
     /*< private >*/
     var:       hb_var_int_t;
 }
-#run {
-    instance: hb_glyph_position_t;
-    assert(((cast(*void)(*instance.x_advance)) - cast(*void)(*instance)) == 0, "hb_glyph_position_t.x_advance has unexpected offset % instead of 0", ((cast(*void)(*instance.x_advance)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_position_t.x_advance)) == 4, "hb_glyph_position_t.x_advance has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.x_advance)));
-    assert(((cast(*void)(*instance.y_advance)) - cast(*void)(*instance)) == 4, "hb_glyph_position_t.y_advance has unexpected offset % instead of 4", ((cast(*void)(*instance.y_advance)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_position_t.y_advance)) == 4, "hb_glyph_position_t.y_advance has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.y_advance)));
-    assert(((cast(*void)(*instance.x_offset)) - cast(*void)(*instance)) == 8, "hb_glyph_position_t.x_offset has unexpected offset % instead of 8", ((cast(*void)(*instance.x_offset)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_position_t.x_offset)) == 4, "hb_glyph_position_t.x_offset has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.x_offset)));
-    assert(((cast(*void)(*instance.y_offset)) - cast(*void)(*instance)) == 12, "hb_glyph_position_t.y_offset has unexpected offset % instead of 12", ((cast(*void)(*instance.y_offset)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_position_t.y_offset)) == 4, "hb_glyph_position_t.y_offset has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.y_offset)));
-    assert(((cast(*void)(*instance.var)) - cast(*void)(*instance)) == 16, "hb_glyph_position_t.var has unexpected offset % instead of 16", ((cast(*void)(*instance.var)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_glyph_position_t.var)) == 4, "hb_glyph_position_t.var has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.var)));
-    assert(size_of(hb_glyph_position_t) == 20, "hb_glyph_position_t has size % instead of 20", size_of(hb_glyph_position_t));
-}
 
 /**
 * hb_segment_properties_t:
@@ -3624,20 +3428,6 @@ hb_segment_properties_t :: struct {
     /*< private >*/
     reserved1: *void;
     reserved2: *void;
-}
-#run {
-    instance: hb_segment_properties_t;
-    assert(((cast(*void)(*instance.direction)) - cast(*void)(*instance)) == 0, "hb_segment_properties_t.direction has unexpected offset % instead of 0", ((cast(*void)(*instance.direction)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_segment_properties_t.direction)) == 4, "hb_segment_properties_t.direction has unexpected size % instead of 4", size_of(type_of(hb_segment_properties_t.direction)));
-    assert(((cast(*void)(*instance.script)) - cast(*void)(*instance)) == 4, "hb_segment_properties_t.script has unexpected offset % instead of 4", ((cast(*void)(*instance.script)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_segment_properties_t.script)) == 4, "hb_segment_properties_t.script has unexpected size % instead of 4", size_of(type_of(hb_segment_properties_t.script)));
-    assert(((cast(*void)(*instance.language)) - cast(*void)(*instance)) == 8, "hb_segment_properties_t.language has unexpected offset % instead of 8", ((cast(*void)(*instance.language)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_segment_properties_t.language)) == 8, "hb_segment_properties_t.language has unexpected size % instead of 8", size_of(type_of(hb_segment_properties_t.language)));
-    assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 16, "hb_segment_properties_t.reserved1 has unexpected offset % instead of 16", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_segment_properties_t.reserved1)) == 8, "hb_segment_properties_t.reserved1 has unexpected size % instead of 8", size_of(type_of(hb_segment_properties_t.reserved1)));
-    assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 24, "hb_segment_properties_t.reserved2 has unexpected offset % instead of 24", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
-    assert(size_of(type_of(hb_segment_properties_t.reserved2)) == 8, "hb_segment_properties_t.reserved2 has unexpected size % instead of 8", size_of(type_of(hb_segment_properties_t.reserved2)));
-    assert(size_of(hb_segment_properties_t) == 32, "hb_segment_properties_t has size % instead of 32", size_of(hb_segment_properties_t));
 }
 
 hb_segment_properties_equal :: (a: *hb_segment_properties_t, b: *hb_segment_properties_t) -> hb_bool_t #foreign harfbuzz;
@@ -4261,3 +4051,229 @@ hb_version_atleast :: (major: u32, minor: u32, micro: u32) -> hb_bool_t #foreign
 #import "Basic"; // For assert
 
 harfbuzz :: #library "win/harfbuzz";
+
+#run {
+    {
+        instance: _hb_var_int_t;
+        assert(((cast(*void)(*instance._u32)) - cast(*void)(*instance)) == 0, "_hb_var_int_t._u32 has unexpected offset % instead of 0", ((cast(*void)(*instance._u32)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_int_t._u32)) == 4, "_hb_var_int_t._u32 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t._u32)));
+        assert(((cast(*void)(*instance.i32)) - cast(*void)(*instance)) == 0, "_hb_var_int_t.i32 has unexpected offset % instead of 0", ((cast(*void)(*instance.i32)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_int_t.i32)) == 4, "_hb_var_int_t.i32 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t.i32)));
+        assert(((cast(*void)(*instance._u16)) - cast(*void)(*instance)) == 0, "_hb_var_int_t._u16 has unexpected offset % instead of 0", ((cast(*void)(*instance._u16)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_int_t._u16)) == 4, "_hb_var_int_t._u16 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t._u16)));
+        assert(((cast(*void)(*instance.i16)) - cast(*void)(*instance)) == 0, "_hb_var_int_t.i16 has unexpected offset % instead of 0", ((cast(*void)(*instance.i16)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_int_t.i16)) == 4, "_hb_var_int_t.i16 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t.i16)));
+        assert(((cast(*void)(*instance._u8)) - cast(*void)(*instance)) == 0, "_hb_var_int_t._u8 has unexpected offset % instead of 0", ((cast(*void)(*instance._u8)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_int_t._u8)) == 4, "_hb_var_int_t._u8 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t._u8)));
+        assert(((cast(*void)(*instance.i8)) - cast(*void)(*instance)) == 0, "_hb_var_int_t.i8 has unexpected offset % instead of 0", ((cast(*void)(*instance.i8)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_int_t.i8)) == 4, "_hb_var_int_t.i8 has unexpected size % instead of 4", size_of(type_of(_hb_var_int_t.i8)));
+        assert(size_of(_hb_var_int_t) == 4, "_hb_var_int_t has size % instead of 4", size_of(_hb_var_int_t));
+    }
+
+    {
+        instance: _hb_var_num_t;
+        assert(((cast(*void)(*instance.f)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.f has unexpected offset % instead of 0", ((cast(*void)(*instance.f)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_num_t.f)) == 4, "_hb_var_num_t.f has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.f)));
+        assert(((cast(*void)(*instance._u32)) - cast(*void)(*instance)) == 0, "_hb_var_num_t._u32 has unexpected offset % instead of 0", ((cast(*void)(*instance._u32)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_num_t._u32)) == 4, "_hb_var_num_t._u32 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t._u32)));
+        assert(((cast(*void)(*instance.i32)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.i32 has unexpected offset % instead of 0", ((cast(*void)(*instance.i32)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_num_t.i32)) == 4, "_hb_var_num_t.i32 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.i32)));
+        assert(((cast(*void)(*instance._u16)) - cast(*void)(*instance)) == 0, "_hb_var_num_t._u16 has unexpected offset % instead of 0", ((cast(*void)(*instance._u16)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_num_t._u16)) == 4, "_hb_var_num_t._u16 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t._u16)));
+        assert(((cast(*void)(*instance.i16)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.i16 has unexpected offset % instead of 0", ((cast(*void)(*instance.i16)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_num_t.i16)) == 4, "_hb_var_num_t.i16 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.i16)));
+        assert(((cast(*void)(*instance._u8)) - cast(*void)(*instance)) == 0, "_hb_var_num_t._u8 has unexpected offset % instead of 0", ((cast(*void)(*instance._u8)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_num_t._u8)) == 4, "_hb_var_num_t._u8 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t._u8)));
+        assert(((cast(*void)(*instance.i8)) - cast(*void)(*instance)) == 0, "_hb_var_num_t.i8 has unexpected offset % instead of 0", ((cast(*void)(*instance.i8)) - cast(*void)(*instance)));
+        assert(size_of(type_of(_hb_var_num_t.i8)) == 4, "_hb_var_num_t.i8 has unexpected size % instead of 4", size_of(type_of(_hb_var_num_t.i8)));
+        assert(size_of(_hb_var_num_t) == 4, "_hb_var_num_t has size % instead of 4", size_of(_hb_var_num_t));
+    }
+
+    {
+        instance: hb_user_data_key_t;
+        assert(((cast(*void)(*instance.unused)) - cast(*void)(*instance)) == 0, "hb_user_data_key_t.unused has unexpected offset % instead of 0", ((cast(*void)(*instance.unused)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_user_data_key_t.unused)) == 1, "hb_user_data_key_t.unused has unexpected size % instead of 1", size_of(type_of(hb_user_data_key_t.unused)));
+        assert(size_of(hb_user_data_key_t) == 1, "hb_user_data_key_t has size % instead of 1", size_of(hb_user_data_key_t));
+    }
+
+    {
+        instance: hb_feature_t;
+        assert(((cast(*void)(*instance.tag)) - cast(*void)(*instance)) == 0, "hb_feature_t.tag has unexpected offset % instead of 0", ((cast(*void)(*instance.tag)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_feature_t.tag)) == 4, "hb_feature_t.tag has unexpected size % instead of 4", size_of(type_of(hb_feature_t.tag)));
+        assert(((cast(*void)(*instance.value)) - cast(*void)(*instance)) == 4, "hb_feature_t.value has unexpected offset % instead of 4", ((cast(*void)(*instance.value)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_feature_t.value)) == 4, "hb_feature_t.value has unexpected size % instead of 4", size_of(type_of(hb_feature_t.value)));
+        assert(((cast(*void)(*instance.start)) - cast(*void)(*instance)) == 8, "hb_feature_t.start has unexpected offset % instead of 8", ((cast(*void)(*instance.start)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_feature_t.start)) == 4, "hb_feature_t.start has unexpected size % instead of 4", size_of(type_of(hb_feature_t.start)));
+        assert(((cast(*void)(*instance.end)) - cast(*void)(*instance)) == 12, "hb_feature_t.end has unexpected offset % instead of 12", ((cast(*void)(*instance.end)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_feature_t.end)) == 4, "hb_feature_t.end has unexpected size % instead of 4", size_of(type_of(hb_feature_t.end)));
+        assert(size_of(hb_feature_t) == 16, "hb_feature_t has size % instead of 16", size_of(hb_feature_t));
+    }
+
+    {
+        instance: hb_variation_t;
+        assert(((cast(*void)(*instance.tag)) - cast(*void)(*instance)) == 0, "hb_variation_t.tag has unexpected offset % instead of 0", ((cast(*void)(*instance.tag)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_variation_t.tag)) == 4, "hb_variation_t.tag has unexpected size % instead of 4", size_of(type_of(hb_variation_t.tag)));
+        assert(((cast(*void)(*instance.value)) - cast(*void)(*instance)) == 4, "hb_variation_t.value has unexpected offset % instead of 4", ((cast(*void)(*instance.value)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_variation_t.value)) == 4, "hb_variation_t.value has unexpected size % instead of 4", size_of(type_of(hb_variation_t.value)));
+        assert(size_of(hb_variation_t) == 8, "hb_variation_t has size % instead of 8", size_of(hb_variation_t));
+    }
+
+    {
+        instance: hb_glyph_extents_t;
+        assert(((cast(*void)(*instance.x_bearing)) - cast(*void)(*instance)) == 0, "hb_glyph_extents_t.x_bearing has unexpected offset % instead of 0", ((cast(*void)(*instance.x_bearing)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_extents_t.x_bearing)) == 4, "hb_glyph_extents_t.x_bearing has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.x_bearing)));
+        assert(((cast(*void)(*instance.y_bearing)) - cast(*void)(*instance)) == 4, "hb_glyph_extents_t.y_bearing has unexpected offset % instead of 4", ((cast(*void)(*instance.y_bearing)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_extents_t.y_bearing)) == 4, "hb_glyph_extents_t.y_bearing has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.y_bearing)));
+        assert(((cast(*void)(*instance.width)) - cast(*void)(*instance)) == 8, "hb_glyph_extents_t.width has unexpected offset % instead of 8", ((cast(*void)(*instance.width)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_extents_t.width)) == 4, "hb_glyph_extents_t.width has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.width)));
+        assert(((cast(*void)(*instance.height)) - cast(*void)(*instance)) == 12, "hb_glyph_extents_t.height has unexpected offset % instead of 12", ((cast(*void)(*instance.height)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_extents_t.height)) == 4, "hb_glyph_extents_t.height has unexpected size % instead of 4", size_of(type_of(hb_glyph_extents_t.height)));
+        assert(size_of(hb_glyph_extents_t) == 16, "hb_glyph_extents_t has size % instead of 16", size_of(hb_glyph_extents_t));
+    }
+
+    {
+        instance: hb_draw_state_t;
+        assert(((cast(*void)(*instance.path_open)) - cast(*void)(*instance)) == 0, "hb_draw_state_t.path_open has unexpected offset % instead of 0", ((cast(*void)(*instance.path_open)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.path_open)) == 4, "hb_draw_state_t.path_open has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.path_open)));
+        assert(((cast(*void)(*instance.path_start_x)) - cast(*void)(*instance)) == 4, "hb_draw_state_t.path_start_x has unexpected offset % instead of 4", ((cast(*void)(*instance.path_start_x)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.path_start_x)) == 4, "hb_draw_state_t.path_start_x has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.path_start_x)));
+        assert(((cast(*void)(*instance.path_start_y)) - cast(*void)(*instance)) == 8, "hb_draw_state_t.path_start_y has unexpected offset % instead of 8", ((cast(*void)(*instance.path_start_y)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.path_start_y)) == 4, "hb_draw_state_t.path_start_y has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.path_start_y)));
+        assert(((cast(*void)(*instance.current_x)) - cast(*void)(*instance)) == 12, "hb_draw_state_t.current_x has unexpected offset % instead of 12", ((cast(*void)(*instance.current_x)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.current_x)) == 4, "hb_draw_state_t.current_x has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.current_x)));
+        assert(((cast(*void)(*instance.current_y)) - cast(*void)(*instance)) == 16, "hb_draw_state_t.current_y has unexpected offset % instead of 16", ((cast(*void)(*instance.current_y)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.current_y)) == 4, "hb_draw_state_t.current_y has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.current_y)));
+        assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 20, "hb_draw_state_t.reserved1 has unexpected offset % instead of 20", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.reserved1)) == 4, "hb_draw_state_t.reserved1 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved1)));
+        assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 24, "hb_draw_state_t.reserved2 has unexpected offset % instead of 24", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.reserved2)) == 4, "hb_draw_state_t.reserved2 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved2)));
+        assert(((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)) == 28, "hb_draw_state_t.reserved3 has unexpected offset % instead of 28", ((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.reserved3)) == 4, "hb_draw_state_t.reserved3 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved3)));
+        assert(((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)) == 32, "hb_draw_state_t.reserved4 has unexpected offset % instead of 32", ((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.reserved4)) == 4, "hb_draw_state_t.reserved4 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved4)));
+        assert(((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)) == 36, "hb_draw_state_t.reserved5 has unexpected offset % instead of 36", ((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.reserved5)) == 4, "hb_draw_state_t.reserved5 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved5)));
+        assert(((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)) == 40, "hb_draw_state_t.reserved6 has unexpected offset % instead of 40", ((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.reserved6)) == 4, "hb_draw_state_t.reserved6 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved6)));
+        assert(((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)) == 44, "hb_draw_state_t.reserved7 has unexpected offset % instead of 44", ((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_draw_state_t.reserved7)) == 4, "hb_draw_state_t.reserved7 has unexpected size % instead of 4", size_of(type_of(hb_draw_state_t.reserved7)));
+        assert(size_of(hb_draw_state_t) == 48, "hb_draw_state_t has size % instead of 48", size_of(hb_draw_state_t));
+    }
+
+    {
+        instance: hb_color_stop_t;
+        assert(((cast(*void)(*instance.offset)) - cast(*void)(*instance)) == 0, "hb_color_stop_t.offset has unexpected offset % instead of 0", ((cast(*void)(*instance.offset)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_stop_t.offset)) == 4, "hb_color_stop_t.offset has unexpected size % instead of 4", size_of(type_of(hb_color_stop_t.offset)));
+        assert(((cast(*void)(*instance.is_foreground)) - cast(*void)(*instance)) == 4, "hb_color_stop_t.is_foreground has unexpected offset % instead of 4", ((cast(*void)(*instance.is_foreground)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_stop_t.is_foreground)) == 4, "hb_color_stop_t.is_foreground has unexpected size % instead of 4", size_of(type_of(hb_color_stop_t.is_foreground)));
+        assert(((cast(*void)(*instance.color)) - cast(*void)(*instance)) == 8, "hb_color_stop_t.color has unexpected offset % instead of 8", ((cast(*void)(*instance.color)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_stop_t.color)) == 4, "hb_color_stop_t.color has unexpected size % instead of 4", size_of(type_of(hb_color_stop_t.color)));
+        assert(size_of(hb_color_stop_t) == 12, "hb_color_stop_t has size % instead of 12", size_of(hb_color_stop_t));
+    }
+
+    {
+        instance: hb_color_line_t;
+        assert(((cast(*void)(*instance.data)) - cast(*void)(*instance)) == 0, "hb_color_line_t.data has unexpected offset % instead of 0", ((cast(*void)(*instance.data)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.data)) == 8, "hb_color_line_t.data has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.data)));
+        assert(((cast(*void)(*instance.get_color_stops)) - cast(*void)(*instance)) == 8, "hb_color_line_t.get_color_stops has unexpected offset % instead of 8", ((cast(*void)(*instance.get_color_stops)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.get_color_stops)) == 8, "hb_color_line_t.get_color_stops has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_color_stops)));
+        assert(((cast(*void)(*instance.get_color_stops_user_data)) - cast(*void)(*instance)) == 16, "hb_color_line_t.get_color_stops_user_data has unexpected offset % instead of 16", ((cast(*void)(*instance.get_color_stops_user_data)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.get_color_stops_user_data)) == 8, "hb_color_line_t.get_color_stops_user_data has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_color_stops_user_data)));
+        assert(((cast(*void)(*instance.get_extend)) - cast(*void)(*instance)) == 24, "hb_color_line_t.get_extend has unexpected offset % instead of 24", ((cast(*void)(*instance.get_extend)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.get_extend)) == 8, "hb_color_line_t.get_extend has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_extend)));
+        assert(((cast(*void)(*instance.get_extend_user_data)) - cast(*void)(*instance)) == 32, "hb_color_line_t.get_extend_user_data has unexpected offset % instead of 32", ((cast(*void)(*instance.get_extend_user_data)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.get_extend_user_data)) == 8, "hb_color_line_t.get_extend_user_data has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.get_extend_user_data)));
+        assert(((cast(*void)(*instance.reserved0)) - cast(*void)(*instance)) == 40, "hb_color_line_t.reserved0 has unexpected offset % instead of 40", ((cast(*void)(*instance.reserved0)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved0)) == 8, "hb_color_line_t.reserved0 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved0)));
+        assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 48, "hb_color_line_t.reserved1 has unexpected offset % instead of 48", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved1)) == 8, "hb_color_line_t.reserved1 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved1)));
+        assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 56, "hb_color_line_t.reserved2 has unexpected offset % instead of 56", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved2)) == 8, "hb_color_line_t.reserved2 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved2)));
+        assert(((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)) == 64, "hb_color_line_t.reserved3 has unexpected offset % instead of 64", ((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved3)) == 8, "hb_color_line_t.reserved3 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved3)));
+        assert(((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)) == 72, "hb_color_line_t.reserved5 has unexpected offset % instead of 72", ((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved5)) == 8, "hb_color_line_t.reserved5 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved5)));
+        assert(((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)) == 80, "hb_color_line_t.reserved6 has unexpected offset % instead of 80", ((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved6)) == 8, "hb_color_line_t.reserved6 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved6)));
+        assert(((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)) == 88, "hb_color_line_t.reserved7 has unexpected offset % instead of 88", ((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved7)) == 8, "hb_color_line_t.reserved7 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved7)));
+        assert(((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)) == 96, "hb_color_line_t.reserved8 has unexpected offset % instead of 96", ((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_color_line_t.reserved8)) == 8, "hb_color_line_t.reserved8 has unexpected size % instead of 8", size_of(type_of(hb_color_line_t.reserved8)));
+        assert(size_of(hb_color_line_t) == 104, "hb_color_line_t has size % instead of 104", size_of(hb_color_line_t));
+    }
+
+    {
+        instance: hb_font_extents_t;
+        assert(((cast(*void)(*instance.ascender)) - cast(*void)(*instance)) == 0, "hb_font_extents_t.ascender has unexpected offset % instead of 0", ((cast(*void)(*instance.ascender)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.ascender)) == 4, "hb_font_extents_t.ascender has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.ascender)));
+        assert(((cast(*void)(*instance.descender)) - cast(*void)(*instance)) == 4, "hb_font_extents_t.descender has unexpected offset % instead of 4", ((cast(*void)(*instance.descender)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.descender)) == 4, "hb_font_extents_t.descender has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.descender)));
+        assert(((cast(*void)(*instance.line_gap)) - cast(*void)(*instance)) == 8, "hb_font_extents_t.line_gap has unexpected offset % instead of 8", ((cast(*void)(*instance.line_gap)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.line_gap)) == 4, "hb_font_extents_t.line_gap has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.line_gap)));
+        assert(((cast(*void)(*instance.reserved9)) - cast(*void)(*instance)) == 12, "hb_font_extents_t.reserved9 has unexpected offset % instead of 12", ((cast(*void)(*instance.reserved9)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved9)) == 4, "hb_font_extents_t.reserved9 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved9)));
+        assert(((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)) == 16, "hb_font_extents_t.reserved8 has unexpected offset % instead of 16", ((cast(*void)(*instance.reserved8)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved8)) == 4, "hb_font_extents_t.reserved8 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved8)));
+        assert(((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)) == 20, "hb_font_extents_t.reserved7 has unexpected offset % instead of 20", ((cast(*void)(*instance.reserved7)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved7)) == 4, "hb_font_extents_t.reserved7 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved7)));
+        assert(((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)) == 24, "hb_font_extents_t.reserved6 has unexpected offset % instead of 24", ((cast(*void)(*instance.reserved6)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved6)) == 4, "hb_font_extents_t.reserved6 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved6)));
+        assert(((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)) == 28, "hb_font_extents_t.reserved5 has unexpected offset % instead of 28", ((cast(*void)(*instance.reserved5)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved5)) == 4, "hb_font_extents_t.reserved5 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved5)));
+        assert(((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)) == 32, "hb_font_extents_t.reserved4 has unexpected offset % instead of 32", ((cast(*void)(*instance.reserved4)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved4)) == 4, "hb_font_extents_t.reserved4 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved4)));
+        assert(((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)) == 36, "hb_font_extents_t.reserved3 has unexpected offset % instead of 36", ((cast(*void)(*instance.reserved3)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved3)) == 4, "hb_font_extents_t.reserved3 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved3)));
+        assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 40, "hb_font_extents_t.reserved2 has unexpected offset % instead of 40", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved2)) == 4, "hb_font_extents_t.reserved2 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved2)));
+        assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 44, "hb_font_extents_t.reserved1 has unexpected offset % instead of 44", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_font_extents_t.reserved1)) == 4, "hb_font_extents_t.reserved1 has unexpected size % instead of 4", size_of(type_of(hb_font_extents_t.reserved1)));
+        assert(size_of(hb_font_extents_t) == 48, "hb_font_extents_t has size % instead of 48", size_of(hb_font_extents_t));
+    }
+
+    {
+        instance: hb_glyph_info_t;
+        assert(((cast(*void)(*instance.codepoint)) - cast(*void)(*instance)) == 0, "hb_glyph_info_t.codepoint has unexpected offset % instead of 0", ((cast(*void)(*instance.codepoint)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_info_t.codepoint)) == 4, "hb_glyph_info_t.codepoint has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.codepoint)));
+        assert(((cast(*void)(*instance.mask)) - cast(*void)(*instance)) == 4, "hb_glyph_info_t.mask has unexpected offset % instead of 4", ((cast(*void)(*instance.mask)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_info_t.mask)) == 4, "hb_glyph_info_t.mask has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.mask)));
+        assert(((cast(*void)(*instance.cluster)) - cast(*void)(*instance)) == 8, "hb_glyph_info_t.cluster has unexpected offset % instead of 8", ((cast(*void)(*instance.cluster)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_info_t.cluster)) == 4, "hb_glyph_info_t.cluster has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.cluster)));
+        assert(((cast(*void)(*instance.var1)) - cast(*void)(*instance)) == 12, "hb_glyph_info_t.var1 has unexpected offset % instead of 12", ((cast(*void)(*instance.var1)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_info_t.var1)) == 4, "hb_glyph_info_t.var1 has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.var1)));
+        assert(((cast(*void)(*instance.var2)) - cast(*void)(*instance)) == 16, "hb_glyph_info_t.var2 has unexpected offset % instead of 16", ((cast(*void)(*instance.var2)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_info_t.var2)) == 4, "hb_glyph_info_t.var2 has unexpected size % instead of 4", size_of(type_of(hb_glyph_info_t.var2)));
+        assert(size_of(hb_glyph_info_t) == 20, "hb_glyph_info_t has size % instead of 20", size_of(hb_glyph_info_t));
+    }
+
+    {
+        instance: hb_glyph_position_t;
+        assert(((cast(*void)(*instance.x_advance)) - cast(*void)(*instance)) == 0, "hb_glyph_position_t.x_advance has unexpected offset % instead of 0", ((cast(*void)(*instance.x_advance)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_position_t.x_advance)) == 4, "hb_glyph_position_t.x_advance has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.x_advance)));
+        assert(((cast(*void)(*instance.y_advance)) - cast(*void)(*instance)) == 4, "hb_glyph_position_t.y_advance has unexpected offset % instead of 4", ((cast(*void)(*instance.y_advance)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_position_t.y_advance)) == 4, "hb_glyph_position_t.y_advance has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.y_advance)));
+        assert(((cast(*void)(*instance.x_offset)) - cast(*void)(*instance)) == 8, "hb_glyph_position_t.x_offset has unexpected offset % instead of 8", ((cast(*void)(*instance.x_offset)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_position_t.x_offset)) == 4, "hb_glyph_position_t.x_offset has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.x_offset)));
+        assert(((cast(*void)(*instance.y_offset)) - cast(*void)(*instance)) == 12, "hb_glyph_position_t.y_offset has unexpected offset % instead of 12", ((cast(*void)(*instance.y_offset)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_position_t.y_offset)) == 4, "hb_glyph_position_t.y_offset has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.y_offset)));
+        assert(((cast(*void)(*instance.var)) - cast(*void)(*instance)) == 16, "hb_glyph_position_t.var has unexpected offset % instead of 16", ((cast(*void)(*instance.var)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_glyph_position_t.var)) == 4, "hb_glyph_position_t.var has unexpected size % instead of 4", size_of(type_of(hb_glyph_position_t.var)));
+        assert(size_of(hb_glyph_position_t) == 20, "hb_glyph_position_t has size % instead of 20", size_of(hb_glyph_position_t));
+    }
+
+    {
+        instance: hb_segment_properties_t;
+        assert(((cast(*void)(*instance.direction)) - cast(*void)(*instance)) == 0, "hb_segment_properties_t.direction has unexpected offset % instead of 0", ((cast(*void)(*instance.direction)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_segment_properties_t.direction)) == 4, "hb_segment_properties_t.direction has unexpected size % instead of 4", size_of(type_of(hb_segment_properties_t.direction)));
+        assert(((cast(*void)(*instance.script)) - cast(*void)(*instance)) == 4, "hb_segment_properties_t.script has unexpected offset % instead of 4", ((cast(*void)(*instance.script)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_segment_properties_t.script)) == 4, "hb_segment_properties_t.script has unexpected size % instead of 4", size_of(type_of(hb_segment_properties_t.script)));
+        assert(((cast(*void)(*instance.language)) - cast(*void)(*instance)) == 8, "hb_segment_properties_t.language has unexpected offset % instead of 8", ((cast(*void)(*instance.language)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_segment_properties_t.language)) == 8, "hb_segment_properties_t.language has unexpected size % instead of 8", size_of(type_of(hb_segment_properties_t.language)));
+        assert(((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)) == 16, "hb_segment_properties_t.reserved1 has unexpected offset % instead of 16", ((cast(*void)(*instance.reserved1)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_segment_properties_t.reserved1)) == 8, "hb_segment_properties_t.reserved1 has unexpected size % instead of 8", size_of(type_of(hb_segment_properties_t.reserved1)));
+        assert(((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)) == 24, "hb_segment_properties_t.reserved2 has unexpected offset % instead of 24", ((cast(*void)(*instance.reserved2)) - cast(*void)(*instance)));
+        assert(size_of(type_of(hb_segment_properties_t.reserved2)) == 8, "hb_segment_properties_t.reserved2 has unexpected size % instead of 8", size_of(type_of(hb_segment_properties_t.reserved2)));
+        assert(size_of(hb_segment_properties_t) == 32, "hb_segment_properties_t has size % instead of 32", size_of(hb_segment_properties_t));
+    }
+}
+

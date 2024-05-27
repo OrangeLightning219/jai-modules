@@ -1,7 +1,5 @@
 *.pdb
 *.exe
-SimpDX
-direct_composition
 build
 .build
 **/generate_bindings.dSYM
@@ -10,3 +8,4 @@ generate_bindings
 freetype/freetype
 imgui_sdl_d3d11/imgui
 imgui_sdl_d3d11/SDL
+tesseract

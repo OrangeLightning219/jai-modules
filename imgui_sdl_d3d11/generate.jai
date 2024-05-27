@@ -1,6 +1,6 @@
 AT_COMPILE_TIME :: false;
 
-COMPILE       :: true; // Enable to compile the imgui library from source before generating bindings.
+COMPILE       :: false; // Enable to compile the imgui library from source before generating bindings.
 COMPILE_DEBUG :: false; // Compile a debug or release version of ImGui?
 
 // We don’t ship the Dear ImGui source with the compiler. Download a Dear ImGui release and update this path if you want to re-generate the bindings.
@@ -59,12 +59,15 @@ generate_bindings :: () -> bool {
         // @ToDo: Maybe add an option to exclude imgui_demo?
         array_add(*imgui_src_files, tprint("%/imgui_demo.cpp", IMGUI_PATH));
 
+        array_add(*imgui_src_files, tprint("%/implot.cpp", IMGUI_PATH));
+        array_add(*imgui_src_files, tprint("%/implot_items.cpp", IMGUI_PATH));
+
         success := true;
         #if OS == .WINDOWS {
             make_directory_if_it_does_not_exist("windows");
             // success &&= build_cpp_dynamic_lib("windows/ImGui", ..imgui_src_files, extra = .["/DIMGUI_API=__declspec(dllexport)"], debug=COMPILE_DEBUG);
             // We set IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS. Otherwise all users of the ImGui module have to link against "imm32".
-            success &&= build_cpp_static_lib("windows/ImGui", ..imgui_src_files, extra = .["-ISDL/include", "/DIMGUI_IMPL_API=__declspec(dllexport)", "/DIMGUI_API=__declspec(dllexport)", "/DIMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS"], debug=COMPILE_DEBUG);
+            success &&= build_cpp_static_lib("windows/ImGui", ..imgui_src_files, extra = .["-Iimgui", "-ISDL/include", "/DIMGUI_IMPL_API=__declspec(dllexport)", "/DIMGUI_API=__declspec(dllexport)", "/DIMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS"], debug=COMPILE_DEBUG);
         } else #if OS == .LINUX {
             make_directory_if_it_does_not_exist("linux");
             success &&= build_cpp_dynamic_lib("linux/ImGui", ..imgui_src_files, debug=COMPILE_DEBUG);
@@ -111,14 +114,19 @@ generate_bindings :: () -> bool {
 
         array_add(*libnames,      "ImGui");
         array_add(*include_paths, IMGUI_PATH);
+        // array_add(*include_paths, tprint("%/implot", IMGUI_PATH));
         array_add(*source_files,  tprint("%/imgui.h", IMGUI_PATH));
         array_add(*source_files,  tprint("%/imgui_impl_dx11.h", IMGUI_PATH));
         array_add(*source_files,  tprint("%/imgui_impl_sdl2.h", IMGUI_PATH));
+        
+        // array_add(*source_files,  tprint("%/implot_internal.h", IMGUI_PATH));
+        array_add(*source_files,  tprint("%/implot.h", IMGUI_PATH));
+
         array_add(*extra_clang_arguments, "-x", "c++", "-DWIN32_LEAN_AND_MEAN");
         array_add(*flatten_namespaces, "ImGui");
         array_add(*strip_prefixes, "ImGui");
         auto_detect_enum_prefixes = false;
-        log_stripped_declarations = false;
+        log_stripped_declarations = true;
         generate_compile_time_struct_checks = false;
         strip_flags |= .INLINED_FUNCTIONS; // "inline" functions are not present in the static library.
 
