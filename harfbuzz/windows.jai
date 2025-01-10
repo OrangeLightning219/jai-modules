@@ -1,7 +1,7 @@
 //
 // This file was auto-generated using the following command:
 //
-// E:/Projects/jai-modules/harfbuzz/generate_bindings.exe
+// jai ./generate_bindings.jai
 //
 
 
@@ -161,391 +161,201 @@ hb_language_matches :: (language: hb_language_t, specific: hb_language_t) -> hb_
 
 /* https://docs.google.com/spreadsheets/d/1Y90M0Ie3MUJ6UVCRDOypOtijlMDLNNyyLk36T6iMu0o */
 hb_script_t :: enum s32 {
-    COMMON                 :: 1517910393;
-    INHERITED              :: 1516858984;
-    UNKNOWN                :: 1517976186;
+    HB_SCRIPT_COMMON                 :: 1517910393;
+    HB_SCRIPT_INHERITED              :: 1516858984;
+    HB_SCRIPT_UNKNOWN                :: 1517976186;
 
-    ARABIC                 :: 1098015074;
-    ARMENIAN               :: 1098018158;
-    BENGALI                :: 1113943655;
-    CYRILLIC               :: 1132032620;
-    DEVANAGARI             :: 1147500129;
-    GEORGIAN               :: 1197830002;
-    GREEK                  :: 1198679403;
-    GUJARATI               :: 1198877298;
-    GURMUKHI               :: 1198879349;
-    HANGUL                 :: 1214344807;
-    HAN                    :: 1214344809;
-    HEBREW                 :: 1214603890;
-    HIRAGANA               :: 1214870113;
-    KANNADA                :: 1265525857;
-    KATAKANA               :: 1264676449;
-    LAO                    :: 1281453935;
-    LATIN                  :: 1281455214;
-    MALAYALAM              :: 1298954605;
-    ORIYA                  :: 1332902241;
-    TAMIL                  :: 1415671148;
-    TELUGU                 :: 1415933045;
-    THAI                   :: 1416126825;
+    HB_SCRIPT_ARABIC                 :: 1098015074;
+    HB_SCRIPT_ARMENIAN               :: 1098018158;
+    HB_SCRIPT_BENGALI                :: 1113943655;
+    HB_SCRIPT_CYRILLIC               :: 1132032620;
+    HB_SCRIPT_DEVANAGARI             :: 1147500129;
+    HB_SCRIPT_GEORGIAN               :: 1197830002;
+    HB_SCRIPT_GREEK                  :: 1198679403;
+    HB_SCRIPT_GUJARATI               :: 1198877298;
+    HB_SCRIPT_GURMUKHI               :: 1198879349;
+    HB_SCRIPT_HANGUL                 :: 1214344807;
+    HB_SCRIPT_HAN                    :: 1214344809;
+    HB_SCRIPT_HEBREW                 :: 1214603890;
+    HB_SCRIPT_HIRAGANA               :: 1214870113;
+    HB_SCRIPT_KANNADA                :: 1265525857;
+    HB_SCRIPT_KATAKANA               :: 1264676449;
+    HB_SCRIPT_LAO                    :: 1281453935;
+    HB_SCRIPT_LATIN                  :: 1281455214;
+    HB_SCRIPT_MALAYALAM              :: 1298954605;
+    HB_SCRIPT_ORIYA                  :: 1332902241;
+    HB_SCRIPT_TAMIL                  :: 1415671148;
+    HB_SCRIPT_TELUGU                 :: 1415933045;
+    HB_SCRIPT_THAI                   :: 1416126825;
 
-    TIBETAN                :: 1416192628;
+    HB_SCRIPT_TIBETAN                :: 1416192628;
 
-    BOPOMOFO               :: 1114599535;
-    BRAILLE                :: 1114792297;
-    CANADIAN_SYLLABICS     :: 1130458739;
-    CHEROKEE               :: 1130915186;
-    ETHIOPIC               :: 1165256809;
-    KHMER                  :: 1265134962;
-    MONGOLIAN              :: 1299148391;
-    MYANMAR                :: 1299803506;
-    OGHAM                  :: 1332175213;
-    RUNIC                  :: 1383427698;
-    SINHALA                :: 1399418472;
-    SYRIAC                 :: 1400468067;
-    THAANA                 :: 1416126817;
-    YI                     :: 1500080489;
+    HB_SCRIPT_BOPOMOFO               :: 1114599535;
+    HB_SCRIPT_BRAILLE                :: 1114792297;
+    HB_SCRIPT_CANADIAN_SYLLABICS     :: 1130458739;
+    HB_SCRIPT_CHEROKEE               :: 1130915186;
+    HB_SCRIPT_ETHIOPIC               :: 1165256809;
+    HB_SCRIPT_KHMER                  :: 1265134962;
+    HB_SCRIPT_MONGOLIAN              :: 1299148391;
+    HB_SCRIPT_MYANMAR                :: 1299803506;
+    HB_SCRIPT_OGHAM                  :: 1332175213;
+    HB_SCRIPT_RUNIC                  :: 1383427698;
+    HB_SCRIPT_SINHALA                :: 1399418472;
+    HB_SCRIPT_SYRIAC                 :: 1400468067;
+    HB_SCRIPT_THAANA                 :: 1416126817;
+    HB_SCRIPT_YI                     :: 1500080489;
 
-    DESERET                :: 1148416628;
-    GOTHIC                 :: 1198486632;
-    OLD_ITALIC             :: 1232363884;
+    HB_SCRIPT_DESERET                :: 1148416628;
+    HB_SCRIPT_GOTHIC                 :: 1198486632;
+    HB_SCRIPT_OLD_ITALIC             :: 1232363884;
 
-    BUHID                  :: 1114990692;
-    HANUNOO                :: 1214344815;
-    TAGALOG                :: 1416064103;
-    TAGBANWA               :: 1415669602;
+    HB_SCRIPT_BUHID                  :: 1114990692;
+    HB_SCRIPT_HANUNOO                :: 1214344815;
+    HB_SCRIPT_TAGALOG                :: 1416064103;
+    HB_SCRIPT_TAGBANWA               :: 1415669602;
 
-    CYPRIOT                :: 1131442804;
-    LIMBU                  :: 1281977698;
-    LINEAR_B               :: 1281977954;
-    OSMANYA                :: 1332964705;
-    SHAVIAN                :: 1399349623;
-    TAI_LE                 :: 1415670885;
-    UGARITIC               :: 1432838514;
+    HB_SCRIPT_CYPRIOT                :: 1131442804;
+    HB_SCRIPT_LIMBU                  :: 1281977698;
+    HB_SCRIPT_LINEAR_B               :: 1281977954;
+    HB_SCRIPT_OSMANYA                :: 1332964705;
+    HB_SCRIPT_SHAVIAN                :: 1399349623;
+    HB_SCRIPT_TAI_LE                 :: 1415670885;
+    HB_SCRIPT_UGARITIC               :: 1432838514;
 
-    BUGINESE               :: 1114990441;
-    COPTIC                 :: 1131376756;
-    GLAGOLITIC             :: 1198285159;
-    KHAROSHTHI             :: 1265131890;
-    NEW_TAI_LUE            :: 1415670901;
-    OLD_PERSIAN            :: 1483761007;
-    SYLOTI_NAGRI           :: 1400466543;
-    TIFINAGH               :: 1415999079;
+    HB_SCRIPT_BUGINESE               :: 1114990441;
+    HB_SCRIPT_COPTIC                 :: 1131376756;
+    HB_SCRIPT_GLAGOLITIC             :: 1198285159;
+    HB_SCRIPT_KHAROSHTHI             :: 1265131890;
+    HB_SCRIPT_NEW_TAI_LUE            :: 1415670901;
+    HB_SCRIPT_OLD_PERSIAN            :: 1483761007;
+    HB_SCRIPT_SYLOTI_NAGRI           :: 1400466543;
+    HB_SCRIPT_TIFINAGH               :: 1415999079;
 
-    BALINESE               :: 1113681001;
-    CUNEIFORM              :: 1483961720;
-    NKO                    :: 1315663727;
-    PHAGS_PA               :: 1349017959;
-    PHOENICIAN             :: 1349021304;
+    HB_SCRIPT_BALINESE               :: 1113681001;
+    HB_SCRIPT_CUNEIFORM              :: 1483961720;
+    HB_SCRIPT_NKO                    :: 1315663727;
+    HB_SCRIPT_PHAGS_PA               :: 1349017959;
+    HB_SCRIPT_PHOENICIAN             :: 1349021304;
 
-    CARIAN                 :: 1130459753;
-    CHAM                   :: 1130914157;
-    KAYAH_LI               :: 1264675945;
-    LEPCHA                 :: 1281716323;
-    LYCIAN                 :: 1283023721;
-    LYDIAN                 :: 1283023977;
-    OL_CHIKI               :: 1332503403;
-    REJANG                 :: 1382706791;
-    SAURASHTRA             :: 1398895986;
-    SUNDANESE              :: 1400204900;
-    VAI                    :: 1449224553;
+    HB_SCRIPT_CARIAN                 :: 1130459753;
+    HB_SCRIPT_CHAM                   :: 1130914157;
+    HB_SCRIPT_KAYAH_LI               :: 1264675945;
+    HB_SCRIPT_LEPCHA                 :: 1281716323;
+    HB_SCRIPT_LYCIAN                 :: 1283023721;
+    HB_SCRIPT_LYDIAN                 :: 1283023977;
+    HB_SCRIPT_OL_CHIKI               :: 1332503403;
+    HB_SCRIPT_REJANG                 :: 1382706791;
+    HB_SCRIPT_SAURASHTRA             :: 1398895986;
+    HB_SCRIPT_SUNDANESE              :: 1400204900;
+    HB_SCRIPT_VAI                    :: 1449224553;
 
-    AVESTAN                :: 1098281844;
-    BAMUM                  :: 1113681269;
-    EGYPTIAN_HIEROGLYPHS   :: 1164409200;
-    IMPERIAL_ARAMAIC       :: 1098018153;
-    INSCRIPTIONAL_PAHLAVI  :: 1349020777;
-    INSCRIPTIONAL_PARTHIAN :: 1349678185;
-    JAVANESE               :: 1247901281;
-    KAITHI                 :: 1265920105;
-    LISU                   :: 1281979253;
-    MEETEI_MAYEK           :: 1299473769;
-    OLD_SOUTH_ARABIAN      :: 1398895202;
-    OLD_TURKIC             :: 1332898664;
-    SAMARITAN              :: 1398893938;
-    TAI_THAM               :: 1281453665;
-    TAI_VIET               :: 1415673460;
+    HB_SCRIPT_AVESTAN                :: 1098281844;
+    HB_SCRIPT_BAMUM                  :: 1113681269;
+    HB_SCRIPT_EGYPTIAN_HIEROGLYPHS   :: 1164409200;
+    HB_SCRIPT_IMPERIAL_ARAMAIC       :: 1098018153;
+    HB_SCRIPT_INSCRIPTIONAL_PAHLAVI  :: 1349020777;
+    HB_SCRIPT_INSCRIPTIONAL_PARTHIAN :: 1349678185;
+    HB_SCRIPT_JAVANESE               :: 1247901281;
+    HB_SCRIPT_KAITHI                 :: 1265920105;
+    HB_SCRIPT_LISU                   :: 1281979253;
+    HB_SCRIPT_MEETEI_MAYEK           :: 1299473769;
+    HB_SCRIPT_OLD_SOUTH_ARABIAN      :: 1398895202;
+    HB_SCRIPT_OLD_TURKIC             :: 1332898664;
+    HB_SCRIPT_SAMARITAN              :: 1398893938;
+    HB_SCRIPT_TAI_THAM               :: 1281453665;
+    HB_SCRIPT_TAI_VIET               :: 1415673460;
 
-    BATAK                  :: 1113683051;
-    BRAHMI                 :: 1114792296;
-    MANDAIC                :: 1298230884;
+    HB_SCRIPT_BATAK                  :: 1113683051;
+    HB_SCRIPT_BRAHMI                 :: 1114792296;
+    HB_SCRIPT_MANDAIC                :: 1298230884;
 
-    CHAKMA                 :: 1130457965;
-    MEROITIC_CURSIVE       :: 1298494051;
-    MEROITIC_HIEROGLYPHS   :: 1298494063;
-    MIAO                   :: 1349284452;
-    SHARADA                :: 1399353956;
-    SORA_SOMPENG           :: 1399812705;
-    TAKRI                  :: 1415670642;
+    HB_SCRIPT_CHAKMA                 :: 1130457965;
+    HB_SCRIPT_MEROITIC_CURSIVE       :: 1298494051;
+    HB_SCRIPT_MEROITIC_HIEROGLYPHS   :: 1298494063;
+    HB_SCRIPT_MIAO                   :: 1349284452;
+    HB_SCRIPT_SHARADA                :: 1399353956;
+    HB_SCRIPT_SORA_SOMPENG           :: 1399812705;
+    HB_SCRIPT_TAKRI                  :: 1415670642;
 
-    BASSA_VAH              :: 1113682803;
-    CAUCASIAN_ALBANIAN     :: 1097295970;
-    DUPLOYAN               :: 1148547180;
-    ELBASAN                :: 1164730977;
-    GRANTHA                :: 1198678382;
-    KHOJKI                 :: 1265135466;
-    KHUDAWADI              :: 1399418468;
-    LINEAR_A               :: 1281977953;
-    MAHAJANI               :: 1298229354;
-    MANICHAEAN             :: 1298230889;
-    MENDE_KIKAKUI          :: 1298493028;
-    MODI                   :: 1299145833;
-    MRO                    :: 1299345263;
-    NABATAEAN              :: 1315070324;
-    OLD_NORTH_ARABIAN      :: 1315009122;
-    OLD_PERMIC             :: 1348825709;
-    PAHAWH_HMONG           :: 1215131239;
-    PALMYRENE              :: 1348562029;
-    PAU_CIN_HAU            :: 1348564323;
-    PSALTER_PAHLAVI        :: 1349020784;
-    SIDDHAM                :: 1399415908;
-    TIRHUTA                :: 1416196712;
-    WARANG_CITI            :: 1466004065;
+    HB_SCRIPT_BASSA_VAH              :: 1113682803;
+    HB_SCRIPT_CAUCASIAN_ALBANIAN     :: 1097295970;
+    HB_SCRIPT_DUPLOYAN               :: 1148547180;
+    HB_SCRIPT_ELBASAN                :: 1164730977;
+    HB_SCRIPT_GRANTHA                :: 1198678382;
+    HB_SCRIPT_KHOJKI                 :: 1265135466;
+    HB_SCRIPT_KHUDAWADI              :: 1399418468;
+    HB_SCRIPT_LINEAR_A               :: 1281977953;
+    HB_SCRIPT_MAHAJANI               :: 1298229354;
+    HB_SCRIPT_MANICHAEAN             :: 1298230889;
+    HB_SCRIPT_MENDE_KIKAKUI          :: 1298493028;
+    HB_SCRIPT_MODI                   :: 1299145833;
+    HB_SCRIPT_MRO                    :: 1299345263;
+    HB_SCRIPT_NABATAEAN              :: 1315070324;
+    HB_SCRIPT_OLD_NORTH_ARABIAN      :: 1315009122;
+    HB_SCRIPT_OLD_PERMIC             :: 1348825709;
+    HB_SCRIPT_PAHAWH_HMONG           :: 1215131239;
+    HB_SCRIPT_PALMYRENE              :: 1348562029;
+    HB_SCRIPT_PAU_CIN_HAU            :: 1348564323;
+    HB_SCRIPT_PSALTER_PAHLAVI        :: 1349020784;
+    HB_SCRIPT_SIDDHAM                :: 1399415908;
+    HB_SCRIPT_TIRHUTA                :: 1416196712;
+    HB_SCRIPT_WARANG_CITI            :: 1466004065;
 
-    AHOM                   :: 1097363309;
-    ANATOLIAN_HIEROGLYPHS  :: 1215067511;
-    HATRAN                 :: 1214346354;
-    MULTANI                :: 1299541108;
-    OLD_HUNGARIAN          :: 1215655527;
-    SIGNWRITING            :: 1399287415;
+    HB_SCRIPT_AHOM                   :: 1097363309;
+    HB_SCRIPT_ANATOLIAN_HIEROGLYPHS  :: 1215067511;
+    HB_SCRIPT_HATRAN                 :: 1214346354;
+    HB_SCRIPT_MULTANI                :: 1299541108;
+    HB_SCRIPT_OLD_HUNGARIAN          :: 1215655527;
+    HB_SCRIPT_SIGNWRITING            :: 1399287415;
 
-    ADLAM                  :: 1097100397;
-    BHAIKSUKI              :: 1114139507;
-    MARCHEN                :: 1298231907;
-    OSAGE                  :: 1332963173;
-    TANGUT                 :: 1415671399;
-    NEWA                   :: 1315272545;
+    HB_SCRIPT_ADLAM                  :: 1097100397;
+    HB_SCRIPT_BHAIKSUKI              :: 1114139507;
+    HB_SCRIPT_MARCHEN                :: 1298231907;
+    HB_SCRIPT_OSAGE                  :: 1332963173;
+    HB_SCRIPT_TANGUT                 :: 1415671399;
+    HB_SCRIPT_NEWA                   :: 1315272545;
 
-    MASARAM_GONDI          :: 1198485101;
-    NUSHU                  :: 1316186229;
-    SOYOMBO                :: 1399814511;
-    ZANABAZAR_SQUARE       :: 1516334690;
+    HB_SCRIPT_MASARAM_GONDI          :: 1198485101;
+    HB_SCRIPT_NUSHU                  :: 1316186229;
+    HB_SCRIPT_SOYOMBO                :: 1399814511;
+    HB_SCRIPT_ZANABAZAR_SQUARE       :: 1516334690;
 
-    DOGRA                  :: 1148151666;
-    GUNJALA_GONDI          :: 1198485095;
-    HANIFI_ROHINGYA        :: 1383032935;
-    MAKASAR                :: 1298230113;
-    MEDEFAIDRIN            :: 1298490470;
-    OLD_SOGDIAN            :: 1399809903;
-    SOGDIAN                :: 1399809892;
+    HB_SCRIPT_DOGRA                  :: 1148151666;
+    HB_SCRIPT_GUNJALA_GONDI          :: 1198485095;
+    HB_SCRIPT_HANIFI_ROHINGYA        :: 1383032935;
+    HB_SCRIPT_MAKASAR                :: 1298230113;
+    HB_SCRIPT_MEDEFAIDRIN            :: 1298490470;
+    HB_SCRIPT_OLD_SOGDIAN            :: 1399809903;
+    HB_SCRIPT_SOGDIAN                :: 1399809892;
 
-    ELYMAIC                :: 1164736877;
-    NANDINAGARI            :: 1315008100;
-    NYIAKENG_PUACHUE_HMONG :: 1215131248;
-    WANCHO                 :: 1466132591;
+    HB_SCRIPT_ELYMAIC                :: 1164736877;
+    HB_SCRIPT_NANDINAGARI            :: 1315008100;
+    HB_SCRIPT_NYIAKENG_PUACHUE_HMONG :: 1215131248;
+    HB_SCRIPT_WANCHO                 :: 1466132591;
 
-    CHORASMIAN             :: 1130918515;
-    DIVES_AKURU            :: 1147756907;
-    KHITAN_SMALL_SCRIPT    :: 1265202291;
-    YEZIDI                 :: 1499822697;
+    HB_SCRIPT_CHORASMIAN             :: 1130918515;
+    HB_SCRIPT_DIVES_AKURU            :: 1147756907;
+    HB_SCRIPT_KHITAN_SMALL_SCRIPT    :: 1265202291;
+    HB_SCRIPT_YEZIDI                 :: 1499822697;
 
-    CYPRO_MINOAN           :: 1131441518;
-    OLD_UYGHUR             :: 1333094258;
-    TANGSA                 :: 1416524641;
-    TOTO                   :: 1416590447;
-    VITHKUQI               :: 1449751656;
+    HB_SCRIPT_CYPRO_MINOAN           :: 1131441518;
+    HB_SCRIPT_OLD_UYGHUR             :: 1333094258;
+    HB_SCRIPT_TANGSA                 :: 1416524641;
+    HB_SCRIPT_TOTO                   :: 1416590447;
+    HB_SCRIPT_VITHKUQI               :: 1449751656;
 
-    MATH                   :: 1517122664;
+    HB_SCRIPT_MATH                   :: 1517122664;
 
-    KAWI                   :: 1264678761;
-    NAG_MUNDARI            :: 1315006317;
+    HB_SCRIPT_KAWI                   :: 1264678761;
+    HB_SCRIPT_NAG_MUNDARI            :: 1315006317;
 
-    INVALID                :: 0;
+    HB_SCRIPT_INVALID                :: 0;
 
-    MAX_VALUE              :: 2147483647;
-    MAX_VALUE_SIGNED       :: 2147483647;
+    HB_SCRIPT_MAX_VALUE              :: 2147483647;
+    HB_SCRIPT_MAX_VALUE_SIGNED       :: 2147483647;
 
-    HB_SCRIPT_COMMON                 :: COMMON;
-    HB_SCRIPT_INHERITED              :: INHERITED;
-    HB_SCRIPT_UNKNOWN                :: UNKNOWN;
-
-    HB_SCRIPT_ARABIC                 :: ARABIC;
-    HB_SCRIPT_ARMENIAN               :: ARMENIAN;
-    HB_SCRIPT_BENGALI                :: BENGALI;
-    HB_SCRIPT_CYRILLIC               :: CYRILLIC;
-    HB_SCRIPT_DEVANAGARI             :: DEVANAGARI;
-    HB_SCRIPT_GEORGIAN               :: GEORGIAN;
-    HB_SCRIPT_GREEK                  :: GREEK;
-    HB_SCRIPT_GUJARATI               :: GUJARATI;
-    HB_SCRIPT_GURMUKHI               :: GURMUKHI;
-    HB_SCRIPT_HANGUL                 :: HANGUL;
-    HB_SCRIPT_HAN                    :: HAN;
-    HB_SCRIPT_HEBREW                 :: HEBREW;
-    HB_SCRIPT_HIRAGANA               :: HIRAGANA;
-    HB_SCRIPT_KANNADA                :: KANNADA;
-    HB_SCRIPT_KATAKANA               :: KATAKANA;
-    HB_SCRIPT_LAO                    :: LAO;
-    HB_SCRIPT_LATIN                  :: LATIN;
-    HB_SCRIPT_MALAYALAM              :: MALAYALAM;
-    HB_SCRIPT_ORIYA                  :: ORIYA;
-    HB_SCRIPT_TAMIL                  :: TAMIL;
-    HB_SCRIPT_TELUGU                 :: TELUGU;
-    HB_SCRIPT_THAI                   :: THAI;
-
-    HB_SCRIPT_TIBETAN                :: TIBETAN;
-
-    HB_SCRIPT_BOPOMOFO               :: BOPOMOFO;
-    HB_SCRIPT_BRAILLE                :: BRAILLE;
-    HB_SCRIPT_CANADIAN_SYLLABICS     :: CANADIAN_SYLLABICS;
-    HB_SCRIPT_CHEROKEE               :: CHEROKEE;
-    HB_SCRIPT_ETHIOPIC               :: ETHIOPIC;
-    HB_SCRIPT_KHMER                  :: KHMER;
-    HB_SCRIPT_MONGOLIAN              :: MONGOLIAN;
-    HB_SCRIPT_MYANMAR                :: MYANMAR;
-    HB_SCRIPT_OGHAM                  :: OGHAM;
-    HB_SCRIPT_RUNIC                  :: RUNIC;
-    HB_SCRIPT_SINHALA                :: SINHALA;
-    HB_SCRIPT_SYRIAC                 :: SYRIAC;
-    HB_SCRIPT_THAANA                 :: THAANA;
-    HB_SCRIPT_YI                     :: YI;
-
-    HB_SCRIPT_DESERET                :: DESERET;
-    HB_SCRIPT_GOTHIC                 :: GOTHIC;
-    HB_SCRIPT_OLD_ITALIC             :: OLD_ITALIC;
-
-    HB_SCRIPT_BUHID                  :: BUHID;
-    HB_SCRIPT_HANUNOO                :: HANUNOO;
-    HB_SCRIPT_TAGALOG                :: TAGALOG;
-    HB_SCRIPT_TAGBANWA               :: TAGBANWA;
-
-    HB_SCRIPT_CYPRIOT                :: CYPRIOT;
-    HB_SCRIPT_LIMBU                  :: LIMBU;
-    HB_SCRIPT_LINEAR_B               :: LINEAR_B;
-    HB_SCRIPT_OSMANYA                :: OSMANYA;
-    HB_SCRIPT_SHAVIAN                :: SHAVIAN;
-    HB_SCRIPT_TAI_LE                 :: TAI_LE;
-    HB_SCRIPT_UGARITIC               :: UGARITIC;
-
-    HB_SCRIPT_BUGINESE               :: BUGINESE;
-    HB_SCRIPT_COPTIC                 :: COPTIC;
-    HB_SCRIPT_GLAGOLITIC             :: GLAGOLITIC;
-    HB_SCRIPT_KHAROSHTHI             :: KHAROSHTHI;
-    HB_SCRIPT_NEW_TAI_LUE            :: NEW_TAI_LUE;
-    HB_SCRIPT_OLD_PERSIAN            :: OLD_PERSIAN;
-    HB_SCRIPT_SYLOTI_NAGRI           :: SYLOTI_NAGRI;
-    HB_SCRIPT_TIFINAGH               :: TIFINAGH;
-
-    HB_SCRIPT_BALINESE               :: BALINESE;
-    HB_SCRIPT_CUNEIFORM              :: CUNEIFORM;
-    HB_SCRIPT_NKO                    :: NKO;
-    HB_SCRIPT_PHAGS_PA               :: PHAGS_PA;
-    HB_SCRIPT_PHOENICIAN             :: PHOENICIAN;
-
-    HB_SCRIPT_CARIAN                 :: CARIAN;
-    HB_SCRIPT_CHAM                   :: CHAM;
-    HB_SCRIPT_KAYAH_LI               :: KAYAH_LI;
-    HB_SCRIPT_LEPCHA                 :: LEPCHA;
-    HB_SCRIPT_LYCIAN                 :: LYCIAN;
-    HB_SCRIPT_LYDIAN                 :: LYDIAN;
-    HB_SCRIPT_OL_CHIKI               :: OL_CHIKI;
-    HB_SCRIPT_REJANG                 :: REJANG;
-    HB_SCRIPT_SAURASHTRA             :: SAURASHTRA;
-    HB_SCRIPT_SUNDANESE              :: SUNDANESE;
-    HB_SCRIPT_VAI                    :: VAI;
-
-    HB_SCRIPT_AVESTAN                :: AVESTAN;
-    HB_SCRIPT_BAMUM                  :: BAMUM;
-    HB_SCRIPT_EGYPTIAN_HIEROGLYPHS   :: EGYPTIAN_HIEROGLYPHS;
-    HB_SCRIPT_IMPERIAL_ARAMAIC       :: IMPERIAL_ARAMAIC;
-    HB_SCRIPT_INSCRIPTIONAL_PAHLAVI  :: INSCRIPTIONAL_PAHLAVI;
-    HB_SCRIPT_INSCRIPTIONAL_PARTHIAN :: INSCRIPTIONAL_PARTHIAN;
-    HB_SCRIPT_JAVANESE               :: JAVANESE;
-    HB_SCRIPT_KAITHI                 :: KAITHI;
-    HB_SCRIPT_LISU                   :: LISU;
-    HB_SCRIPT_MEETEI_MAYEK           :: MEETEI_MAYEK;
-    HB_SCRIPT_OLD_SOUTH_ARABIAN      :: OLD_SOUTH_ARABIAN;
-    HB_SCRIPT_OLD_TURKIC             :: OLD_TURKIC;
-    HB_SCRIPT_SAMARITAN              :: SAMARITAN;
-    HB_SCRIPT_TAI_THAM               :: TAI_THAM;
-    HB_SCRIPT_TAI_VIET               :: TAI_VIET;
-
-    HB_SCRIPT_BATAK                  :: BATAK;
-    HB_SCRIPT_BRAHMI                 :: BRAHMI;
-    HB_SCRIPT_MANDAIC                :: MANDAIC;
-
-    HB_SCRIPT_CHAKMA                 :: CHAKMA;
-    HB_SCRIPT_MEROITIC_CURSIVE       :: MEROITIC_CURSIVE;
-    HB_SCRIPT_MEROITIC_HIEROGLYPHS   :: MEROITIC_HIEROGLYPHS;
-    HB_SCRIPT_MIAO                   :: MIAO;
-    HB_SCRIPT_SHARADA                :: SHARADA;
-    HB_SCRIPT_SORA_SOMPENG           :: SORA_SOMPENG;
-    HB_SCRIPT_TAKRI                  :: TAKRI;
-
-    HB_SCRIPT_BASSA_VAH              :: BASSA_VAH;
-    HB_SCRIPT_CAUCASIAN_ALBANIAN     :: CAUCASIAN_ALBANIAN;
-    HB_SCRIPT_DUPLOYAN               :: DUPLOYAN;
-    HB_SCRIPT_ELBASAN                :: ELBASAN;
-    HB_SCRIPT_GRANTHA                :: GRANTHA;
-    HB_SCRIPT_KHOJKI                 :: KHOJKI;
-    HB_SCRIPT_KHUDAWADI              :: KHUDAWADI;
-    HB_SCRIPT_LINEAR_A               :: LINEAR_A;
-    HB_SCRIPT_MAHAJANI               :: MAHAJANI;
-    HB_SCRIPT_MANICHAEAN             :: MANICHAEAN;
-    HB_SCRIPT_MENDE_KIKAKUI          :: MENDE_KIKAKUI;
-    HB_SCRIPT_MODI                   :: MODI;
-    HB_SCRIPT_MRO                    :: MRO;
-    HB_SCRIPT_NABATAEAN              :: NABATAEAN;
-    HB_SCRIPT_OLD_NORTH_ARABIAN      :: OLD_NORTH_ARABIAN;
-    HB_SCRIPT_OLD_PERMIC             :: OLD_PERMIC;
-    HB_SCRIPT_PAHAWH_HMONG           :: PAHAWH_HMONG;
-    HB_SCRIPT_PALMYRENE              :: PALMYRENE;
-    HB_SCRIPT_PAU_CIN_HAU            :: PAU_CIN_HAU;
-    HB_SCRIPT_PSALTER_PAHLAVI        :: PSALTER_PAHLAVI;
-    HB_SCRIPT_SIDDHAM                :: SIDDHAM;
-    HB_SCRIPT_TIRHUTA                :: TIRHUTA;
-    HB_SCRIPT_WARANG_CITI            :: WARANG_CITI;
-
-    HB_SCRIPT_AHOM                   :: AHOM;
-    HB_SCRIPT_ANATOLIAN_HIEROGLYPHS  :: ANATOLIAN_HIEROGLYPHS;
-    HB_SCRIPT_HATRAN                 :: HATRAN;
-    HB_SCRIPT_MULTANI                :: MULTANI;
-    HB_SCRIPT_OLD_HUNGARIAN          :: OLD_HUNGARIAN;
-    HB_SCRIPT_SIGNWRITING            :: SIGNWRITING;
-
-    HB_SCRIPT_ADLAM                  :: ADLAM;
-    HB_SCRIPT_BHAIKSUKI              :: BHAIKSUKI;
-    HB_SCRIPT_MARCHEN                :: MARCHEN;
-    HB_SCRIPT_OSAGE                  :: OSAGE;
-    HB_SCRIPT_TANGUT                 :: TANGUT;
-    HB_SCRIPT_NEWA                   :: NEWA;
-
-    HB_SCRIPT_MASARAM_GONDI          :: MASARAM_GONDI;
-    HB_SCRIPT_NUSHU                  :: NUSHU;
-    HB_SCRIPT_SOYOMBO                :: SOYOMBO;
-    HB_SCRIPT_ZANABAZAR_SQUARE       :: ZANABAZAR_SQUARE;
-
-    HB_SCRIPT_DOGRA                  :: DOGRA;
-    HB_SCRIPT_GUNJALA_GONDI          :: GUNJALA_GONDI;
-    HB_SCRIPT_HANIFI_ROHINGYA        :: HANIFI_ROHINGYA;
-    HB_SCRIPT_MAKASAR                :: MAKASAR;
-    HB_SCRIPT_MEDEFAIDRIN            :: MEDEFAIDRIN;
-    HB_SCRIPT_OLD_SOGDIAN            :: OLD_SOGDIAN;
-    HB_SCRIPT_SOGDIAN                :: SOGDIAN;
-
-    HB_SCRIPT_ELYMAIC                :: ELYMAIC;
-    HB_SCRIPT_NANDINAGARI            :: NANDINAGARI;
-    HB_SCRIPT_NYIAKENG_PUACHUE_HMONG :: NYIAKENG_PUACHUE_HMONG;
-    HB_SCRIPT_WANCHO                 :: WANCHO;
-
-    HB_SCRIPT_CHORASMIAN             :: CHORASMIAN;
-    HB_SCRIPT_DIVES_AKURU            :: DIVES_AKURU;
-    HB_SCRIPT_KHITAN_SMALL_SCRIPT    :: KHITAN_SMALL_SCRIPT;
-    HB_SCRIPT_YEZIDI                 :: YEZIDI;
-
-    HB_SCRIPT_CYPRO_MINOAN           :: CYPRO_MINOAN;
-    HB_SCRIPT_OLD_UYGHUR             :: OLD_UYGHUR;
-    HB_SCRIPT_TANGSA                 :: TANGSA;
-    HB_SCRIPT_TOTO                   :: TOTO;
-    HB_SCRIPT_VITHKUQI               :: VITHKUQI;
-
-    HB_SCRIPT_MATH                   :: MATH;
-
-    HB_SCRIPT_KAWI                   :: KAWI;
-    HB_SCRIPT_NAG_MUNDARI            :: NAG_MUNDARI;
-
-    HB_SCRIPT_INVALID                :: INVALID;
-
-    _HB_SCRIPT_MAX_VALUE             :: MAX_VALUE;
-    _HB_SCRIPT_MAX_VALUE_SIGNED      :: MAX_VALUE_SIGNED;
+    _HB_SCRIPT_MAX_VALUE        :: HB_SCRIPT_MAX_VALUE;
+    _HB_SCRIPT_MAX_VALUE_SIGNED :: HB_SCRIPT_MAX_VALUE_SIGNED;
 }
 
 /* Script functions */
@@ -4019,23 +3829,15 @@ hb_shape_plan_get_shaper :: (shape_plan: *hb_shape_plan_t) -> *u8 #foreign harfb
 * Since: 3.0.0
 **/
 hb_style_tag_t :: enum s32 {
-    ITALIC       :: 1769234796;
-    OPTICAL_SIZE :: 1869640570;
-    SLANT_ANGLE  :: 1936486004;
-    SLANT_RATIO  :: 1399615092;
-    WIDTH        :: 2003072104;
-    WEIGHT       :: 2003265652;
+    HB_STYLE_TAG_ITALIC       :: 1769234796;
+    HB_STYLE_TAG_OPTICAL_SIZE :: 1869640570;
+    HB_STYLE_TAG_SLANT_ANGLE  :: 1936486004;
+    HB_STYLE_TAG_SLANT_RATIO  :: 1399615092;
+    HB_STYLE_TAG_WIDTH        :: 2003072104;
+    HB_STYLE_TAG_WEIGHT       :: 2003265652;
 
-    MAX_VALUE    :: 2147483647;
-
-    HB_STYLE_TAG_ITALIC       :: ITALIC;
-    HB_STYLE_TAG_OPTICAL_SIZE :: OPTICAL_SIZE;
-    HB_STYLE_TAG_SLANT_ANGLE  :: SLANT_ANGLE;
-    HB_STYLE_TAG_SLANT_RATIO  :: SLANT_RATIO;
-    HB_STYLE_TAG_WIDTH        :: WIDTH;
-    HB_STYLE_TAG_WEIGHT       :: WEIGHT;
-
-    _HB_STYLE_TAG_MAX_VALUE   :: MAX_VALUE;
+    HB_STYLE_TAG_MAX_VALUE    :: 2147483647;
+    _HB_STYLE_TAG_MAX_VALUE :: HB_STYLE_TAG_MAX_VALUE;
 }
 
 hb_style_get_value :: (font: *hb_font_t, style_tag: hb_style_tag_t) -> float #foreign harfbuzz;

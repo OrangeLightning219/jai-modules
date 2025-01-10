@@ -8342,7 +8342,7 @@ FT_Get_CMap_Format :: (charmap: FT_CharMap) -> FT_Long #foreign freetype;
 
 #scope_file
 
-freetype :: #library "win/freetype";
+freetype :: #library "windows/freetype";
 
 
 #scope_export

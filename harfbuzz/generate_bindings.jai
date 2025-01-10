@@ -4,18 +4,6 @@
 #import "String";
 #import "BuildCpp";
 
-main :: ()
-{
-    #if OS == .WINDOWS 
-    {
-        success := build_cpp_dynamic_lib("win/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
-    }
-
-    // NOTE: Build manually for mac.
-    
-    generate_bindings();
-}
-
 generate_bindings :: () -> bool
 {
     output_filename: string;
@@ -49,4 +37,23 @@ generate_bindings :: () -> bool
     }
 
     return generate_bindings( opts, output_filename );
+}
+
+#run {
+    set_build_options_dc(.{do_output=false});
+    #if OS == .WINDOWS 
+    {
+        // success := build_cpp_dynamic_lib("win/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
+        success := build_cpp_static_lib("win/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
+    }
+
+    if success
+    {
+        generate_bindings();
+    }
+    else
+    {
+        compiler_set_workspace_status(.FAILED);
+
+    }
 }
