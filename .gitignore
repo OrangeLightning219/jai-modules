@@ -7,3 +7,5 @@ generate_bindings
 .DS_Store
 freetype/freetype
 assimp/assimp
+rectpack2D/rectpack2D
+.vscode
