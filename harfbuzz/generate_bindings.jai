@@ -15,7 +15,7 @@ generate_bindings :: () -> bool
         {
             output_filename = "windows.jai";
             paths := "win";
-            source := "E:/Tools/harfbuzz/src/hb.h";
+            source := "./harfbuzz/src/hb.h";
         }
         else
         {
@@ -43,8 +43,8 @@ generate_bindings :: () -> bool
     set_build_options_dc(.{do_output=false});
     #if OS == .WINDOWS 
     {
-        // success := build_cpp_dynamic_lib("win/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
-        success := build_cpp_static_lib("win/harfbuzz", "E:/Tools/harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
+        success := build_cpp_dynamic_lib("win/harfbuzz", "./harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
+        // success := build_cpp_static_lib("win/harfbuzz", "./harfbuzz/src/harfbuzz.cc", debug = false, extra = .["-DHB_DLL_EXPORT", "-O2"]);
     }
     else
     {

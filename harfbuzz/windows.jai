@@ -6,29 +6,33 @@
 
 
 
+HB_CODEPOINT_INVALID :: cast,trunc(hb_codepoint_t) -1;
+
 HB_LANGUAGE_INVALID :: cast(hb_language_t) 0;
 
 HB_FEATURE_GLOBAL_START :: 0;
 
 HB_UNICODE_MAX :: 0x10FFFF;
 
-HB_SET_VALUE_INVALID :: cast,trunc(hb_codepoint_t) -1;
+HB_SET_VALUE_INVALID :: HB_CODEPOINT_INVALID;
 
-HB_MAP_VALUE_INVALID :: cast,trunc(hb_codepoint_t) -1;
+HB_MAP_VALUE_INVALID :: HB_CODEPOINT_INVALID;
 
 HB_FONT_NO_VAR_NAMED_INSTANCE :: 0xFFFFFFFF;
 
 HB_BUFFER_REPLACEMENT_CODEPOINT_DEFAULT :: 0xFFFD;
 
+HB_UNICODE_COMBINING_CLASS_CCC133 :: 133;
+
 HB_UNICODE_MAX_DECOMPOSITION_LEN :: 18+1;
 
-HB_VERSION_MAJOR :: 6;
+HB_VERSION_MAJOR :: 10;
 
-HB_VERSION_MINOR :: 0;
+HB_VERSION_MINOR :: 2;
 
 HB_VERSION_MICRO :: 0;
 
-HB_VERSION_STRING :: "6.0.0";
+HB_VERSION_STRING :: "10.2.0";
 
 /**
 * hb_bool_t:
@@ -349,6 +353,14 @@ hb_script_t :: enum s32 {
     HB_SCRIPT_KAWI                   :: 1264678761;
     HB_SCRIPT_NAG_MUNDARI            :: 1315006317;
 
+    HB_SCRIPT_GARAY                  :: 1197568609;
+    HB_SCRIPT_GURUNG_KHEMA           :: 1198877544;
+    HB_SCRIPT_KIRAT_RAI              :: 1265787241;
+    HB_SCRIPT_OL_ONAL                :: 1332633967;
+    HB_SCRIPT_SUNUWAR                :: 1400204917;
+    HB_SCRIPT_TODHRI                 :: 1416586354;
+    HB_SCRIPT_TULU_TIGALARI          :: 1416983655;
+
     HB_SCRIPT_INVALID                :: 0;
 
     HB_SCRIPT_MAX_VALUE              :: 2147483647;
@@ -498,7 +510,7 @@ hb_font_t :: struct {}
 *   HarfBuzz and doing that just once (no reuse!),
 *
 * - If the font is mmap()ed, it's okay to use
-*   @HB_MEMORY_READONLY_MAY_MAKE_WRITABLE, however, using that mode
+*   @HB_MEMORY_MODE_READONLY_MAY_MAKE_WRITABLE, however, using that mode
 *   correctly is very tricky.  Use @HB_MEMORY_MODE_READONLY instead.
 **/
 hb_memory_mode_t :: enum s32 {
@@ -660,7 +672,7 @@ hb_unicode_general_category_t :: enum s32 {
 * @HB_UNICODE_COMBINING_CLASS_CCC122: [Lao]
 * @HB_UNICODE_COMBINING_CLASS_CCC129: [Tibetan]
 * @HB_UNICODE_COMBINING_CLASS_CCC130: [Tibetan]
-* @HB_UNICODE_COMBINING_CLASS_CCC133: [Tibetan]
+* @HB_UNICODE_COMBINING_CLASS_CCC132: [Tibetan] Since: 7.2.0
 * @HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW_LEFT: Marks attached at the bottom left
 * @HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW: Marks attached directly below
 * @HB_UNICODE_COMBINING_CLASS_ATTACHED_ABOVE: Marks attached directly above
@@ -734,7 +746,7 @@ hb_unicode_combining_class_t :: enum s32 {
 
     CCC129               :: 129;
     CCC130               :: 130;
-    CCC133               :: 132;
+    CCC132               :: 132;
 
     ATTACHED_BELOW_LEFT  :: 200;
     ATTACHED_BELOW       :: 202;
@@ -802,7 +814,7 @@ hb_unicode_combining_class_t :: enum s32 {
 
     HB_UNICODE_COMBINING_CLASS_CCC129               :: CCC129;
     HB_UNICODE_COMBINING_CLASS_CCC130               :: CCC130;
-    HB_UNICODE_COMBINING_CLASS_CCC133               :: CCC133;
+    HB_UNICODE_COMBINING_CLASS_CCC132               :: CCC132;
 
     HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW_LEFT  :: ATTACHED_BELOW_LEFT;
     HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW       :: ATTACHED_BELOW;
@@ -1226,6 +1238,10 @@ hb_face_t :: struct {}
 
 hb_face_create :: (blob: *hb_blob_t, index: u32) -> *hb_face_t #foreign harfbuzz;
 
+hb_face_create_or_fail :: (blob: *hb_blob_t, index: u32) -> *hb_face_t #foreign harfbuzz;
+
+hb_face_create_from_file_or_fail :: (file_name: *u8, index: u32) -> *hb_face_t #foreign harfbuzz;
+
 /**
 * hb_reference_table_func_t:
 * @face: an #hb_face_t to reference table for
@@ -1272,6 +1288,25 @@ hb_face_get_upem :: (face: *hb_face_t) -> u32 #foreign harfbuzz;
 hb_face_set_glyph_count :: (face: *hb_face_t, glyph_count: u32) -> void #foreign harfbuzz;
 
 hb_face_get_glyph_count :: (face: *hb_face_t) -> u32 #foreign harfbuzz;
+
+/**
+* hb_get_table_tags_func_t:
+* @face: A face object
+* @start_offset: The index of first table tag to retrieve
+* @table_count: (inout): Input = the maximum number of table tags to return;
+*                Output = the actual number of table tags returned (may be zero)
+* @table_tags: (out) (array length=table_count): The array of table tags found
+* @user_data: User data pointer passed by the caller
+*
+* Callback function for hb_face_get_table_tags().
+*
+* Return value: Total number of tables, or zero if it is not possible to list
+*
+* Since: 10.0.0
+*/
+hb_get_table_tags_func_t :: #type (face: *hb_face_t, start_offset: u32, table_count: *u32, table_tags: *hb_tag_t, user_data: *void) -> u32 #c_call;
+
+hb_face_set_get_table_tags_func :: (face: *hb_face_t, func: hb_get_table_tags_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
 hb_face_get_table_tags :: (face: *hb_face_t, start_offset: u32, table_count: *u32, table_tags: *hb_tag_t) -> u32 #foreign harfbuzz;
 
@@ -1545,7 +1580,7 @@ hb_paint_funcs_is_immutable :: (funcs: *hb_paint_funcs_t) -> hb_bool_t #foreign 
 * and remains in effect until a matching call to
 * the #hb_paint_funcs_pop_transform_func_t vfunc.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_push_transform_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, _xx: float, yx: float, xy: float, yy: float, dx: float, dy: float, user_data: *void) -> void #c_call;
 
@@ -1559,9 +1594,25 @@ hb_paint_push_transform_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *
 * the effect of a prior call to the #hb_paint_funcs_push_transform_func_t
 * vfunc.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_pop_transform_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, user_data: *void) -> void #c_call;
+
+/**
+* hb_paint_color_glyph_func_t:
+* @funcs: paint functions object
+* @paint_data: The data accompanying the paint functions in hb_font_paint_glyph()
+* @glyph: the glyph ID
+* @font: the font
+* @user_data: User data pointer passed to hb_paint_funcs_set_color_glyph_func()
+*
+* A virtual method for the #hb_paint_funcs_t to render a color glyph by glyph index.
+*
+* Return value: `true` if the glyph was painted, `false` otherwise.
+*
+* Since: 8.2.0
+*/
+hb_paint_color_glyph_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, glyph: hb_codepoint_t, font: *hb_font_t, user_data: *void) -> hb_bool_t #c_call;
 
 /**
 * hb_paint_push_clip_glyph_func_t:
@@ -1581,7 +1632,7 @@ hb_paint_pop_transform_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *v
 * and remains in effect until a matching call to
 * the #hb_paint_funcs_pop_clip_func_t vfunc.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_push_clip_glyph_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, glyph: hb_codepoint_t, font: *hb_font_t, user_data: *void) -> void #c_call;
 
@@ -1605,7 +1656,7 @@ hb_paint_push_clip_glyph_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: 
 * and remains in effect until a matching call to
 * the #hb_paint_funcs_pop_clip_func_t vfunc.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_push_clip_rectangle_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, xmin: float, ymin: float, xmax: float, ymax: float, user_data: *void) -> void #c_call;
 
@@ -1619,7 +1670,7 @@ hb_paint_push_clip_rectangle_func_t :: #type (funcs: *hb_paint_funcs_t, paint_da
 * the effect of a prior call to the #hb_paint_funcs_push_clip_glyph_func_t
 * or #hb_paint_funcs_push_clip_rectangle_func_t vfuncs.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_pop_clip_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, user_data: *void) -> void #c_call;
 
@@ -1634,7 +1685,7 @@ hb_paint_pop_clip_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, 
 * A virtual method for the #hb_paint_funcs_t to paint a
 * color everywhere within the current clip.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_color_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, is_foreground: hb_bool_t, color: hb_color_t, user_data: *void) -> void #c_call;
 
@@ -1654,7 +1705,7 @@ hb_paint_color_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, is_
 *
 * This method is called for glyphs with image blobs in the CBDT,
 * sbix or SVG tables. The @format identifies the kind of data that
-* is contained in @image. Possible values include #HB_PAINT_IMAGE_FORMAT_PNG
+* is contained in @image. Possible values include #HB_PAINT_IMAGE_FORMAT_PNG,
 * #HB_PAINT_IMAGE_FORMAT_SVG and #HB_PAINT_IMAGE_FORMAT_BGRA.
 *
 * The image dimensions and glyph extents are provided if available,
@@ -1662,7 +1713,7 @@ hb_paint_color_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, is_
 *
 * Return value: Whether the operation was successful.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_image_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, image: *hb_blob_t, width: u32, height: u32, format: hb_tag_t, slant: float, extents: *hb_glyph_extents_t, user_data: *void) -> hb_bool_t #c_call;
 
@@ -1682,7 +1733,7 @@ hb_paint_image_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, ima
 * [COLR](https://learn.microsoft.com/en-us/typography/opentype/spec/colr)
 * section for details.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_color_stop_t :: struct {
     offset:        float;
@@ -1708,7 +1759,7 @@ hb_color_stop_t :: struct {
 * See the OpenType spec [COLR](https://learn.microsoft.com/en-us/typography/opentype/spec/colr)
 * section for details.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_extend_t :: enum s32 {
     PAD     :: 0;
@@ -1734,7 +1785,7 @@ hb_paint_extend_t :: enum s32 {
 *
 * Return value: the total number of color stops in @color_line
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_color_line_get_color_stops_func_t :: #type (color_line: *hb_color_line_t, color_line_data: *void, start: u32, count: *u32, color_stops: *hb_color_stop_t, user_data: *void) -> u32 #c_call;
 
@@ -1748,7 +1799,7 @@ hb_color_line_get_color_stops_func_t :: #type (color_line: *hb_color_line_t, col
 *
 * Return value: the extend mode of @color_line
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_color_line_get_extend_func_t :: #type (color_line: *hb_color_line_t, color_line_data: *void, user_data: *void) -> hb_paint_extend_t #c_call;
 
@@ -1757,7 +1808,7 @@ hb_color_line_get_extend_func_t :: #type (color_line: *hb_color_line_t, color_li
 *
 * A struct containing color information for a gradient.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_color_line_t :: struct {
     data:                      *void;
@@ -1808,7 +1859,7 @@ hb_color_line_get_extend :: (color_line: *hb_color_line_t) -> hb_paint_extend_t 
 * section for details on how the points define the direction
 * of the gradient, and how to interpret the @color_line.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_linear_gradient_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, color_line: *hb_color_line_t, x0: float, y0: float, x1: float, y1: float, x2: float, y2: float, user_data: *void) -> void #c_call;
 
@@ -1838,7 +1889,7 @@ hb_paint_linear_gradient_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: 
 * section for details on how the points define the direction
 * of the gradient, and how to interpret the @color_line.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_radial_gradient_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, color_line: *hb_color_line_t, x0: float, y0: float, r0: float, x1: float, y1: float, r1: float, user_data: *void) -> void #c_call;
 
@@ -1866,7 +1917,7 @@ hb_paint_radial_gradient_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: 
 * section for details on how the points define the direction
 * of the gradient, and how to interpret the @color_line.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_sweep_gradient_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, color_line: *hb_color_line_t, x0: float, y0: float, start_angle: float, end_angle: float, user_data: *void) -> void #c_call;
 
@@ -1936,7 +1987,7 @@ hb_paint_sweep_gradient_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *
 * See the OpenType spec [COLR](https://learn.microsoft.com/en-us/typography/opentype/spec/colr)
 * section for details.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_composite_mode_t :: enum s32 {
     CLEAR          :: 0;
@@ -2011,7 +2062,7 @@ hb_paint_composite_mode_t :: enum s32 {
 * until a matching call to the #hb_paint_funcs_pop_group_func_t
 * vfunc.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_push_group_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, user_data: *void) -> void #c_call;
 
@@ -2030,7 +2081,7 @@ hb_paint_push_group_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void
 * and then composites it on the previous surface, using the
 * compositing mode passed to this call.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_pop_group_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, mode: hb_paint_composite_mode_t, user_data: *void) -> void #c_call;
 
@@ -2045,9 +2096,16 @@ hb_paint_pop_group_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void,
 * A virtual method for the #hb_paint_funcs_t to fetch a color from the custom
 * color palette.
 *
+* Custom palette colors override the colors from the fonts selected color
+* palette. It is not necessary to override all palette entries; for entries
+* that should be taken from the font palette, return `false`.
+*
+* This function might get called multiple times, but the custom palette is
+* expected to remain unchanged for duration of a hb_font_paint_glyph() call.
+*
 * Return value: `true` if found, `false` otherwise
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_custom_palette_color_func_t :: #type (funcs: *hb_paint_funcs_t, paint_data: *void, color_index: u32, color: *hb_color_t, user_data: *void) -> hb_bool_t #c_call;
 
@@ -2060,7 +2118,7 @@ hb_paint_custom_palette_color_func_t :: #type (funcs: *hb_paint_funcs_t, paint_d
 *
 * Sets the push-transform callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_push_transform_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_push_transform_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2073,9 +2131,22 @@ hb_paint_funcs_set_push_transform_func :: (funcs: *hb_paint_funcs_t, func: hb_pa
 *
 * Sets the pop-transform callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_pop_transform_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_pop_transform_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
+
+/**
+* hb_paint_funcs_set_color_glyph_func:
+* @funcs: A paint functions struct
+* @func: (closure user_data) (destroy destroy) (scope notified): The color-glyph callback
+* @user_data: Data to pass to @func
+* @destroy: (nullable): Function to call when @user_data is no longer needed
+*
+* Sets the color-glyph callback on the paint functions struct.
+*
+* Since: 8.2.0
+*/
+hb_paint_funcs_set_color_glyph_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_color_glyph_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
 /**
 * hb_paint_funcs_set_push_clip_glyph_func:
@@ -2086,7 +2157,7 @@ hb_paint_funcs_set_pop_transform_func :: (funcs: *hb_paint_funcs_t, func: hb_pai
 *
 * Sets the push-clip-glyph callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_push_clip_glyph_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_push_clip_glyph_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2099,7 +2170,7 @@ hb_paint_funcs_set_push_clip_glyph_func :: (funcs: *hb_paint_funcs_t, func: hb_p
 *
 * Sets the push-clip-rect callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_push_clip_rectangle_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_push_clip_rectangle_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2112,7 +2183,7 @@ hb_paint_funcs_set_push_clip_rectangle_func :: (funcs: *hb_paint_funcs_t, func: 
 *
 * Sets the pop-clip callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_pop_clip_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_pop_clip_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2125,7 +2196,7 @@ hb_paint_funcs_set_pop_clip_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_po
 *
 * Sets the paint-color callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_color_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_color_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2138,7 +2209,7 @@ hb_paint_funcs_set_color_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_color
 *
 * Sets the paint-image callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_image_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_image_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2151,7 +2222,7 @@ hb_paint_funcs_set_image_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_image
 *
 * Sets the linear-gradient callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_linear_gradient_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_linear_gradient_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2164,7 +2235,7 @@ hb_paint_funcs_set_linear_gradient_func :: (funcs: *hb_paint_funcs_t, func: hb_p
 *
 * Sets the radial-gradient callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_radial_gradient_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_radial_gradient_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2177,7 +2248,7 @@ hb_paint_funcs_set_radial_gradient_func :: (funcs: *hb_paint_funcs_t, func: hb_p
 *
 * Sets the sweep-gradient callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_sweep_gradient_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_sweep_gradient_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2190,7 +2261,7 @@ hb_paint_funcs_set_sweep_gradient_func :: (funcs: *hb_paint_funcs_t, func: hb_pa
 *
 * Sets the push-group callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_push_group_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_push_group_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2203,7 +2274,7 @@ hb_paint_funcs_set_push_group_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_
 *
 * Sets the pop-group callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_pop_group_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_pop_group_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2216,7 +2287,7 @@ hb_paint_funcs_set_pop_group_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_p
 *
 * Sets the custom-palette-color callback on the paint functions struct.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_paint_funcs_set_custom_palette_color_func :: (funcs: *hb_paint_funcs_t, func: hb_paint_custom_palette_color_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2226,6 +2297,8 @@ hb_paint_funcs_set_custom_palette_color_func :: (funcs: *hb_paint_funcs_t, func:
 hb_paint_push_transform :: (funcs: *hb_paint_funcs_t, paint_data: *void, _xx: float, yx: float, xy: float, yy: float, dx: float, dy: float) -> void #foreign harfbuzz;
 
 hb_paint_pop_transform :: (funcs: *hb_paint_funcs_t, paint_data: *void) -> void #foreign harfbuzz;
+
+hb_paint_color_glyph :: (funcs: *hb_paint_funcs_t, paint_data: *void, glyph: hb_codepoint_t, font: *hb_font_t) -> hb_bool_t #foreign harfbuzz;
 
 hb_paint_push_clip_glyph :: (funcs: *hb_paint_funcs_t, paint_data: *void, glyph: hb_codepoint_t, font: *hb_font_t) -> void #foreign harfbuzz;
 
@@ -2619,23 +2692,6 @@ hb_font_get_glyph_name_func_t :: #type (font: *hb_font_t, font_data: *void, glyp
 hb_font_get_glyph_from_name_func_t :: #type (font: *hb_font_t, font_data: *void, name: *u8, len: s32, glyph: *hb_codepoint_t, user_data: *void) -> hb_bool_t #c_call;
 
 /**
-* hb_font_get_glyph_shape_func_t:
-* @font: #hb_font_t to work upon
-* @font_data: @font user data pointer
-* @glyph: The glyph ID to query
-* @draw_funcs: The draw functions to send the shape data to
-* @draw_data: The data accompanying the draw functions
-* @user_data: User data pointer passed by the caller
-*
-* A virtual method for the #hb_font_funcs_t of an #hb_font_t object.
-*
-* Since: 4.0.0
-*
-* Deprecated: REPLACEME: Use #hb_font_draw_glyph_func_t instead
-**/
-hb_font_get_glyph_shape_func_t :: #type (font: *hb_font_t, font_data: *void, glyph: hb_codepoint_t, draw_funcs: *hb_draw_funcs_t, draw_data: *void, user_data: *void) -> void #c_call;
-
-/**
 * hb_font_draw_glyph_func_t:
 * @font: #hb_font_t to work upon
 * @font_data: @font user data pointer
@@ -2646,7 +2702,7 @@ hb_font_get_glyph_shape_func_t :: #type (font: *hb_font_t, font_data: *void, gly
 *
 * A virtual method for the #hb_font_funcs_t of an #hb_font_t object.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 *
 **/
 hb_font_draw_glyph_func_t :: #type (font: *hb_font_t, font_data: *void, glyph: hb_codepoint_t, draw_funcs: *hb_draw_funcs_t, draw_data: *void, user_data: *void) -> void #c_call;
@@ -2664,7 +2720,7 @@ hb_font_draw_glyph_func_t :: #type (font: *hb_font_t, font_data: *void, glyph: h
 *
 * A virtual method for the #hb_font_funcs_t of an #hb_font_t object.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_font_paint_glyph_func_t :: #type (font: *hb_font_t, font_data: *void, glyph: hb_codepoint_t, paint_funcs: *hb_paint_funcs_t, paint_data: *void, palette_index: u32, foreground: hb_color_t, user_data: *void) -> void #c_call;
 
@@ -2877,32 +2933,15 @@ hb_font_funcs_set_glyph_name_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_ge
 hb_font_funcs_set_glyph_from_name_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_get_glyph_from_name_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
 /**
-* hb_font_funcs_set_glyph_shape_func:
-* @ffuncs: A font-function structure
-* @func: (closure user_data) (destroy destroy) (scope notified): The callback function to assign
-* @user_data: Data to pass to @func
-* @destroy: (nullable): The function to call when @user_data is not needed anymore
-*
-* Sets the implementation function for #hb_font_get_glyph_shape_func_t,
-* which is the same as #hb_font_draw_glyph_func_t.
-*
-* Since: 4.0.0
-*
-* Deprecated: REPLACEME: Use hb_font_funcs_set_draw_glyph_func() instead
-**/
-hb_font_funcs_set_glyph_shape_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_get_glyph_shape_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
-
-/**
 * hb_font_funcs_set_draw_glyph_func:
 * @ffuncs: A font-function structure
 * @func: (closure user_data) (destroy destroy) (scope notified): The callback function to assign
 * @user_data: Data to pass to @func
 * @destroy: (nullable): The function to call when @user_data is not needed anymore
 *
-* Sets the implementation function for #hb_font_draw_glyph_func_t,
-* which is the same as #hb_font_get_glyph_shape_func_t.
+* Sets the implementation function for #hb_font_draw_glyph_func_t.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 **/
 hb_font_funcs_set_draw_glyph_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_draw_glyph_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2915,7 +2954,7 @@ hb_font_funcs_set_draw_glyph_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_dr
 *
 * Sets the implementation function for #hb_font_paint_glyph_func_t.
 *
-* Since: REPLACEME
+* Since: 7.0.0
 */
 hb_font_funcs_set_paint_glyph_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_paint_glyph_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
@@ -2951,8 +2990,6 @@ hb_font_get_glyph_contour_point :: (font: *hb_font_t, glyph: hb_codepoint_t, poi
 hb_font_get_glyph_name :: (font: *hb_font_t, glyph: hb_codepoint_t, name: *u8, size: u32) -> hb_bool_t #foreign harfbuzz;
 
 hb_font_get_glyph_from_name :: (font: *hb_font_t, name: *u8, len: s32, glyph: *hb_codepoint_t) -> hb_bool_t #foreign harfbuzz;
-
-hb_font_get_glyph_shape :: (font: *hb_font_t, glyph: hb_codepoint_t, dfuncs: *hb_draw_funcs_t, draw_data: *void) -> void #foreign harfbuzz;
 
 hb_font_draw_glyph :: (font: *hb_font_t, glyph: hb_codepoint_t, dfuncs: *hb_draw_funcs_t, draw_data: *void) -> void #foreign harfbuzz;
 
@@ -3041,11 +3078,17 @@ hb_font_set_ptem :: (font: *hb_font_t, ptem: float) -> void #foreign harfbuzz;
 
 hb_font_get_ptem :: (font: *hb_font_t) -> float #foreign harfbuzz;
 
+hb_font_set_synthetic_bold :: (font: *hb_font_t, x_embolden: float, y_embolden: float, in_place: hb_bool_t) -> void #foreign harfbuzz;
+
+hb_font_get_synthetic_bold :: (font: *hb_font_t, x_embolden: *float, y_embolden: *float, in_place: *hb_bool_t) -> void #foreign harfbuzz;
+
 hb_font_set_synthetic_slant :: (font: *hb_font_t, slant: float) -> void #foreign harfbuzz;
 
 hb_font_get_synthetic_slant :: (font: *hb_font_t) -> float #foreign harfbuzz;
 
 hb_font_set_variations :: (font: *hb_font_t, variations: *hb_variation_t, variations_length: u32) -> void #foreign harfbuzz;
+
+hb_font_set_variation :: (font: *hb_font_t, tag: hb_tag_t, value: float) -> void #foreign harfbuzz;
 
 hb_font_set_var_coords_design :: (font: *hb_font_t, coords: *float, coords_length: u32) -> void #foreign harfbuzz;
 
@@ -3120,7 +3163,7 @@ hb_glyph_info_t :: struct {
 * 				   layout, by avoiding re-shaping of each line
 * 				   after line-breaking, by limiting the
 * 				   reshaping to a small piece around the
-* 				   breaking positin only, even if the breaking
+* 				   breaking position only, even if the breaking
 * 				   position carries the
 * 				   #HB_GLYPH_FLAG_UNSAFE_TO_BREAK or when
 * 				   hyphenation or other text transformation
@@ -3443,6 +3486,14 @@ hb_buffer_get_invisible_glyph :: (buffer: *hb_buffer_t) -> hb_codepoint_t #forei
 hb_buffer_set_not_found_glyph :: (buffer: *hb_buffer_t, not_found: hb_codepoint_t) -> void #foreign harfbuzz;
 
 hb_buffer_get_not_found_glyph :: (buffer: *hb_buffer_t) -> hb_codepoint_t #foreign harfbuzz;
+
+hb_buffer_set_not_found_variation_selector_glyph :: (buffer: *hb_buffer_t, not_found_variation_selector: hb_codepoint_t) -> void #foreign harfbuzz;
+
+hb_buffer_get_not_found_variation_selector_glyph :: (buffer: *hb_buffer_t) -> hb_codepoint_t #foreign harfbuzz;
+
+hb_buffer_set_random_state :: (buffer: *hb_buffer_t, state: u32) -> void #foreign harfbuzz;
+
+hb_buffer_get_random_state :: (buffer: *hb_buffer_t) -> u32 #foreign harfbuzz;
 
 /*
 * Content API.
@@ -3771,6 +3822,39 @@ hb_font_get_glyph_v_kerning_func_t :: hb_font_get_glyph_kerning_func_t;
 hb_font_funcs_set_glyph_v_kerning_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_get_glyph_v_kerning_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
 
 hb_font_get_glyph_v_kerning :: (font: *hb_font_t, top_glyph: hb_codepoint_t, bottom_glyph: hb_codepoint_t) -> hb_position_t #foreign harfbuzz;
+
+/**
+* hb_font_get_glyph_shape_func_t:
+* @font: #hb_font_t to work upon
+* @font_data: @font user data pointer
+* @glyph: The glyph ID to query
+* @draw_funcs: The draw functions to send the shape data to
+* @draw_data: The data accompanying the draw functions
+* @user_data: User data pointer passed by the caller
+*
+* A virtual method for the #hb_font_funcs_t of an #hb_font_t object.
+*
+* Since: 4.0.0
+* Deprecated: 7.0.0: Use #hb_font_draw_glyph_func_t instead
+**/
+hb_font_get_glyph_shape_func_t :: #type (font: *hb_font_t, font_data: *void, glyph: hb_codepoint_t, draw_funcs: *hb_draw_funcs_t, draw_data: *void, user_data: *void) -> void #c_call;
+
+/**
+* hb_font_funcs_set_glyph_shape_func:
+* @ffuncs: A font-function structure
+* @func: (closure user_data) (destroy destroy) (scope notified): The callback function to assign
+* @user_data: Data to pass to @func
+* @destroy: (nullable): The function to call when @user_data is not needed anymore
+*
+* Sets the implementation function for #hb_font_get_glyph_shape_func_t,
+* which is the same as #hb_font_draw_glyph_func_t.
+*
+* Since: 4.0.0
+* Deprecated: 7.0.0: Use hb_font_funcs_set_draw_glyph_func() instead
+**/
+hb_font_funcs_set_glyph_shape_func :: (ffuncs: *hb_font_funcs_t, func: hb_font_get_glyph_shape_func_t, user_data: *void, destroy: hb_destroy_func_t) -> void #foreign harfbuzz;
+
+hb_font_get_glyph_shape :: (font: *hb_font_t, glyph: hb_codepoint_t, dfuncs: *hb_draw_funcs_t, draw_data: *void) -> void #foreign harfbuzz;
 
 hb_shape :: (font: *hb_font_t, buffer: *hb_buffer_t, features: *hb_feature_t, num_features: u32) -> void #foreign harfbuzz;
 

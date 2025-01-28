@@ -8346,13 +8346,15 @@ FT_Get_CMap_Format :: (charmap: FT_CharMap) -> FT_Long #foreign freetype;
 
 #if OS == .LINUX {
     freetype :: #library "linux/freetype";
-} else {
+} else #if OS == .MACOS {
     freetype :: #library "macos/freetype";
+} else #if OS == .ANDROID {
+    #if CPU == .X64 {
+        freetype :: #library "android/x64/freetype";
+    } else #if CPU == .ARM64 {
+        freetype :: #library "android/arm64/freetype";
+    }
+} else {
+    #assert false;
 }
 
-
-#scope_export
-// Additional bindings
-
-FT_Get_Glyph :: ( slot: FT_GlyphSlot, aglyph: *FT_Glyph ) #foreign freetype;
-FT_Glyph_Get_CBox :: ( glyph: FT_Glyph, bbox_mode: FT_Glyph_BBox_Mode, acbox: *FT_BBox ) #foreign freetype;
