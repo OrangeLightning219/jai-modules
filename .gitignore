@@ -1,5 +1,6 @@
 *.pdb
 *.exe
+*.obj
 build
 .build
 **/generate_bindings.dSYM
@@ -8,4 +9,9 @@ generate_bindings
 freetype/freetype
 assimp/assimp
 rectpack2D/rectpack2D
+gjk/gjk
 .vscode
+jolt/joltc
+jolt/JoltPhysics
+jolt/*.dll
+ufbx/ufbx
