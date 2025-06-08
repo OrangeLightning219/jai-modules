@@ -28,13 +28,15 @@ main :: ()
     ok := Jolt.init( map_collisions );
     assert( ok );
 
-    box: Jolt.Box_Shape;
+    box: Jolt.Collision_Shape;
+    box.type = .BOX;
     box.layer = .NON_MOVING;
     box.position = .{ 0, -1, 0 };
     box.extent = .{ 200, 2, 200 };
     floor := Jolt.add_box( box );
 
-    s: Jolt.Sphere_Shape;
+    s: Jolt.Collision_Shape;
+    s.type = .SPHERE;
     s.layer = .MOVING;
     s.motion_type = .DYNAMIC;
     s.position = .{ 0, 2, 0 };
