@@ -1,88 +1,56 @@
+#module_parameters( Collision_Layer: Type, ENABLE_ASSERT := true );
+
 #scope_file
 #import "Basic";
 #import "Math";
-#import "Hash_Table";
 
 #scope_module
 Vec2 :: Vector2;
 
 #scope_export
+MAX_POLYGON_VERTICES :: B2_MAX_POLYGON_VERTICES;
 
-GetAngle :: (q: Rot) -> float
+GetAngle :: ( q: Rot ) -> float
 {
-    return Atan2(q.s, q.c);
+    return Atan2( q.s, q.c );
+}
+
+MakeRot :: ( radians: float ) -> Rot
+{
+    cs := ComputeCosSin( radians );
+    return .{ cs.cosine, cs.sine };
+}
+
+DefaultTransform :: () -> Transform
+{
+    return .{ .{}, MakeRot( 0 ) };
 }
 
 #if OS == .WINDOWS
 {
-    #load "windows.jai";
-}
-
-Physics_State :: struct
-{
-    world: WorldId;
-    dt: float;
-}
-#add_context physics: *Physics_State;
-
-init :: (gravity: Vector2 = .{0, -10.0}) -> bool
-{
-    result: bool;
-
-    state := New(Physics_State);
-    context.physics = state;
-
-    world_def := DefaultWorldDef();
-    world_def.gravity = gravity;
-    state.world = CreateWorld(*world_def);
-    result = World_IsValid(state.world);
-
-    return result;
-}
-
-Collision_Shape_Type :: enum
-{
-    NONE;
-    BOX;
-    CIRCLE;
-    CAPSULE;
-}
-
-Collider :: struct
-{
-    enabled: bool;
-    body: BodyID;
-
-    position: Vector2;
-    rotation: float;
-    rot: Rot;
-
-    previous_position: Vector2;
-    previous_rotation: float;
-    previous_rot: Rot;
-
-    body_type: BodyType = .STATIC_BODY;
-
-    type: Collision_Shape_Type;
-    union
+    #if ENABLE_ASSERT
     {
-        extent: Vector2; // NOTE: For Box
-        using capsule: struct
-        {
-            radius: float; // NOTE: Also used for sphere radius
-            height: float; // NOTE: This is only the height of the cylinder part not the entire capsule. The height of the entire capsule is height + 2 * radius.
-        }
+        #load "windows_debug.jai";
     }
-
-    // TODO: Callbacks
+    else
+    {
+        #load "windows.jai";
+    }
 }
 
-make_body :: (position: Vector2, type: BodyType) -> BodyID
+// The query filter is used to filter collisions between queries and shapes. For example,
+// you may want a ray-cast representing a projectile to hit players and the static environment
+// but not debris.
+// @ingroup shape
+QueryFilter :: struct
 {
-    state := context.physics;
-    body_def := DefaultBodyDef();
-    body_def.type = type;
-    body_def.position = position;
-    body_id := CreateBody(state.world, *body_def);
-    return body_id;
+    // The collision category bits of this query. Normally you would just set one bit.
+    categoryBits: Collision_Layer;
+
+    // The collision mask bits. This states the shape categories that this
+    // query would accept for collision.
+    maskBits: Collision_Layer;
 }
+#assert type_info( Collision_Layer ).type == .ENUM;
+#assert type_info( Collision_Layer ).internal_type.signed == false;
+#assert type_info( Collision_Layer ).internal_type.runtime_size == 8;
