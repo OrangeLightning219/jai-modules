@@ -1,4 +1,4 @@
-#module_parameters( Object_Layer: Type, Broad_Phase_Layer: Type, Entity_Handle: Type, LINK_STATIC := false );
+#module_parameters( Object_Layer: Type, Broad_Phase_Layer: Type, Entity_Handle: Type, Entity: Type, LINK_STATIC := false );
 #assert type_info( Object_Layer ).type == .ENUM;
 #assert type_info( Broad_Phase_Layer ).type == .ENUM;
 #assert type_info( Object_Layer ).internal_type.signed == false;
@@ -211,8 +211,8 @@ On_Contact_Removed_Proc :: #type ( e: Collision_Event );
 
 Collision_Event :: struct
 {
-    self: Entity_Handle;
-    other: Entity_Handle;
+    self: Entity_Handle( Entity );
+    other: Entity_Handle( Entity );
 }
 
 Collider :: struct
@@ -225,7 +225,7 @@ Collider :: struct
     using shape: Collision_Shape;
     body: BodyID;
 
-    entity_handle: Entity_Handle;
+    entity_handle: Entity_Handle( Entity );
     on_contact_added: On_Contact_Added_Proc;
     on_contact_removed: On_Contact_Removed_Proc;
 }
@@ -348,7 +348,7 @@ Character_Controller :: struct
     character: *CharacterVirtual;
     settings: CharacterVirtualSettings;
 
-    entity_handle: Entity_Handle;
+    entity_handle: Entity_Handle( Entity );
     on_contact_added: On_Contact_Added_Proc;
     on_contact_removed: On_Contact_Removed_Proc;
 }
@@ -568,7 +568,7 @@ on_contact_added :: ( user_data: *void, body1: *Body, body2: *Body,
 
         ok, collider := table_find_new( *state.body_colliders, Body_GetID( body1 ) );
         assert( ok );
-        ok=, other_collider  := table_find_new( *state.body_colliders, Body_GetID( body2 ) );
+        ok=, other_collider := table_find_new( *state.body_colliders, Body_GetID( body2 ) );
         assert( ok );
 
         e: Collision_Event;
