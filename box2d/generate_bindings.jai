@@ -16,7 +16,7 @@ generate_bindings :: () -> bool
         using opts;
         file_name = "windows.jai";
         array_add( *library_search_paths, "./windows" );
-        array_add( *libraries, Library.{"box2d", ""} );
+        array_add( *libraries, Library.{"box2d_release", ""} );
         array_add( *include_paths, "./box2d/include" );
         array_add( *source_files, "./box2d/include/box2d/box2d.h" );
         array_add( *strip_prefixes, "b2", "B2" );
@@ -27,7 +27,26 @@ generate_bindings :: () -> bool
     ok := generate_bindings( opts, file_name );
     if !ok
     {
-        log_error( "Failed to generate bindings" );
+        log_error( "Failed to generate release bindings" );
+    }
+
+    opts = .{};
+    {
+        using opts;
+        file_name = "windows_debug.jai";
+        array_add( *library_search_paths, "./windows" );
+        array_add( *libraries, Library.{"box2d", ""} );
+        array_add( *include_paths, "./box2d/include" );
+        array_add( *source_files, "./box2d/include/box2d/box2d.h" );
+        array_add( *strip_prefixes, "b2", "B2" );
+        log_stripped_declarations = true;
+        visitor = box2d_visitor;
+    }
+
+    ok &= generate_bindings( opts, file_name );
+    if !ok
+    {
+        log_error( "Failed to generate debug bindings" );
     }
 
     return ok;
@@ -56,6 +75,17 @@ box2d_visitor :: ( decl: *Declaration, parent_decl: *Declaration ) -> Declaratio
 
 to_snake_case_upper :: ( value: string ) -> string
 {
+    is_upper := true;
+    for value
+    {
+        if !((it >= #char "A" && it <= #char "Z") || it == #char "_" || (it >= #char "0" && it <= #char "9"))
+        {
+            is_upper = false;
+            break;
+        }
+    }
+    if is_upper then return value;
+
     builder: String_Builder;
     for value
     {
@@ -73,7 +103,8 @@ to_snake_case_upper :: ( value: string ) -> string
         }
     }
     // NOTE: builder_to_string uses context.allocator
-    return builder_to_string( *builder );
+    result := builder_to_string( *builder );
+    return result;
 }
 
 #run {

@@ -28,14 +28,14 @@ AssertFcn :: #type (condition: *u8, fileName: *u8, lineNumber: s32) -> s32 #c_ca
 
 /// This allows the user to override the allocation functions. These should be
 /// set during application startup.
-SetAllocator :: (allocFcn: AllocFcn, freeFcn: FreeFcn) -> void #foreign box2d_release "b2SetAllocator";
+SetAllocator :: (allocFcn: AllocFcn, freeFcn: FreeFcn) -> void #foreign box2d "b2SetAllocator";
 
 /// @return the total bytes allocated by Box2D
-GetByteCount :: () -> s32 #foreign box2d_release "b2GetByteCount";
+GetByteCount :: () -> s32 #foreign box2d "b2GetByteCount";
 
 /// Override the default assert callback
 /// @param assertFcn a non-null assert callback
-SetAssertFcn :: (assertFcn: AssertFcn) -> void #foreign box2d_release "b2SetAssertFcn";
+SetAssertFcn :: (assertFcn: AssertFcn) -> void #foreign box2d "b2SetAssertFcn";
 
 /// Version numbering scheme.
 /// See https://semver.org/
@@ -51,22 +51,24 @@ Version :: struct {
 }
 
 /// Get the current version of Box2D
-GetVersion :: () -> Version #foreign box2d_release "b2GetVersion";
+GetVersion :: () -> Version #foreign box2d "b2GetVersion";
+
+InternalAssertFcn :: (condition: *u8, fileName: *u8, lineNumber: s32) -> s32 #foreign box2d "b2InternalAssertFcn";
 
 /// Get the absolute number of system ticks. The value is platform specific.
-GetTicks :: () -> u64 #foreign box2d_release "b2GetTicks";
+GetTicks :: () -> u64 #foreign box2d "b2GetTicks";
 
 /// Get the milliseconds passed from an initial tick value.
-GetMilliseconds :: (ticks: u64) -> float #foreign box2d_release "b2GetMilliseconds";
+GetMilliseconds :: (ticks: u64) -> float #foreign box2d "b2GetMilliseconds";
 
 /// Get the milliseconds passed from an initial tick value. Resets the passed in
 /// value to the current tick value.
-GetMillisecondsAndReset :: (ticks: *u64) -> float #foreign box2d_release "b2GetMillisecondsAndReset";
+GetMillisecondsAndReset :: (ticks: *u64) -> float #foreign box2d "b2GetMillisecondsAndReset";
 
 /// Yield to be used in a busy loop.
-Yield :: () -> void #foreign box2d_release "b2Yield";
+Yield :: () -> void #foreign box2d "b2Yield";
 
-Hash :: (hash: u32, data: *u8, count: s32) -> u32 #foreign box2d_release "b2Hash";
+Hash :: (hash: u32, data: *u8, count: s32) -> u32 #foreign box2d "b2Hash";
 
 /// Cosine and sine pair
 /// This uses a custom implementation designed for cross-platform determinism
@@ -112,32 +114,32 @@ Plane :: struct {
 }
 
 /// Is this a valid number? Not NaN or infinity.
-IsValidFloat :: (a: float) -> bool #foreign box2d_release "b2IsValidFloat";
+IsValidFloat :: (a: float) -> bool #foreign box2d "b2IsValidFloat";
 
 /// Is this a valid vector? Not NaN or infinity.
-IsValidVec2 :: (v: Vec2) -> bool #foreign box2d_release "b2IsValidVec2";
+IsValidVec2 :: (v: Vec2) -> bool #foreign box2d "b2IsValidVec2";
 
 /// Is this a valid rotation? Not NaN or infinity. Is normalized.
-IsValidRotation :: (q: Rot) -> bool #foreign box2d_release "b2IsValidRotation";
+IsValidRotation :: (q: Rot) -> bool #foreign box2d "b2IsValidRotation";
 
 /// Is this a valid bounding box? Not Nan or infinity. Upper bound greater than or equal to lower bound.
-IsValidAABB :: (aabb: AABB) -> bool #foreign box2d_release "b2IsValidAABB";
+IsValidAABB :: (aabb: AABB) -> bool #foreign box2d "b2IsValidAABB";
 
 /// Is this a valid plane? Normal is a unit vector. Not Nan or infinity.
-IsValidPlane :: (a: Plane) -> bool #foreign box2d_release "b2IsValidPlane";
+IsValidPlane :: (a: Plane) -> bool #foreign box2d "b2IsValidPlane";
 
 /// Compute an approximate arctangent in the range [-pi, pi]
 /// This is hand coded for cross-platform determinism. The atan2f
 /// function in the standard library is not cross-platform deterministic.
 ///	Accurate to around 0.0023 degrees
-Atan2 :: (y: float, x: float) -> float #foreign box2d_release "b2Atan2";
+Atan2 :: (y: float, x: float) -> float #foreign box2d "b2Atan2";
 
 /// Compute the cosine and sine of an angle in radians. Implemented
 /// for cross-platform determinism.
-ComputeCosSin :: (radians: float) -> CosSin #foreign box2d_release "b2ComputeCosSin";
+ComputeCosSin :: (radians: float) -> CosSin #foreign box2d "b2ComputeCosSin";
 
 /// Compute the rotation between two unit vectors
-ComputeRotationBetweenUnitVectors :: (v1: Vec2, v2: Vec2) -> Rot #foreign box2d_release "b2ComputeRotationBetweenUnitVectors";
+ComputeRotationBetweenUnitVectors :: (v1: Vec2, v2: Vec2) -> Rot #foreign box2d "b2ComputeRotationBetweenUnitVectors";
 
 /// Box2D bases all length units on meters, but you may need different units for your game.
 /// You can set this value to use different units. This should be done at application startup
@@ -153,10 +155,10 @@ ComputeRotationBetweenUnitVectors :: (v1: Vec2, v2: Vec2) -> Rot #foreign box2d_
 /// However, you are now on the hook for coming up with good values for gravity, density, and
 /// forces.
 /// @warning This must be modified before any calls to Box2D
-SetLengthUnitsPerMeter :: (lengthUnits: float) -> void #foreign box2d_release "b2SetLengthUnitsPerMeter";
+SetLengthUnitsPerMeter :: (lengthUnits: float) -> void #foreign box2d "b2SetLengthUnitsPerMeter";
 
 /// Get the current length units per meter.
-GetLengthUnitsPerMeter :: () -> float #foreign box2d_release "b2GetLengthUnitsPerMeter";
+GetLengthUnitsPerMeter :: () -> float #foreign box2d "b2GetLengthUnitsPerMeter";
 
 /// Low level ray cast input data
 RayCastInput :: struct {
@@ -302,41 +304,41 @@ ChainSegment :: struct {
 }
 
 /// Validate ray cast input data (NaN, etc)
-IsValidRay :: (input: *RayCastInput) -> bool #foreign box2d_release "b2IsValidRay";
+IsValidRay :: (input: *RayCastInput) -> bool #foreign box2d "b2IsValidRay";
 
 /// Make a convex polygon from a convex hull. This will assert if the hull is not valid.
 /// @warning Do not manually fill in the hull data, it must come directly from b2ComputeHull
-MakePolygon :: (hull: *Hull, radius: float) -> Polygon #foreign box2d_release "b2MakePolygon";
+MakePolygon :: (hull: *Hull, radius: float) -> Polygon #foreign box2d "b2MakePolygon";
 
 /// Make an offset convex polygon from a convex hull. This will assert if the hull is not valid.
 /// @warning Do not manually fill in the hull data, it must come directly from b2ComputeHull
-MakeOffsetPolygon :: (hull: *Hull, position: Vec2, rotation: Rot) -> Polygon #foreign box2d_release "b2MakeOffsetPolygon";
+MakeOffsetPolygon :: (hull: *Hull, position: Vec2, rotation: Rot) -> Polygon #foreign box2d "b2MakeOffsetPolygon";
 
 /// Make an offset convex polygon from a convex hull. This will assert if the hull is not valid.
 /// @warning Do not manually fill in the hull data, it must come directly from b2ComputeHull
-MakeOffsetRoundedPolygon :: (hull: *Hull, position: Vec2, rotation: Rot, radius: float) -> Polygon #foreign box2d_release "b2MakeOffsetRoundedPolygon";
+MakeOffsetRoundedPolygon :: (hull: *Hull, position: Vec2, rotation: Rot, radius: float) -> Polygon #foreign box2d "b2MakeOffsetRoundedPolygon";
 
 /// Make a square polygon, bypassing the need for a convex hull.
 /// @param halfWidth the half-width
-MakeSquare :: (halfWidth: float) -> Polygon #foreign box2d_release "b2MakeSquare";
+MakeSquare :: (halfWidth: float) -> Polygon #foreign box2d "b2MakeSquare";
 
 /// Make a box (rectangle) polygon, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
 /// @param halfHeight the half-height (y-axis)
-MakeBox :: (halfWidth: float, halfHeight: float) -> Polygon #foreign box2d_release "b2MakeBox";
+MakeBox :: (halfWidth: float, halfHeight: float) -> Polygon #foreign box2d "b2MakeBox";
 
 /// Make a rounded box, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
 /// @param halfHeight the half-height (y-axis)
 /// @param radius the radius of the rounded extension
-MakeRoundedBox :: (halfWidth: float, halfHeight: float, radius: float) -> Polygon #foreign box2d_release "b2MakeRoundedBox";
+MakeRoundedBox :: (halfWidth: float, halfHeight: float, radius: float) -> Polygon #foreign box2d "b2MakeRoundedBox";
 
 /// Make an offset box, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
 /// @param halfHeight the half-height (y-axis)
 /// @param center the local center of the box
 /// @param rotation the local rotation of the box
-MakeOffsetBox :: (halfWidth: float, halfHeight: float, center: Vec2, rotation: Rot) -> Polygon #foreign box2d_release "b2MakeOffsetBox";
+MakeOffsetBox :: (halfWidth: float, halfHeight: float, center: Vec2, rotation: Rot) -> Polygon #foreign box2d "b2MakeOffsetBox";
 
 /// Make an offset rounded box, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
@@ -344,65 +346,65 @@ MakeOffsetBox :: (halfWidth: float, halfHeight: float, center: Vec2, rotation: R
 /// @param center the local center of the box
 /// @param rotation the local rotation of the box
 /// @param radius the radius of the rounded extension
-MakeOffsetRoundedBox :: (halfWidth: float, halfHeight: float, center: Vec2, rotation: Rot, radius: float) -> Polygon #foreign box2d_release "b2MakeOffsetRoundedBox";
+MakeOffsetRoundedBox :: (halfWidth: float, halfHeight: float, center: Vec2, rotation: Rot, radius: float) -> Polygon #foreign box2d "b2MakeOffsetRoundedBox";
 
 /// Transform a polygon. This is useful for transferring a shape from one body to another.
-TransformPolygon :: (transform: Transform, polygon: *Polygon) -> Polygon #foreign box2d_release "b2TransformPolygon";
+TransformPolygon :: (transform: Transform, polygon: *Polygon) -> Polygon #foreign box2d "b2TransformPolygon";
 
 /// Compute mass properties of a circle
-ComputeCircleMass :: (shape: *Circle, density: float) -> MassData #foreign box2d_release "b2ComputeCircleMass";
+ComputeCircleMass :: (shape: *Circle, density: float) -> MassData #foreign box2d "b2ComputeCircleMass";
 
 /// Compute mass properties of a capsule
-ComputeCapsuleMass :: (shape: *Capsule, density: float) -> MassData #foreign box2d_release "b2ComputeCapsuleMass";
+ComputeCapsuleMass :: (shape: *Capsule, density: float) -> MassData #foreign box2d "b2ComputeCapsuleMass";
 
 /// Compute mass properties of a polygon
-ComputePolygonMass :: (shape: *Polygon, density: float) -> MassData #foreign box2d_release "b2ComputePolygonMass";
+ComputePolygonMass :: (shape: *Polygon, density: float) -> MassData #foreign box2d "b2ComputePolygonMass";
 
 /// Compute the bounding box of a transformed circle
-ComputeCircleAABB :: (shape: *Circle, transform: Transform) -> AABB #foreign box2d_release "b2ComputeCircleAABB";
+ComputeCircleAABB :: (shape: *Circle, transform: Transform) -> AABB #foreign box2d "b2ComputeCircleAABB";
 
 /// Compute the bounding box of a transformed capsule
-ComputeCapsuleAABB :: (shape: *Capsule, transform: Transform) -> AABB #foreign box2d_release "b2ComputeCapsuleAABB";
+ComputeCapsuleAABB :: (shape: *Capsule, transform: Transform) -> AABB #foreign box2d "b2ComputeCapsuleAABB";
 
 /// Compute the bounding box of a transformed polygon
-ComputePolygonAABB :: (shape: *Polygon, transform: Transform) -> AABB #foreign box2d_release "b2ComputePolygonAABB";
+ComputePolygonAABB :: (shape: *Polygon, transform: Transform) -> AABB #foreign box2d "b2ComputePolygonAABB";
 
 /// Compute the bounding box of a transformed line segment
-ComputeSegmentAABB :: (shape: *Segment, transform: Transform) -> AABB #foreign box2d_release "b2ComputeSegmentAABB";
+ComputeSegmentAABB :: (shape: *Segment, transform: Transform) -> AABB #foreign box2d "b2ComputeSegmentAABB";
 
 /// Test a point for overlap with a circle in local space
-PointInCircle :: (point: Vec2, shape: *Circle) -> bool #foreign box2d_release "b2PointInCircle";
+PointInCircle :: (point: Vec2, shape: *Circle) -> bool #foreign box2d "b2PointInCircle";
 
 /// Test a point for overlap with a capsule in local space
-PointInCapsule :: (point: Vec2, shape: *Capsule) -> bool #foreign box2d_release "b2PointInCapsule";
+PointInCapsule :: (point: Vec2, shape: *Capsule) -> bool #foreign box2d "b2PointInCapsule";
 
 /// Test a point for overlap with a convex polygon in local space
-PointInPolygon :: (point: Vec2, shape: *Polygon) -> bool #foreign box2d_release "b2PointInPolygon";
+PointInPolygon :: (point: Vec2, shape: *Polygon) -> bool #foreign box2d "b2PointInPolygon";
 
 /// Ray cast versus circle shape in local space. Initial overlap is treated as a miss.
-RayCastCircle :: (input: *RayCastInput, shape: *Circle) -> CastOutput #foreign box2d_release "b2RayCastCircle";
+RayCastCircle :: (input: *RayCastInput, shape: *Circle) -> CastOutput #foreign box2d "b2RayCastCircle";
 
 /// Ray cast versus capsule shape in local space. Initial overlap is treated as a miss.
-RayCastCapsule :: (input: *RayCastInput, shape: *Capsule) -> CastOutput #foreign box2d_release "b2RayCastCapsule";
+RayCastCapsule :: (input: *RayCastInput, shape: *Capsule) -> CastOutput #foreign box2d "b2RayCastCapsule";
 
 /// Ray cast versus segment shape in local space. Optionally treat the segment as one-sided with hits from
 /// the left side being treated as a miss.
-RayCastSegment :: (input: *RayCastInput, shape: *Segment, oneSided: bool) -> CastOutput #foreign box2d_release "b2RayCastSegment";
+RayCastSegment :: (input: *RayCastInput, shape: *Segment, oneSided: bool) -> CastOutput #foreign box2d "b2RayCastSegment";
 
 /// Ray cast versus polygon shape in local space. Initial overlap is treated as a miss.
-RayCastPolygon :: (input: *RayCastInput, shape: *Polygon) -> CastOutput #foreign box2d_release "b2RayCastPolygon";
+RayCastPolygon :: (input: *RayCastInput, shape: *Polygon) -> CastOutput #foreign box2d "b2RayCastPolygon";
 
 /// Shape cast versus a circle. Initial overlap is treated as a miss.
-ShapeCastCircle :: (input: *ShapeCastInput, shape: *Circle) -> CastOutput #foreign box2d_release "b2ShapeCastCircle";
+ShapeCastCircle :: (input: *ShapeCastInput, shape: *Circle) -> CastOutput #foreign box2d "b2ShapeCastCircle";
 
 /// Shape cast versus a capsule. Initial overlap is treated as a miss.
-ShapeCastCapsule :: (input: *ShapeCastInput, shape: *Capsule) -> CastOutput #foreign box2d_release "b2ShapeCastCapsule";
+ShapeCastCapsule :: (input: *ShapeCastInput, shape: *Capsule) -> CastOutput #foreign box2d "b2ShapeCastCapsule";
 
 /// Shape cast versus a line segment. Initial overlap is treated as a miss.
-ShapeCastSegment :: (input: *ShapeCastInput, shape: *Segment) -> CastOutput #foreign box2d_release "b2ShapeCastSegment";
+ShapeCastSegment :: (input: *ShapeCastInput, shape: *Segment) -> CastOutput #foreign box2d "b2ShapeCastSegment";
 
 /// Shape cast versus a convex polygon. Initial overlap is treated as a miss.
-ShapeCastPolygon :: (input: *ShapeCastInput, shape: *Polygon) -> CastOutput #foreign box2d_release "b2ShapeCastPolygon";
+ShapeCastPolygon :: (input: *ShapeCastInput, shape: *Polygon) -> CastOutput #foreign box2d "b2ShapeCastPolygon";
 
 /// A convex hull. Used to create convex polygons.
 /// @warning Do not modify these values directly, instead use b2ComputeHull()
@@ -422,13 +424,13 @@ Hull :: struct {
 /// - more than B2_MAX_POLYGON_VERTICES points
 /// This welds close points and removes collinear points.
 /// @warning Do not modify a hull once it has been computed
-ComputeHull :: (points: *Vec2, count: s32) -> Hull #foreign box2d_release "b2ComputeHull";
+ComputeHull :: (points: *Vec2, count: s32) -> Hull #foreign box2d "b2ComputeHull";
 
 /// This determines if a hull is valid. Checks for:
 /// - convexity
 /// - collinear points
 /// This is expensive and should not be called at runtime.
-ValidateHull :: (hull: *Hull) -> bool #foreign box2d_release "b2ValidateHull";
+ValidateHull :: (hull: *Hull) -> bool #foreign box2d "b2ValidateHull";
 
 /// Result of computing the distance between two line segments
 SegmentDistanceResult :: struct {
@@ -449,7 +451,7 @@ SegmentDistanceResult :: struct {
 }
 
 /// Compute the distance between two line segments, clamping at the end points if needed.
-SegmentDistance :: (p1: Vec2, q1: Vec2, p2: Vec2, q2: Vec2) -> SegmentDistanceResult #foreign box2d_release "b2SegmentDistance";
+SegmentDistance :: (p1: Vec2, q1: Vec2, p2: Vec2, q2: Vec2) -> SegmentDistanceResult #foreign box2d "b2SegmentDistance";
 
 /// Used to warm start the GJK simplex. If you call this function multiple times with nearby
 /// transforms this might improve performance. Otherwise you can zero initialize this.
@@ -515,7 +517,7 @@ Simplex :: struct {
 /// Compute the closest points between two shapes represented as point clouds.
 /// b2SimplexCache cache is input/output. On the first call set b2SimplexCache.count to zero.
 /// The underlying GJK algorithm may be debugged by passing in debug simplexes and capacity. You may pass in NULL and 0 for these.
-ShapeDistance :: (input: *DistanceInput, cache: *SimplexCache, simplexes: *Simplex, simplexCapacity: s32) -> DistanceOutput #foreign box2d_release "b2ShapeDistance";
+ShapeDistance :: (input: *DistanceInput, cache: *SimplexCache, simplexes: *Simplex, simplexCapacity: s32) -> DistanceOutput #foreign box2d "b2ShapeDistance";
 
 /// Input parameters for b2ShapeCast
 ShapeCastPairInput :: struct {
@@ -530,13 +532,13 @@ ShapeCastPairInput :: struct {
 
 /// Perform a linear shape cast of shape B moving and shape A fixed. Determines the hit point, normal, and translation fraction.
 /// Initially touching shapes are treated as a miss.
-ShapeCast :: (input: *ShapeCastPairInput) -> CastOutput #foreign box2d_release "b2ShapeCast";
+ShapeCast :: (input: *ShapeCastPairInput) -> CastOutput #foreign box2d "b2ShapeCast";
 
 /// Make a proxy for use in overlap, shape cast, and related functions. This is a deep copy of the points.
-MakeProxy :: (points: *Vec2, count: s32, radius: float) -> ShapeProxy #foreign box2d_release "b2MakeProxy";
+MakeProxy :: (points: *Vec2, count: s32, radius: float) -> ShapeProxy #foreign box2d "b2MakeProxy";
 
 /// Make a proxy with a transform. This is a deep copy of the points.
-MakeOffsetProxy :: (points: *Vec2, count: s32, radius: float, position: Vec2, rotation: Rot) -> ShapeProxy #foreign box2d_release "b2MakeOffsetProxy";
+MakeOffsetProxy :: (points: *Vec2, count: s32, radius: float, position: Vec2, rotation: Rot) -> ShapeProxy #foreign box2d "b2MakeOffsetProxy";
 
 /// This describes the motion of a body/shape for TOI computation. Shapes are defined with respect to the body origin,
 /// which may not coincide with the center of mass. However, to support dynamics we must interpolate the center of mass
@@ -550,7 +552,7 @@ Sweep :: struct {
 }
 
 /// Evaluate the transform sweep at a specific time.
-GetSweepTransform :: (sweep: *Sweep, time: float) -> Transform #foreign box2d_release "b2GetSweepTransform";
+GetSweepTransform :: (sweep: *Sweep, time: float) -> Transform #foreign box2d "b2GetSweepTransform";
 
 /// Input parameters for b2TimeOfImpact
 TOIInput :: struct {
@@ -586,7 +588,7 @@ TOIOutput :: struct {
 /// a fraction between [0,tMax]. This uses a swept separating axis and may miss some intermediate,
 /// non-tunneling collisions. If you change the time interval, you should call this function
 /// again.
-TimeOfImpact :: (input: *TOIInput) -> TOIOutput #foreign box2d_release "b2TimeOfImpact";
+TimeOfImpact :: (input: *TOIInput) -> TOIOutput #foreign box2d "b2TimeOfImpact";
 
 /// A manifold point is a contact point belonging to a contact manifold.
 /// It holds details related to the geometry and dynamics of the contact points.
@@ -647,40 +649,40 @@ Manifold :: struct {
 }
 
 /// Compute the contact manifold between two circles
-CollideCircles :: (circleA: *Circle, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d_release "b2CollideCircles";
+CollideCircles :: (circleA: *Circle, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d "b2CollideCircles";
 
 /// Compute the contact manifold between a capsule and circle
-CollideCapsuleAndCircle :: (capsuleA: *Capsule, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d_release "b2CollideCapsuleAndCircle";
+CollideCapsuleAndCircle :: (capsuleA: *Capsule, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d "b2CollideCapsuleAndCircle";
 
 /// Compute the contact manifold between an segment and a circle
-CollideSegmentAndCircle :: (segmentA: *Segment, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d_release "b2CollideSegmentAndCircle";
+CollideSegmentAndCircle :: (segmentA: *Segment, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d "b2CollideSegmentAndCircle";
 
 /// Compute the contact manifold between a polygon and a circle
-CollidePolygonAndCircle :: (polygonA: *Polygon, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d_release "b2CollidePolygonAndCircle";
+CollidePolygonAndCircle :: (polygonA: *Polygon, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d "b2CollidePolygonAndCircle";
 
 /// Compute the contact manifold between a capsule and circle
-CollideCapsules :: (capsuleA: *Capsule, xfA: Transform, capsuleB: *Capsule, xfB: Transform) -> Manifold #foreign box2d_release "b2CollideCapsules";
+CollideCapsules :: (capsuleA: *Capsule, xfA: Transform, capsuleB: *Capsule, xfB: Transform) -> Manifold #foreign box2d "b2CollideCapsules";
 
 /// Compute the contact manifold between an segment and a capsule
-CollideSegmentAndCapsule :: (segmentA: *Segment, xfA: Transform, capsuleB: *Capsule, xfB: Transform) -> Manifold #foreign box2d_release "b2CollideSegmentAndCapsule";
+CollideSegmentAndCapsule :: (segmentA: *Segment, xfA: Transform, capsuleB: *Capsule, xfB: Transform) -> Manifold #foreign box2d "b2CollideSegmentAndCapsule";
 
 /// Compute the contact manifold between a polygon and capsule
-CollidePolygonAndCapsule :: (polygonA: *Polygon, xfA: Transform, capsuleB: *Capsule, xfB: Transform) -> Manifold #foreign box2d_release "b2CollidePolygonAndCapsule";
+CollidePolygonAndCapsule :: (polygonA: *Polygon, xfA: Transform, capsuleB: *Capsule, xfB: Transform) -> Manifold #foreign box2d "b2CollidePolygonAndCapsule";
 
 /// Compute the contact manifold between two polygons
-CollidePolygons :: (polygonA: *Polygon, xfA: Transform, polygonB: *Polygon, xfB: Transform) -> Manifold #foreign box2d_release "b2CollidePolygons";
+CollidePolygons :: (polygonA: *Polygon, xfA: Transform, polygonB: *Polygon, xfB: Transform) -> Manifold #foreign box2d "b2CollidePolygons";
 
 /// Compute the contact manifold between an segment and a polygon
-CollideSegmentAndPolygon :: (segmentA: *Segment, xfA: Transform, polygonB: *Polygon, xfB: Transform) -> Manifold #foreign box2d_release "b2CollideSegmentAndPolygon";
+CollideSegmentAndPolygon :: (segmentA: *Segment, xfA: Transform, polygonB: *Polygon, xfB: Transform) -> Manifold #foreign box2d "b2CollideSegmentAndPolygon";
 
 /// Compute the contact manifold between a chain segment and a circle
-CollideChainSegmentAndCircle :: (segmentA: *ChainSegment, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d_release "b2CollideChainSegmentAndCircle";
+CollideChainSegmentAndCircle :: (segmentA: *ChainSegment, xfA: Transform, circleB: *Circle, xfB: Transform) -> Manifold #foreign box2d "b2CollideChainSegmentAndCircle";
 
 /// Compute the contact manifold between a chain segment and a capsule
-CollideChainSegmentAndCapsule :: (segmentA: *ChainSegment, xfA: Transform, capsuleB: *Capsule, xfB: Transform, cache: *SimplexCache) -> Manifold #foreign box2d_release "b2CollideChainSegmentAndCapsule";
+CollideChainSegmentAndCapsule :: (segmentA: *ChainSegment, xfA: Transform, capsuleB: *Capsule, xfB: Transform, cache: *SimplexCache) -> Manifold #foreign box2d "b2CollideChainSegmentAndCapsule";
 
 /// Compute the contact manifold between a chain segment and a rounded polygon
-CollideChainSegmentAndPolygon :: (segmentA: *ChainSegment, xfA: Transform, polygonB: *Polygon, xfB: Transform, cache: *SimplexCache) -> Manifold #foreign box2d_release "b2CollideChainSegmentAndPolygon";
+CollideChainSegmentAndPolygon :: (segmentA: *ChainSegment, xfA: Transform, polygonB: *Polygon, xfB: Transform, cache: *SimplexCache) -> Manifold #foreign box2d "b2CollideChainSegmentAndPolygon";
 
 /// The dynamic tree structure. This should be considered private data.
 /// It is placed here for performance reasons.
@@ -730,28 +732,28 @@ TreeStats :: struct {
 }
 
 /// Constructing the tree initializes the node pool.
-DynamicTree_Create :: () -> DynamicTree #foreign box2d_release "b2DynamicTree_Create";
+DynamicTree_Create :: () -> DynamicTree #foreign box2d "b2DynamicTree_Create";
 
 /// Destroy the tree, freeing the node pool.
-DynamicTree_Destroy :: (tree: *DynamicTree) -> void #foreign box2d_release "b2DynamicTree_Destroy";
+DynamicTree_Destroy :: (tree: *DynamicTree) -> void #foreign box2d "b2DynamicTree_Destroy";
 
 /// Create a proxy. Provide an AABB and a userData value.
-DynamicTree_CreateProxy :: (tree: *DynamicTree, aabb: AABB, categoryBits: u64, userData: u64) -> s32 #foreign box2d_release "b2DynamicTree_CreateProxy";
+DynamicTree_CreateProxy :: (tree: *DynamicTree, aabb: AABB, categoryBits: u64, userData: u64) -> s32 #foreign box2d "b2DynamicTree_CreateProxy";
 
 /// Destroy a proxy. This asserts if the id is invalid.
-DynamicTree_DestroyProxy :: (tree: *DynamicTree, proxyId: s32) -> void #foreign box2d_release "b2DynamicTree_DestroyProxy";
+DynamicTree_DestroyProxy :: (tree: *DynamicTree, proxyId: s32) -> void #foreign box2d "b2DynamicTree_DestroyProxy";
 
 /// Move a proxy to a new AABB by removing and reinserting into the tree.
-DynamicTree_MoveProxy :: (tree: *DynamicTree, proxyId: s32, aabb: AABB) -> void #foreign box2d_release "b2DynamicTree_MoveProxy";
+DynamicTree_MoveProxy :: (tree: *DynamicTree, proxyId: s32, aabb: AABB) -> void #foreign box2d "b2DynamicTree_MoveProxy";
 
 /// Enlarge a proxy and enlarge ancestors as necessary.
-DynamicTree_EnlargeProxy :: (tree: *DynamicTree, proxyId: s32, aabb: AABB) -> void #foreign box2d_release "b2DynamicTree_EnlargeProxy";
+DynamicTree_EnlargeProxy :: (tree: *DynamicTree, proxyId: s32, aabb: AABB) -> void #foreign box2d "b2DynamicTree_EnlargeProxy";
 
 /// Modify the category bits on a proxy. This is an expensive operation.
-DynamicTree_SetCategoryBits :: (tree: *DynamicTree, proxyId: s32, categoryBits: u64) -> void #foreign box2d_release "b2DynamicTree_SetCategoryBits";
+DynamicTree_SetCategoryBits :: (tree: *DynamicTree, proxyId: s32, categoryBits: u64) -> void #foreign box2d "b2DynamicTree_SetCategoryBits";
 
 /// Get the category bits on a proxy.
-DynamicTree_GetCategoryBits :: (tree: *DynamicTree, proxyId: s32) -> u64 #foreign box2d_release "b2DynamicTree_GetCategoryBits";
+DynamicTree_GetCategoryBits :: (tree: *DynamicTree, proxyId: s32) -> u64 #foreign box2d "b2DynamicTree_GetCategoryBits";
 
 /// This function receives proxies found in the AABB query.
 /// @return true if the query should continue
@@ -759,7 +761,7 @@ TreeQueryCallbackFcn :: #type (proxyId: s32, userData: u64, _context: *void) -> 
 
 /// Query an AABB for overlapping proxies. The callback class is called for each proxy that overlaps the supplied AABB.
 ///	@return performance data
-DynamicTree_Query :: (tree: *DynamicTree, aabb: AABB, maskBits: u64, callback: TreeQueryCallbackFcn, _context: *void) -> TreeStats #foreign box2d_release "b2DynamicTree_Query";
+DynamicTree_Query :: (tree: *DynamicTree, aabb: AABB, maskBits: u64, callback: TreeQueryCallbackFcn, _context: *void) -> TreeStats #foreign box2d "b2DynamicTree_Query";
 
 /// This function receives clipped ray cast input for a proxy. The function
 /// returns the new ray fraction.
@@ -781,7 +783,7 @@ TreeRayCastCallbackFcn :: #type (input: *RayCastInput, proxyId: s32, userData: u
 /// @param callback a callback class that is called for each proxy that is hit by the ray
 /// @param context user context that is passed to the callback
 ///	@return performance data
-DynamicTree_RayCast :: (tree: *DynamicTree, input: *RayCastInput, maskBits: u64, callback: TreeRayCastCallbackFcn, _context: *void) -> TreeStats #foreign box2d_release "b2DynamicTree_RayCast";
+DynamicTree_RayCast :: (tree: *DynamicTree, input: *RayCastInput, maskBits: u64, callback: TreeRayCastCallbackFcn, _context: *void) -> TreeStats #foreign box2d "b2DynamicTree_RayCast";
 
 /// This function receives clipped ray cast input for a proxy. The function
 /// returns the new ray fraction.
@@ -801,37 +803,37 @@ TreeShapeCastCallbackFcn :: #type (input: *ShapeCastInput, proxyId: s32, userDat
 /// @param callback a callback class that is called for each proxy that is hit by the shape
 /// @param context user context that is passed to the callback
 ///	@return performance data
-DynamicTree_ShapeCast :: (tree: *DynamicTree, input: *ShapeCastInput, maskBits: u64, callback: TreeShapeCastCallbackFcn, _context: *void) -> TreeStats #foreign box2d_release "b2DynamicTree_ShapeCast";
+DynamicTree_ShapeCast :: (tree: *DynamicTree, input: *ShapeCastInput, maskBits: u64, callback: TreeShapeCastCallbackFcn, _context: *void) -> TreeStats #foreign box2d "b2DynamicTree_ShapeCast";
 
 /// Get the height of the binary tree.
-DynamicTree_GetHeight :: (tree: *DynamicTree) -> s32 #foreign box2d_release "b2DynamicTree_GetHeight";
+DynamicTree_GetHeight :: (tree: *DynamicTree) -> s32 #foreign box2d "b2DynamicTree_GetHeight";
 
 /// Get the ratio of the sum of the node areas to the root area.
-DynamicTree_GetAreaRatio :: (tree: *DynamicTree) -> float #foreign box2d_release "b2DynamicTree_GetAreaRatio";
+DynamicTree_GetAreaRatio :: (tree: *DynamicTree) -> float #foreign box2d "b2DynamicTree_GetAreaRatio";
 
 /// Get the bounding box that contains the entire tree
-DynamicTree_GetRootBounds :: (tree: *DynamicTree) -> AABB #foreign box2d_release "b2DynamicTree_GetRootBounds";
+DynamicTree_GetRootBounds :: (tree: *DynamicTree) -> AABB #foreign box2d "b2DynamicTree_GetRootBounds";
 
 /// Get the number of proxies created
-DynamicTree_GetProxyCount :: (tree: *DynamicTree) -> s32 #foreign box2d_release "b2DynamicTree_GetProxyCount";
+DynamicTree_GetProxyCount :: (tree: *DynamicTree) -> s32 #foreign box2d "b2DynamicTree_GetProxyCount";
 
 /// Rebuild the tree while retaining subtrees that haven't changed. Returns the number of boxes sorted.
-DynamicTree_Rebuild :: (tree: *DynamicTree, fullBuild: bool) -> s32 #foreign box2d_release "b2DynamicTree_Rebuild";
+DynamicTree_Rebuild :: (tree: *DynamicTree, fullBuild: bool) -> s32 #foreign box2d "b2DynamicTree_Rebuild";
 
 /// Get the number of bytes used by this tree
-DynamicTree_GetByteCount :: (tree: *DynamicTree) -> s32 #foreign box2d_release "b2DynamicTree_GetByteCount";
+DynamicTree_GetByteCount :: (tree: *DynamicTree) -> s32 #foreign box2d "b2DynamicTree_GetByteCount";
 
 /// Get proxy user data
-DynamicTree_GetUserData :: (tree: *DynamicTree, proxyId: s32) -> u64 #foreign box2d_release "b2DynamicTree_GetUserData";
+DynamicTree_GetUserData :: (tree: *DynamicTree, proxyId: s32) -> u64 #foreign box2d "b2DynamicTree_GetUserData";
 
 /// Get the AABB of a proxy
-DynamicTree_GetAABB :: (tree: *DynamicTree, proxyId: s32) -> AABB #foreign box2d_release "b2DynamicTree_GetAABB";
+DynamicTree_GetAABB :: (tree: *DynamicTree, proxyId: s32) -> AABB #foreign box2d "b2DynamicTree_GetAABB";
 
 /// Validate this tree. For testing.
-DynamicTree_Validate :: (tree: *DynamicTree) -> void #foreign box2d_release "b2DynamicTree_Validate";
+DynamicTree_Validate :: (tree: *DynamicTree) -> void #foreign box2d "b2DynamicTree_Validate";
 
 /// Validate this tree has no enlarged AABBs. For testing.
-DynamicTree_ValidateNoEnlarged :: (tree: *DynamicTree) -> void #foreign box2d_release "b2DynamicTree_ValidateNoEnlarged";
+DynamicTree_ValidateNoEnlarged :: (tree: *DynamicTree) -> void #foreign box2d "b2DynamicTree_ValidateNoEnlarged";
 
 /// These are the collision planes returned from b2World_CollideMover
 PlaneResult :: struct {
@@ -875,11 +877,11 @@ PlaneSolverResult :: struct {
 /// @param targetDelta the desired movement from the position used to generate the collision planes
 /// @param planes the collision planes
 /// @param count the number of collision planes
-SolvePlanes :: (targetDelta: Vec2, planes: *CollisionPlane, count: s32) -> PlaneSolverResult #foreign box2d_release "b2SolvePlanes";
+SolvePlanes :: (targetDelta: Vec2, planes: *CollisionPlane, count: s32) -> PlaneSolverResult #foreign box2d "b2SolvePlanes";
 
 /// Clips the velocity against the given collision planes. Planes with zero push or clipVelocity
 /// set to false are skipped.
-ClipVector :: (vector: Vec2, planes: *CollisionPlane, count: s32) -> Vec2 #foreign box2d_release "b2ClipVector";
+ClipVector :: (vector: Vec2, planes: *CollisionPlane, count: s32) -> Vec2 #foreign box2d "b2ClipVector";
 
 /// World id references a world instance. This should be treated as an opaque handle.
 WorldId :: struct {
@@ -1043,7 +1045,7 @@ WorldDef :: struct {
 
 /// Use this to initialize your world definition
 /// @ingroup world
-DefaultWorldDef :: () -> WorldDef #foreign box2d_release "b2DefaultWorldDef";
+DefaultWorldDef :: () -> WorldDef #foreign box2d "b2DefaultWorldDef";
 
 /// The body simulation type.
 /// Each body is one of these three types. The type determines how the body behaves in the simulation.
@@ -1142,7 +1144,7 @@ BodyDef :: struct {
 
 /// Use this to initialize your body definition
 /// @ingroup body
-DefaultBodyDef :: () -> BodyDef #foreign box2d_release "b2DefaultBodyDef";
+DefaultBodyDef :: () -> BodyDef #foreign box2d "b2DefaultBodyDef";
 
 /// This is used to filter collision on shapes. It affects shape-vs-shape collision
 /// and shape-versus-query collision (such as b2World_CastRay).
@@ -1182,11 +1184,11 @@ Filter :: struct {
 
 /// Use this to initialize your filter
 /// @ingroup shape
-DefaultFilter :: () -> Filter #foreign box2d_release "b2DefaultFilter";
+DefaultFilter :: () -> Filter #foreign box2d "b2DefaultFilter";
 
 /// Use this to initialize your query filter
 /// @ingroup shape
-DefaultQueryFilter :: () -> QueryFilter #foreign box2d_release "b2DefaultQueryFilter";
+DefaultQueryFilter :: () -> QueryFilter #foreign box2d "b2DefaultQueryFilter";
 
 /// Shape type
 /// @ingroup shape
@@ -1242,7 +1244,7 @@ SurfaceMaterial :: struct {
 
 /// Use this to initialize your surface material
 /// @ingroup shape
-DefaultSurfaceMaterial :: () -> SurfaceMaterial #foreign box2d_release "b2DefaultSurfaceMaterial";
+DefaultSurfaceMaterial :: () -> SurfaceMaterial #foreign box2d "b2DefaultSurfaceMaterial";
 
 /// Used to create a shape.
 /// This is a temporary object used to bundle shape creation parameters. You may use
@@ -1298,7 +1300,7 @@ ShapeDef :: struct {
 
 /// Use this to initialize your shape definition
 /// @ingroup shape
-DefaultShapeDef :: () -> ShapeDef #foreign box2d_release "b2DefaultShapeDef";
+DefaultShapeDef :: () -> ShapeDef #foreign box2d "b2DefaultShapeDef";
 
 /// Used to create a chain of line segments. This is designed to eliminate ghost collisions with some limitations.
 /// - chains are one-sided
@@ -1347,7 +1349,7 @@ ChainDef :: struct {
 
 /// Use this to initialize your chain definition
 /// @ingroup shape
-DefaultChainDef :: () -> ChainDef #foreign box2d_release "b2DefaultChainDef";
+DefaultChainDef :: () -> ChainDef #foreign box2d "b2DefaultChainDef";
 
 //! @cond
 /// Profiling data. Times are in milliseconds.
@@ -1479,7 +1481,7 @@ DistanceJointDef :: struct {
 
 /// Use this to initialize your joint definition
 /// @ingroup distance_joint
-DefaultDistanceJointDef :: () -> DistanceJointDef #foreign box2d_release "b2DefaultDistanceJointDef";
+DefaultDistanceJointDef :: () -> DistanceJointDef #foreign box2d "b2DefaultDistanceJointDef";
 
 /// A motor joint is used to control the relative motion between two bodies
 ///
@@ -1519,7 +1521,7 @@ MotorJointDef :: struct {
 
 /// Use this to initialize your joint definition
 /// @ingroup motor_joint
-DefaultMotorJointDef :: () -> MotorJointDef #foreign box2d_release "b2DefaultMotorJointDef";
+DefaultMotorJointDef :: () -> MotorJointDef #foreign box2d "b2DefaultMotorJointDef";
 
 /// A mouse joint is used to make a point on a body track a specified world point.
 ///
@@ -1557,7 +1559,7 @@ MouseJointDef :: struct {
 
 /// Use this to initialize your joint definition
 /// @ingroup mouse_joint
-DefaultMouseJointDef :: () -> MouseJointDef #foreign box2d_release "b2DefaultMouseJointDef";
+DefaultMouseJointDef :: () -> MouseJointDef #foreign box2d "b2DefaultMouseJointDef";
 
 /// A filter joint is used to disable collision between two specific bodies.
 ///
@@ -1578,7 +1580,7 @@ FilterJointDef :: struct {
 
 /// Use this to initialize your joint definition
 /// @ingroup filter_joint
-DefaultFilterJointDef :: () -> FilterJointDef #foreign box2d_release "b2DefaultFilterJointDef";
+DefaultFilterJointDef :: () -> FilterJointDef #foreign box2d "b2DefaultFilterJointDef";
 
 /// Prismatic joint definition
 ///
@@ -1649,7 +1651,7 @@ PrismaticJointDef :: struct {
 
 /// Use this to initialize your joint definition
 /// @ingroupd prismatic_joint
-DefaultPrismaticJointDef :: () -> PrismaticJointDef #foreign box2d_release "b2DefaultPrismaticJointDef";
+DefaultPrismaticJointDef :: () -> PrismaticJointDef #foreign box2d "b2DefaultPrismaticJointDef";
 
 /// Revolute joint definition
 ///
@@ -1726,7 +1728,7 @@ RevoluteJointDef :: struct {
 
 /// Use this to initialize your joint definition.
 /// @ingroup revolute_joint
-DefaultRevoluteJointDef :: () -> RevoluteJointDef #foreign box2d_release "b2DefaultRevoluteJointDef";
+DefaultRevoluteJointDef :: () -> RevoluteJointDef #foreign box2d "b2DefaultRevoluteJointDef";
 
 /// Weld joint definition
 ///
@@ -1775,7 +1777,7 @@ WeldJointDef :: struct {
 
 /// Use this to initialize your joint definition
 /// @ingroup weld_joint
-DefaultWeldJointDef :: () -> WeldJointDef #foreign box2d_release "b2DefaultWeldJointDef";
+DefaultWeldJointDef :: () -> WeldJointDef #foreign box2d "b2DefaultWeldJointDef";
 
 /// Wheel joint definition
 ///
@@ -1839,7 +1841,7 @@ WheelJointDef :: struct {
 
 /// Use this to initialize your joint definition
 /// @ingroup wheel_joint
-DefaultWheelJointDef :: () -> WheelJointDef #foreign box2d_release "b2DefaultWheelJointDef";
+DefaultWheelJointDef :: () -> WheelJointDef #foreign box2d "b2DefaultWheelJointDef";
 
 /// The explosion definition is used to configure options for explosions. Explosions
 /// consider shape geometry when computing the impulse.
@@ -1865,7 +1867,7 @@ ExplosionDef :: struct {
 
 /// Use this to initialize your explosion definition
 /// @ingroup world
-DefaultExplosionDef :: () -> ExplosionDef #foreign box2d_release "b2DefaultExplosionDef";
+DefaultExplosionDef :: () -> ExplosionDef #foreign box2d "b2DefaultExplosionDef";
 
 /// A begin touch event is generated when a shape starts to overlap a sensor shape.
 SensorBeginTouchEvent :: struct {
@@ -2459,42 +2461,42 @@ DebugDraw :: struct {
 
 /// Use this to initialize your drawing interface. This allows you to implement a sub-set
 /// of the drawing functions.
-DefaultDebugDraw :: () -> DebugDraw #foreign box2d_release "b2DefaultDebugDraw";
+DefaultDebugDraw :: () -> DebugDraw #foreign box2d "b2DefaultDebugDraw";
 
 /// Create a world for rigid body simulation. A world contains bodies, shapes, and constraints. You make create
 /// up to 128 worlds. Each world is completely independent and may be simulated in parallel.
 /// @return the world id.
-CreateWorld :: (def: *WorldDef) -> WorldId #foreign box2d_release "b2CreateWorld";
+CreateWorld :: (def: *WorldDef) -> WorldId #foreign box2d "b2CreateWorld";
 
 /// Destroy a world
-DestroyWorld :: (worldId: WorldId) -> void #foreign box2d_release "b2DestroyWorld";
+DestroyWorld :: (worldId: WorldId) -> void #foreign box2d "b2DestroyWorld";
 
 /// World id validation. Provides validation for up to 64K allocations.
-World_IsValid :: (id: WorldId) -> bool #foreign box2d_release "b2World_IsValid";
+World_IsValid :: (id: WorldId) -> bool #foreign box2d "b2World_IsValid";
 
 /// Simulate a world for one time step. This performs collision detection, integration, and constraint solution.
 /// @param worldId The world to simulate
 /// @param timeStep The amount of time to simulate, this should be a fixed number. Usually 1/60.
 /// @param subStepCount The number of sub-steps, increasing the sub-step count can increase accuracy. Usually 4.
-World_Step :: (worldId: WorldId, timeStep: float, subStepCount: s32) -> void #foreign box2d_release "b2World_Step";
+World_Step :: (worldId: WorldId, timeStep: float, subStepCount: s32) -> void #foreign box2d "b2World_Step";
 
 /// Call this to draw shapes and other debug draw data
-World_Draw :: (worldId: WorldId, draw: *DebugDraw) -> void #foreign box2d_release "b2World_Draw";
+World_Draw :: (worldId: WorldId, draw: *DebugDraw) -> void #foreign box2d "b2World_Draw";
 
 /// Get the body events for the current time step. The event data is transient. Do not store a reference to this data.
-World_GetBodyEvents :: (worldId: WorldId) -> BodyEvents #foreign box2d_release "b2World_GetBodyEvents";
+World_GetBodyEvents :: (worldId: WorldId) -> BodyEvents #foreign box2d "b2World_GetBodyEvents";
 
 /// Get sensor events for the current time step. The event data is transient. Do not store a reference to this data.
-World_GetSensorEvents :: (worldId: WorldId) -> SensorEvents #foreign box2d_release "b2World_GetSensorEvents";
+World_GetSensorEvents :: (worldId: WorldId) -> SensorEvents #foreign box2d "b2World_GetSensorEvents";
 
 /// Get contact events for this current time step. The event data is transient. Do not store a reference to this data.
-World_GetContactEvents :: (worldId: WorldId) -> ContactEvents #foreign box2d_release "b2World_GetContactEvents";
+World_GetContactEvents :: (worldId: WorldId) -> ContactEvents #foreign box2d "b2World_GetContactEvents";
 
 /// Overlap test for all shapes that *potentially* overlap the provided AABB
-World_OverlapAABB :: (worldId: WorldId, aabb: AABB, filter: QueryFilter, fcn: OverlapResultFcn, _context: *void) -> TreeStats #foreign box2d_release "b2World_OverlapAABB";
+World_OverlapAABB :: (worldId: WorldId, aabb: AABB, filter: QueryFilter, fcn: OverlapResultFcn, _context: *void) -> TreeStats #foreign box2d "b2World_OverlapAABB";
 
 /// Overlap test for all shapes that overlap the provided shape proxy.
-World_OverlapShape :: (worldId: WorldId, proxy: *ShapeProxy, filter: QueryFilter, fcn: OverlapResultFcn, _context: *void) -> TreeStats #foreign box2d_release "b2World_OverlapShape";
+World_OverlapShape :: (worldId: WorldId, proxy: *ShapeProxy, filter: QueryFilter, fcn: OverlapResultFcn, _context: *void) -> TreeStats #foreign box2d "b2World_OverlapShape";
 
 /// Cast a ray into the world to collect shapes in the path of the ray.
 /// Your callback function controls whether you get the closest point, any point, or n-points.
@@ -2506,78 +2508,78 @@ World_OverlapShape :: (worldId: WorldId, proxy: *ShapeProxy, filter: QueryFilter
 /// @param fcn A user implemented callback function
 /// @param context A user context that is passed along to the callback function
 ///	@return traversal performance counters
-World_CastRay :: (worldId: WorldId, origin: Vec2, translation: Vec2, filter: QueryFilter, fcn: CastResultFcn, _context: *void) -> TreeStats #foreign box2d_release "b2World_CastRay";
+World_CastRay :: (worldId: WorldId, origin: Vec2, translation: Vec2, filter: QueryFilter, fcn: CastResultFcn, _context: *void) -> TreeStats #foreign box2d "b2World_CastRay";
 
 /// Cast a ray into the world to collect the closest hit. This is a convenience function. Ignores initial overlap.
 /// This is less general than b2World_CastRay() and does not allow for custom filtering.
-World_CastRayClosest :: (worldId: WorldId, origin: Vec2, translation: Vec2, filter: QueryFilter) -> RayResult #foreign box2d_release "b2World_CastRayClosest";
+World_CastRayClosest :: (worldId: WorldId, origin: Vec2, translation: Vec2, filter: QueryFilter) -> RayResult #foreign box2d "b2World_CastRayClosest";
 
 /// Cast a shape through the world. Similar to a cast ray except that a shape is cast instead of a point.
 ///	@see b2World_CastRay
-World_CastShape :: (worldId: WorldId, proxy: *ShapeProxy, translation: Vec2, filter: QueryFilter, fcn: CastResultFcn, _context: *void) -> TreeStats #foreign box2d_release "b2World_CastShape";
+World_CastShape :: (worldId: WorldId, proxy: *ShapeProxy, translation: Vec2, filter: QueryFilter, fcn: CastResultFcn, _context: *void) -> TreeStats #foreign box2d "b2World_CastShape";
 
 /// Cast a capsule mover through the world. This is a special shape cast that handles sliding along other shapes while reducing
 /// clipping.
-World_CastMover :: (worldId: WorldId, mover: *Capsule, translation: Vec2, filter: QueryFilter) -> float #foreign box2d_release "b2World_CastMover";
-World_CastMoverBox :: (worldId: WorldId, mover: *Polygon, translation: Vec2, filter: QueryFilter) -> float #foreign box2d_release "b2World_CastMoverBox";
+World_CastMover :: (worldId: WorldId, mover: *Capsule, translation: Vec2, filter: QueryFilter) -> float #foreign box2d "b2World_CastMover";
+World_CastMoverBox :: (worldId: WorldId, mover: *Polygon, translation: Vec2, filter: QueryFilter) -> float #foreign box2d "b2World_CastMoverBox";
 
 /// Collide a capsule mover with the world, gathering collision planes that can be fed to b2SolvePlanes. Useful for
 /// kinematic character movement.
-World_CollideMover :: (worldId: WorldId, mover: *Capsule, filter: QueryFilter, fcn: PlaneResultFcn, _context: *void) -> void #foreign box2d_release "b2World_CollideMover";
+World_CollideMover :: (worldId: WorldId, mover: *Capsule, filter: QueryFilter, fcn: PlaneResultFcn, _context: *void) -> void #foreign box2d "b2World_CollideMover";
 
-World_CollideMoverBox :: (worldId: WorldId, mover: *Polygon, filter: QueryFilter, fcn: PlaneResultFcn, _context: *void) -> void #foreign box2d_release "b2World_CollideMoverBox";
+World_CollideMoverBox :: (worldId: WorldId, mover: *Polygon, filter: QueryFilter, fcn: PlaneResultFcn, _context: *void) -> void #foreign box2d "b2World_CollideMoverBox";
 
 /// Enable/disable sleep. If your application does not need sleeping, you can gain some performance
 /// by disabling sleep completely at the world level.
 /// @see b2WorldDef
-World_EnableSleeping :: (worldId: WorldId, flag: bool) -> void #foreign box2d_release "b2World_EnableSleeping";
+World_EnableSleeping :: (worldId: WorldId, flag: bool) -> void #foreign box2d "b2World_EnableSleeping";
 
 /// Is body sleeping enabled?
-World_IsSleepingEnabled :: (worldId: WorldId) -> bool #foreign box2d_release "b2World_IsSleepingEnabled";
+World_IsSleepingEnabled :: (worldId: WorldId) -> bool #foreign box2d "b2World_IsSleepingEnabled";
 
 /// Enable/disable continuous collision between dynamic and static bodies. Generally you should keep continuous
 /// collision enabled to prevent fast moving objects from going through static objects. The performance gain from
 /// disabling continuous collision is minor.
 /// @see b2WorldDef
-World_EnableContinuous :: (worldId: WorldId, flag: bool) -> void #foreign box2d_release "b2World_EnableContinuous";
+World_EnableContinuous :: (worldId: WorldId, flag: bool) -> void #foreign box2d "b2World_EnableContinuous";
 
 /// Is continuous collision enabled?
-World_IsContinuousEnabled :: (worldId: WorldId) -> bool #foreign box2d_release "b2World_IsContinuousEnabled";
+World_IsContinuousEnabled :: (worldId: WorldId) -> bool #foreign box2d "b2World_IsContinuousEnabled";
 
 /// Adjust the restitution threshold. It is recommended not to make this value very small
 /// because it will prevent bodies from sleeping. Usually in meters per second.
 /// @see b2WorldDef
-World_SetRestitutionThreshold :: (worldId: WorldId, value: float) -> void #foreign box2d_release "b2World_SetRestitutionThreshold";
+World_SetRestitutionThreshold :: (worldId: WorldId, value: float) -> void #foreign box2d "b2World_SetRestitutionThreshold";
 
 /// Get the the restitution speed threshold. Usually in meters per second.
-World_GetRestitutionThreshold :: (worldId: WorldId) -> float #foreign box2d_release "b2World_GetRestitutionThreshold";
+World_GetRestitutionThreshold :: (worldId: WorldId) -> float #foreign box2d "b2World_GetRestitutionThreshold";
 
 /// Adjust the hit event threshold. This controls the collision speed needed to generate a b2ContactHitEvent.
 /// Usually in meters per second.
 /// @see b2WorldDef::hitEventThreshold
-World_SetHitEventThreshold :: (worldId: WorldId, value: float) -> void #foreign box2d_release "b2World_SetHitEventThreshold";
+World_SetHitEventThreshold :: (worldId: WorldId, value: float) -> void #foreign box2d "b2World_SetHitEventThreshold";
 
 /// Get the the hit event speed threshold. Usually in meters per second.
-World_GetHitEventThreshold :: (worldId: WorldId) -> float #foreign box2d_release "b2World_GetHitEventThreshold";
+World_GetHitEventThreshold :: (worldId: WorldId) -> float #foreign box2d "b2World_GetHitEventThreshold";
 
 /// Register the custom filter callback. This is optional.
-World_SetCustomFilterCallback :: (worldId: WorldId, fcn: CustomFilterFcn, _context: *void) -> void #foreign box2d_release "b2World_SetCustomFilterCallback";
+World_SetCustomFilterCallback :: (worldId: WorldId, fcn: CustomFilterFcn, _context: *void) -> void #foreign box2d "b2World_SetCustomFilterCallback";
 
 /// Register the pre-solve callback. This is optional.
-World_SetPreSolveCallback :: (worldId: WorldId, fcn: PreSolveFcn, _context: *void) -> void #foreign box2d_release "b2World_SetPreSolveCallback";
+World_SetPreSolveCallback :: (worldId: WorldId, fcn: PreSolveFcn, _context: *void) -> void #foreign box2d "b2World_SetPreSolveCallback";
 
 /// Set the gravity vector for the entire world. Box2D has no concept of an up direction and this
 /// is left as a decision for the application. Usually in m/s^2.
 /// @see b2WorldDef
-World_SetGravity :: (worldId: WorldId, gravity: Vec2) -> void #foreign box2d_release "b2World_SetGravity";
+World_SetGravity :: (worldId: WorldId, gravity: Vec2) -> void #foreign box2d "b2World_SetGravity";
 
 /// Get the gravity vector
-World_GetGravity :: (worldId: WorldId) -> Vec2 #foreign box2d_release "b2World_GetGravity";
+World_GetGravity :: (worldId: WorldId) -> Vec2 #foreign box2d "b2World_GetGravity";
 
 /// Apply a radial explosion
 /// @param worldId The world id
 /// @param explosionDef The explosion definition
-World_Explode :: (worldId: WorldId, explosionDef: *ExplosionDef) -> void #foreign box2d_release "b2World_Explode";
+World_Explode :: (worldId: WorldId, explosionDef: *ExplosionDef) -> void #foreign box2d "b2World_Explode";
 
 /// Adjust contact tuning parameters
 /// @param worldId The world id
@@ -2585,50 +2587,50 @@ World_Explode :: (worldId: WorldId, explosionDef: *ExplosionDef) -> void #foreig
 /// @param dampingRatio The contact bounciness with 1 being critical damping (non-dimensional)
 /// @param pushSpeed The maximum contact constraint push out speed (meters per second)
 /// @note Advanced feature
-World_SetContactTuning :: (worldId: WorldId, hertz: float, dampingRatio: float, pushSpeed: float) -> void #foreign box2d_release "b2World_SetContactTuning";
+World_SetContactTuning :: (worldId: WorldId, hertz: float, dampingRatio: float, pushSpeed: float) -> void #foreign box2d "b2World_SetContactTuning";
 
 /// Set the maximum linear speed. Usually in m/s.
-World_SetMaximumLinearSpeed :: (worldId: WorldId, maximumLinearSpeed: float) -> void #foreign box2d_release "b2World_SetMaximumLinearSpeed";
+World_SetMaximumLinearSpeed :: (worldId: WorldId, maximumLinearSpeed: float) -> void #foreign box2d "b2World_SetMaximumLinearSpeed";
 
 /// Get the maximum linear speed. Usually in m/s.
-World_GetMaximumLinearSpeed :: (worldId: WorldId) -> float #foreign box2d_release "b2World_GetMaximumLinearSpeed";
+World_GetMaximumLinearSpeed :: (worldId: WorldId) -> float #foreign box2d "b2World_GetMaximumLinearSpeed";
 
 /// Enable/disable constraint warm starting. Advanced feature for testing. Disabling
 /// warm starting greatly reduces stability and provides no performance gain.
-World_EnableWarmStarting :: (worldId: WorldId, flag: bool) -> void #foreign box2d_release "b2World_EnableWarmStarting";
+World_EnableWarmStarting :: (worldId: WorldId, flag: bool) -> void #foreign box2d "b2World_EnableWarmStarting";
 
 /// Is constraint warm starting enabled?
-World_IsWarmStartingEnabled :: (worldId: WorldId) -> bool #foreign box2d_release "b2World_IsWarmStartingEnabled";
+World_IsWarmStartingEnabled :: (worldId: WorldId) -> bool #foreign box2d "b2World_IsWarmStartingEnabled";
 
 /// Get the number of awake bodies.
-World_GetAwakeBodyCount :: (worldId: WorldId) -> s32 #foreign box2d_release "b2World_GetAwakeBodyCount";
+World_GetAwakeBodyCount :: (worldId: WorldId) -> s32 #foreign box2d "b2World_GetAwakeBodyCount";
 
 /// Get the current world performance profile
-World_GetProfile :: (worldId: WorldId) -> Profile #foreign box2d_release "b2World_GetProfile";
+World_GetProfile :: (worldId: WorldId) -> Profile #foreign box2d "b2World_GetProfile";
 
 /// Get world counters and sizes
-World_GetCounters :: (worldId: WorldId) -> Counters #foreign box2d_release "b2World_GetCounters";
+World_GetCounters :: (worldId: WorldId) -> Counters #foreign box2d "b2World_GetCounters";
 
 /// Set the user data pointer.
-World_SetUserData :: (worldId: WorldId, userData: *void) -> void #foreign box2d_release "b2World_SetUserData";
+World_SetUserData :: (worldId: WorldId, userData: *void) -> void #foreign box2d "b2World_SetUserData";
 
 /// Get the user data pointer.
-World_GetUserData :: (worldId: WorldId) -> *void #foreign box2d_release "b2World_GetUserData";
+World_GetUserData :: (worldId: WorldId) -> *void #foreign box2d "b2World_GetUserData";
 
 /// Set the friction callback. Passing NULL resets to default.
-World_SetFrictionCallback :: (worldId: WorldId, callback: FrictionCallback) -> void #foreign box2d_release "b2World_SetFrictionCallback";
+World_SetFrictionCallback :: (worldId: WorldId, callback: FrictionCallback) -> void #foreign box2d "b2World_SetFrictionCallback";
 
 /// Set the restitution callback. Passing NULL resets to default.
-World_SetRestitutionCallback :: (worldId: WorldId, callback: RestitutionCallback) -> void #foreign box2d_release "b2World_SetRestitutionCallback";
+World_SetRestitutionCallback :: (worldId: WorldId, callback: RestitutionCallback) -> void #foreign box2d "b2World_SetRestitutionCallback";
 
 /// Dump memory stats to box2d_memory.txt
-World_DumpMemoryStats :: (worldId: WorldId) -> void #foreign box2d_release "b2World_DumpMemoryStats";
+World_DumpMemoryStats :: (worldId: WorldId) -> void #foreign box2d "b2World_DumpMemoryStats";
 
 /// This is for internal testing
-World_RebuildStaticTree :: (worldId: WorldId) -> void #foreign box2d_release "b2World_RebuildStaticTree";
+World_RebuildStaticTree :: (worldId: WorldId) -> void #foreign box2d "b2World_RebuildStaticTree";
 
 /// This is for internal testing
-World_EnableSpeculative :: (worldId: WorldId, flag: bool) -> void #foreign box2d_release "b2World_EnableSpeculative";
+World_EnableSpeculative :: (worldId: WorldId, flag: bool) -> void #foreign box2d "b2World_EnableSpeculative";
 
 /// Create a rigid body given a definition. No reference to the definition is retained. So you can create the definition
 /// on the stack and pass it as a pointer.
@@ -2637,83 +2639,83 @@ World_EnableSpeculative :: (worldId: WorldId, flag: bool) -> void #foreign box2d
 /// b2BodyId myBodyId = b2CreateBody(myWorldId, &bodyDef);
 /// @endcode
 /// @warning This function is locked during callbacks.
-CreateBody :: (worldId: WorldId, def: *BodyDef) -> BodyId #foreign box2d_release "b2CreateBody";
+CreateBody :: (worldId: WorldId, def: *BodyDef) -> BodyId #foreign box2d "b2CreateBody";
 
 /// Destroy a rigid body given an id. This destroys all shapes and joints attached to the body.
 /// Do not keep references to the associated shapes and joints.
-DestroyBody :: (bodyId: BodyId) -> void #foreign box2d_release "b2DestroyBody";
+DestroyBody :: (bodyId: BodyId) -> void #foreign box2d "b2DestroyBody";
 
 /// Body identifier validation. Can be used to detect orphaned ids. Provides validation for up to 64K allocations.
-Body_IsValid :: (id: BodyId) -> bool #foreign box2d_release "b2Body_IsValid";
+Body_IsValid :: (id: BodyId) -> bool #foreign box2d "b2Body_IsValid";
 
 /// Get the body type: static, kinematic, or dynamic
-Body_GetType :: (bodyId: BodyId) -> BodyType #foreign box2d_release "b2Body_GetType";
+Body_GetType :: (bodyId: BodyId) -> BodyType #foreign box2d "b2Body_GetType";
 
 /// Change the body type. This is an expensive operation. This automatically updates the mass
 /// properties regardless of the automatic mass setting.
-Body_SetType :: (bodyId: BodyId, type: BodyType) -> void #foreign box2d_release "b2Body_SetType";
+Body_SetType :: (bodyId: BodyId, type: BodyType) -> void #foreign box2d "b2Body_SetType";
 
 /// Set the body name. Up to 31 characters excluding 0 termination.
-Body_SetName :: (bodyId: BodyId, name: *u8) -> void #foreign box2d_release "b2Body_SetName";
+Body_SetName :: (bodyId: BodyId, name: *u8) -> void #foreign box2d "b2Body_SetName";
 
 /// Get the body name. May be null.
-Body_GetName :: (bodyId: BodyId) -> *u8 #foreign box2d_release "b2Body_GetName";
+Body_GetName :: (bodyId: BodyId) -> *u8 #foreign box2d "b2Body_GetName";
 
 /// Set the user data for a body
-Body_SetUserData :: (bodyId: BodyId, userData: *void) -> void #foreign box2d_release "b2Body_SetUserData";
+Body_SetUserData :: (bodyId: BodyId, userData: *void) -> void #foreign box2d "b2Body_SetUserData";
 
 /// Get the user data stored in a body
-Body_GetUserData :: (bodyId: BodyId) -> *void #foreign box2d_release "b2Body_GetUserData";
+Body_GetUserData :: (bodyId: BodyId) -> *void #foreign box2d "b2Body_GetUserData";
 
 /// Get the world position of a body. This is the location of the body origin.
-Body_GetPosition :: (bodyId: BodyId) -> Vec2 #foreign box2d_release "b2Body_GetPosition";
+Body_GetPosition :: (bodyId: BodyId) -> Vec2 #foreign box2d "b2Body_GetPosition";
 
 /// Get the world rotation of a body as a cosine/sine pair (complex number)
-Body_GetRotation :: (bodyId: BodyId) -> Rot #foreign box2d_release "b2Body_GetRotation";
+Body_GetRotation :: (bodyId: BodyId) -> Rot #foreign box2d "b2Body_GetRotation";
 
 /// Get the world transform of a body.
-Body_GetTransform :: (bodyId: BodyId) -> Transform #foreign box2d_release "b2Body_GetTransform";
+Body_GetTransform :: (bodyId: BodyId) -> Transform #foreign box2d "b2Body_GetTransform";
 
 /// Set the world transform of a body. This acts as a teleport and is fairly expensive.
 /// @note Generally you should create a body with then intended transform.
 /// @see b2BodyDef::position and b2BodyDef::angle
-Body_SetTransform :: (bodyId: BodyId, position: Vec2, rotation: Rot) -> void #foreign box2d_release "b2Body_SetTransform";
+Body_SetTransform :: (bodyId: BodyId, position: Vec2, rotation: Rot) -> void #foreign box2d "b2Body_SetTransform";
 
 /// Get a local point on a body given a world point
-Body_GetLocalPoint :: (bodyId: BodyId, worldPoint: Vec2) -> Vec2 #foreign box2d_release "b2Body_GetLocalPoint";
+Body_GetLocalPoint :: (bodyId: BodyId, worldPoint: Vec2) -> Vec2 #foreign box2d "b2Body_GetLocalPoint";
 
 /// Get a world point on a body given a local point
-Body_GetWorldPoint :: (bodyId: BodyId, localPoint: Vec2) -> Vec2 #foreign box2d_release "b2Body_GetWorldPoint";
+Body_GetWorldPoint :: (bodyId: BodyId, localPoint: Vec2) -> Vec2 #foreign box2d "b2Body_GetWorldPoint";
 
 /// Get a local vector on a body given a world vector
-Body_GetLocalVector :: (bodyId: BodyId, worldVector: Vec2) -> Vec2 #foreign box2d_release "b2Body_GetLocalVector";
+Body_GetLocalVector :: (bodyId: BodyId, worldVector: Vec2) -> Vec2 #foreign box2d "b2Body_GetLocalVector";
 
 /// Get a world vector on a body given a local vector
-Body_GetWorldVector :: (bodyId: BodyId, localVector: Vec2) -> Vec2 #foreign box2d_release "b2Body_GetWorldVector";
+Body_GetWorldVector :: (bodyId: BodyId, localVector: Vec2) -> Vec2 #foreign box2d "b2Body_GetWorldVector";
 
 /// Get the linear velocity of a body's center of mass. Usually in meters per second.
-Body_GetLinearVelocity :: (bodyId: BodyId) -> Vec2 #foreign box2d_release "b2Body_GetLinearVelocity";
+Body_GetLinearVelocity :: (bodyId: BodyId) -> Vec2 #foreign box2d "b2Body_GetLinearVelocity";
 
 /// Get the angular velocity of a body in radians per second
-Body_GetAngularVelocity :: (bodyId: BodyId) -> float #foreign box2d_release "b2Body_GetAngularVelocity";
+Body_GetAngularVelocity :: (bodyId: BodyId) -> float #foreign box2d "b2Body_GetAngularVelocity";
 
 /// Set the linear velocity of a body. Usually in meters per second.
-Body_SetLinearVelocity :: (bodyId: BodyId, linearVelocity: Vec2) -> void #foreign box2d_release "b2Body_SetLinearVelocity";
+Body_SetLinearVelocity :: (bodyId: BodyId, linearVelocity: Vec2) -> void #foreign box2d "b2Body_SetLinearVelocity";
 
 /// Set the angular velocity of a body in radians per second
-Body_SetAngularVelocity :: (bodyId: BodyId, angularVelocity: float) -> void #foreign box2d_release "b2Body_SetAngularVelocity";
+Body_SetAngularVelocity :: (bodyId: BodyId, angularVelocity: float) -> void #foreign box2d "b2Body_SetAngularVelocity";
 
 /// Set the velocity to reach the given transform after a given time step.
 /// The result will be close but maybe not exact. This is meant for kinematic bodies.
 /// The target is not applied if the velocity would be below the sleep threshold.
 /// This will automatically wake the body if asleep.
-Body_SetTargetTransform :: (bodyId: BodyId, target: Transform, timeStep: float) -> void #foreign box2d_release "b2Body_SetTargetTransform";
+Body_SetTargetTransform :: (bodyId: BodyId, target: Transform, timeStep: float) -> void #foreign box2d "b2Body_SetTargetTransform";
 
 /// Get the linear velocity of a local point attached to a body. Usually in meters per second.
-Body_GetLocalPointVelocity :: (bodyId: BodyId, localPoint: Vec2) -> Vec2 #foreign box2d_release "b2Body_GetLocalPointVelocity";
+Body_GetLocalPointVelocity :: (bodyId: BodyId, localPoint: Vec2) -> Vec2 #foreign box2d "b2Body_GetLocalPointVelocity";
 
 /// Get the linear velocity of a world point attached to a body. Usually in meters per second.
-Body_GetWorldPointVelocity :: (bodyId: BodyId, worldPoint: Vec2) -> Vec2 #foreign box2d_release "b2Body_GetWorldPointVelocity";
+Body_GetWorldPointVelocity :: (bodyId: BodyId, worldPoint: Vec2) -> Vec2 #foreign box2d "b2Body_GetWorldPointVelocity";
 
 /// Apply a force at a world point. If the force is not applied at the center of mass,
 /// it will generate a torque and affect the angular velocity. This optionally wakes up the body.
@@ -2722,21 +2724,21 @@ Body_GetWorldPointVelocity :: (bodyId: BodyId, worldPoint: Vec2) -> Vec2 #foreig
 /// @param force The world force vector, usually in newtons (N)
 /// @param point The world position of the point of application
 /// @param wake Option to wake up the body
-Body_ApplyForce :: (bodyId: BodyId, force: Vec2, point: Vec2, wake: bool) -> void #foreign box2d_release "b2Body_ApplyForce";
+Body_ApplyForce :: (bodyId: BodyId, force: Vec2, point: Vec2, wake: bool) -> void #foreign box2d "b2Body_ApplyForce";
 
 /// Apply a force to the center of mass. This optionally wakes up the body.
 /// The force is ignored if the body is not awake.
 /// @param bodyId The body id
 /// @param force the world force vector, usually in newtons (N).
 /// @param wake also wake up the body
-Body_ApplyForceToCenter :: (bodyId: BodyId, force: Vec2, wake: bool) -> void #foreign box2d_release "b2Body_ApplyForceToCenter";
+Body_ApplyForceToCenter :: (bodyId: BodyId, force: Vec2, wake: bool) -> void #foreign box2d "b2Body_ApplyForceToCenter";
 
 /// Apply a torque. This affects the angular velocity without affecting the linear velocity.
 /// This optionally wakes the body. The torque is ignored if the body is not awake.
 /// @param bodyId The body id
 /// @param torque about the z-axis (out of the screen), usually in N*m.
 /// @param wake also wake up the body
-Body_ApplyTorque :: (bodyId: BodyId, torque: float, wake: bool) -> void #foreign box2d_release "b2Body_ApplyTorque";
+Body_ApplyTorque :: (bodyId: BodyId, torque: float, wake: bool) -> void #foreign box2d "b2Body_ApplyTorque";
 
 /// Apply an impulse at a point. This immediately modifies the velocity.
 /// It also modifies the angular velocity if the point of application
@@ -2748,7 +2750,7 @@ Body_ApplyTorque :: (bodyId: BodyId, torque: float, wake: bool) -> void #foreign
 /// @param wake also wake up the body
 /// @warning This should be used for one-shot impulses. If you need a steady force,
 /// use a force instead, which will work better with the sub-stepping solver.
-Body_ApplyLinearImpulse :: (bodyId: BodyId, impulse: Vec2, point: Vec2, wake: bool) -> void #foreign box2d_release "b2Body_ApplyLinearImpulse";
+Body_ApplyLinearImpulse :: (bodyId: BodyId, impulse: Vec2, point: Vec2, wake: bool) -> void #foreign box2d "b2Body_ApplyLinearImpulse";
 
 /// Apply an impulse to the center of mass. This immediately modifies the velocity.
 /// The impulse is ignored if the body is not awake. This optionally wakes the body.
@@ -2757,7 +2759,7 @@ Body_ApplyLinearImpulse :: (bodyId: BodyId, impulse: Vec2, point: Vec2, wake: bo
 /// @param wake also wake up the body
 /// @warning This should be used for one-shot impulses. If you need a steady force,
 /// use a force instead, which will work better with the sub-stepping solver.
-Body_ApplyLinearImpulseToCenter :: (bodyId: BodyId, impulse: Vec2, wake: bool) -> void #foreign box2d_release "b2Body_ApplyLinearImpulseToCenter";
+Body_ApplyLinearImpulseToCenter :: (bodyId: BodyId, impulse: Vec2, wake: bool) -> void #foreign box2d "b2Body_ApplyLinearImpulseToCenter";
 
 /// Apply an angular impulse. The impulse is ignored if the body is not awake.
 /// This optionally wakes the body.
@@ -2766,27 +2768,27 @@ Body_ApplyLinearImpulseToCenter :: (bodyId: BodyId, impulse: Vec2, wake: bool) -
 /// @param wake also wake up the body
 /// @warning This should be used for one-shot impulses. If you need a steady force,
 /// use a force instead, which will work better with the sub-stepping solver.
-Body_ApplyAngularImpulse :: (bodyId: BodyId, impulse: float, wake: bool) -> void #foreign box2d_release "b2Body_ApplyAngularImpulse";
+Body_ApplyAngularImpulse :: (bodyId: BodyId, impulse: float, wake: bool) -> void #foreign box2d "b2Body_ApplyAngularImpulse";
 
 /// Get the mass of the body, usually in kilograms
-Body_GetMass :: (bodyId: BodyId) -> float #foreign box2d_release "b2Body_GetMass";
+Body_GetMass :: (bodyId: BodyId) -> float #foreign box2d "b2Body_GetMass";
 
 /// Get the rotational inertia of the body, usually in kg*m^2
-Body_GetRotationalInertia :: (bodyId: BodyId) -> float #foreign box2d_release "b2Body_GetRotationalInertia";
+Body_GetRotationalInertia :: (bodyId: BodyId) -> float #foreign box2d "b2Body_GetRotationalInertia";
 
 /// Get the center of mass position of the body in local space
-Body_GetLocalCenterOfMass :: (bodyId: BodyId) -> Vec2 #foreign box2d_release "b2Body_GetLocalCenterOfMass";
+Body_GetLocalCenterOfMass :: (bodyId: BodyId) -> Vec2 #foreign box2d "b2Body_GetLocalCenterOfMass";
 
 /// Get the center of mass position of the body in world space
-Body_GetWorldCenterOfMass :: (bodyId: BodyId) -> Vec2 #foreign box2d_release "b2Body_GetWorldCenterOfMass";
+Body_GetWorldCenterOfMass :: (bodyId: BodyId) -> Vec2 #foreign box2d "b2Body_GetWorldCenterOfMass";
 
 /// Override the body's mass properties. Normally this is computed automatically using the
 /// shape geometry and density. This information is lost if a shape is added or removed or if the
 /// body type changes.
-Body_SetMassData :: (bodyId: BodyId, massData: MassData) -> void #foreign box2d_release "b2Body_SetMassData";
+Body_SetMassData :: (bodyId: BodyId, massData: MassData) -> void #foreign box2d "b2Body_SetMassData";
 
 /// Get the mass data for a body
-Body_GetMassData :: (bodyId: BodyId) -> MassData #foreign box2d_release "b2Body_GetMassData";
+Body_GetMassData :: (bodyId: BodyId) -> MassData #foreign box2d "b2Body_GetMassData";
 
 /// This update the mass properties to the sum of the mass properties of the shapes.
 /// This normally does not need to be called unless you called SetMassData to override
@@ -2794,289 +2796,289 @@ Body_GetMassData :: (bodyId: BodyId) -> MassData #foreign box2d_release "b2Body_
 /// You may also use this when automatic mass computation has been disabled.
 /// You should call this regardless of body type.
 /// Note that sensor shapes may have mass.
-Body_ApplyMassFromShapes :: (bodyId: BodyId) -> void #foreign box2d_release "b2Body_ApplyMassFromShapes";
+Body_ApplyMassFromShapes :: (bodyId: BodyId) -> void #foreign box2d "b2Body_ApplyMassFromShapes";
 
 /// Adjust the linear damping. Normally this is set in b2BodyDef before creation.
-Body_SetLinearDamping :: (bodyId: BodyId, linearDamping: float) -> void #foreign box2d_release "b2Body_SetLinearDamping";
+Body_SetLinearDamping :: (bodyId: BodyId, linearDamping: float) -> void #foreign box2d "b2Body_SetLinearDamping";
 
 /// Get the current linear damping.
-Body_GetLinearDamping :: (bodyId: BodyId) -> float #foreign box2d_release "b2Body_GetLinearDamping";
+Body_GetLinearDamping :: (bodyId: BodyId) -> float #foreign box2d "b2Body_GetLinearDamping";
 
 /// Adjust the angular damping. Normally this is set in b2BodyDef before creation.
-Body_SetAngularDamping :: (bodyId: BodyId, angularDamping: float) -> void #foreign box2d_release "b2Body_SetAngularDamping";
+Body_SetAngularDamping :: (bodyId: BodyId, angularDamping: float) -> void #foreign box2d "b2Body_SetAngularDamping";
 
 /// Get the current angular damping.
-Body_GetAngularDamping :: (bodyId: BodyId) -> float #foreign box2d_release "b2Body_GetAngularDamping";
+Body_GetAngularDamping :: (bodyId: BodyId) -> float #foreign box2d "b2Body_GetAngularDamping";
 
 /// Adjust the gravity scale. Normally this is set in b2BodyDef before creation.
 /// @see b2BodyDef::gravityScale
-Body_SetGravityScale :: (bodyId: BodyId, gravityScale: float) -> void #foreign box2d_release "b2Body_SetGravityScale";
+Body_SetGravityScale :: (bodyId: BodyId, gravityScale: float) -> void #foreign box2d "b2Body_SetGravityScale";
 
 /// Get the current gravity scale
-Body_GetGravityScale :: (bodyId: BodyId) -> float #foreign box2d_release "b2Body_GetGravityScale";
+Body_GetGravityScale :: (bodyId: BodyId) -> float #foreign box2d "b2Body_GetGravityScale";
 
 /// @return true if this body is awake
-Body_IsAwake :: (bodyId: BodyId) -> bool #foreign box2d_release "b2Body_IsAwake";
+Body_IsAwake :: (bodyId: BodyId) -> bool #foreign box2d "b2Body_IsAwake";
 
 /// Wake a body from sleep. This wakes the entire island the body is touching.
 /// @warning Putting a body to sleep will put the entire island of bodies touching this body to sleep,
 /// which can be expensive and possibly unintuitive.
-Body_SetAwake :: (bodyId: BodyId, awake: bool) -> void #foreign box2d_release "b2Body_SetAwake";
+Body_SetAwake :: (bodyId: BodyId, awake: bool) -> void #foreign box2d "b2Body_SetAwake";
 
 /// Enable or disable sleeping for this body. If sleeping is disabled the body will wake.
-Body_EnableSleep :: (bodyId: BodyId, enableSleep: bool) -> void #foreign box2d_release "b2Body_EnableSleep";
+Body_EnableSleep :: (bodyId: BodyId, enableSleep: bool) -> void #foreign box2d "b2Body_EnableSleep";
 
 /// Returns true if sleeping is enabled for this body
-Body_IsSleepEnabled :: (bodyId: BodyId) -> bool #foreign box2d_release "b2Body_IsSleepEnabled";
+Body_IsSleepEnabled :: (bodyId: BodyId) -> bool #foreign box2d "b2Body_IsSleepEnabled";
 
 /// Set the sleep threshold, usually in meters per second
-Body_SetSleepThreshold :: (bodyId: BodyId, sleepThreshold: float) -> void #foreign box2d_release "b2Body_SetSleepThreshold";
+Body_SetSleepThreshold :: (bodyId: BodyId, sleepThreshold: float) -> void #foreign box2d "b2Body_SetSleepThreshold";
 
 /// Get the sleep threshold, usually in meters per second.
-Body_GetSleepThreshold :: (bodyId: BodyId) -> float #foreign box2d_release "b2Body_GetSleepThreshold";
+Body_GetSleepThreshold :: (bodyId: BodyId) -> float #foreign box2d "b2Body_GetSleepThreshold";
 
 /// Returns true if this body is enabled
-Body_IsEnabled :: (bodyId: BodyId) -> bool #foreign box2d_release "b2Body_IsEnabled";
+Body_IsEnabled :: (bodyId: BodyId) -> bool #foreign box2d "b2Body_IsEnabled";
 
 /// Disable a body by removing it completely from the simulation. This is expensive.
-Body_Disable :: (bodyId: BodyId) -> void #foreign box2d_release "b2Body_Disable";
+Body_Disable :: (bodyId: BodyId) -> void #foreign box2d "b2Body_Disable";
 
 /// Enable a body by adding it to the simulation. This is expensive.
-Body_Enable :: (bodyId: BodyId) -> void #foreign box2d_release "b2Body_Enable";
+Body_Enable :: (bodyId: BodyId) -> void #foreign box2d "b2Body_Enable";
 
 /// Set this body to have fixed rotation. This causes the mass to be reset in all cases.
-Body_SetFixedRotation :: (bodyId: BodyId, flag: bool) -> void #foreign box2d_release "b2Body_SetFixedRotation";
+Body_SetFixedRotation :: (bodyId: BodyId, flag: bool) -> void #foreign box2d "b2Body_SetFixedRotation";
 
 /// Does this body have fixed rotation?
-Body_IsFixedRotation :: (bodyId: BodyId) -> bool #foreign box2d_release "b2Body_IsFixedRotation";
+Body_IsFixedRotation :: (bodyId: BodyId) -> bool #foreign box2d "b2Body_IsFixedRotation";
 
 /// Set this body to be a bullet. A bullet does continuous collision detection
 /// against dynamic bodies (but not other bullets).
-Body_SetBullet :: (bodyId: BodyId, flag: bool) -> void #foreign box2d_release "b2Body_SetBullet";
+Body_SetBullet :: (bodyId: BodyId, flag: bool) -> void #foreign box2d "b2Body_SetBullet";
 
 /// Is this body a bullet?
-Body_IsBullet :: (bodyId: BodyId) -> bool #foreign box2d_release "b2Body_IsBullet";
+Body_IsBullet :: (bodyId: BodyId) -> bool #foreign box2d "b2Body_IsBullet";
 
 /// Enable/disable contact events on all shapes.
 /// @see b2ShapeDef::enableContactEvents
 /// @warning changing this at runtime may cause mismatched begin/end touch events
-Body_EnableContactEvents :: (bodyId: BodyId, flag: bool) -> void #foreign box2d_release "b2Body_EnableContactEvents";
+Body_EnableContactEvents :: (bodyId: BodyId, flag: bool) -> void #foreign box2d "b2Body_EnableContactEvents";
 
 /// Enable/disable hit events on all shapes
 /// @see b2ShapeDef::enableHitEvents
-Body_EnableHitEvents :: (bodyId: BodyId, flag: bool) -> void #foreign box2d_release "b2Body_EnableHitEvents";
+Body_EnableHitEvents :: (bodyId: BodyId, flag: bool) -> void #foreign box2d "b2Body_EnableHitEvents";
 
 /// Get the world that owns this body
-Body_GetWorld :: (bodyId: BodyId) -> WorldId #foreign box2d_release "b2Body_GetWorld";
+Body_GetWorld :: (bodyId: BodyId) -> WorldId #foreign box2d "b2Body_GetWorld";
 
 /// Get the number of shapes on this body
-Body_GetShapeCount :: (bodyId: BodyId) -> s32 #foreign box2d_release "b2Body_GetShapeCount";
+Body_GetShapeCount :: (bodyId: BodyId) -> s32 #foreign box2d "b2Body_GetShapeCount";
 
 /// Get the shape ids for all shapes on this body, up to the provided capacity.
 /// @returns the number of shape ids stored in the user array
-Body_GetShapes :: (bodyId: BodyId, shapeArray: *ShapeId, capacity: s32) -> s32 #foreign box2d_release "b2Body_GetShapes";
+Body_GetShapes :: (bodyId: BodyId, shapeArray: *ShapeId, capacity: s32) -> s32 #foreign box2d "b2Body_GetShapes";
 
 /// Get the number of joints on this body
-Body_GetJointCount :: (bodyId: BodyId) -> s32 #foreign box2d_release "b2Body_GetJointCount";
+Body_GetJointCount :: (bodyId: BodyId) -> s32 #foreign box2d "b2Body_GetJointCount";
 
 /// Get the joint ids for all joints on this body, up to the provided capacity
 /// @returns the number of joint ids stored in the user array
-Body_GetJoints :: (bodyId: BodyId, jointArray: *JointId, capacity: s32) -> s32 #foreign box2d_release "b2Body_GetJoints";
+Body_GetJoints :: (bodyId: BodyId, jointArray: *JointId, capacity: s32) -> s32 #foreign box2d "b2Body_GetJoints";
 
 /// Get the maximum capacity required for retrieving all the touching contacts on a body
-Body_GetContactCapacity :: (bodyId: BodyId) -> s32 #foreign box2d_release "b2Body_GetContactCapacity";
+Body_GetContactCapacity :: (bodyId: BodyId) -> s32 #foreign box2d "b2Body_GetContactCapacity";
 
 /// Get the touching contact data for a body.
 /// @note Box2D uses speculative collision so some contact points may be separated.
 /// @returns the number of elements filled in the provided array
 /// @warning do not ignore the return value, it specifies the valid number of elements
-Body_GetContactData :: (bodyId: BodyId, contactData: *ContactData, capacity: s32) -> s32 #foreign box2d_release "b2Body_GetContactData";
+Body_GetContactData :: (bodyId: BodyId, contactData: *ContactData, capacity: s32) -> s32 #foreign box2d "b2Body_GetContactData";
 
 /// Get the current world AABB that contains all the attached shapes. Note that this may not encompass the body origin.
 /// If there are no shapes attached then the returned AABB is empty and centered on the body origin.
-Body_ComputeAABB :: (bodyId: BodyId) -> AABB #foreign box2d_release "b2Body_ComputeAABB";
+Body_ComputeAABB :: (bodyId: BodyId) -> AABB #foreign box2d "b2Body_ComputeAABB";
 
 /// Create a circle shape and attach it to a body. The shape definition and geometry are fully cloned.
 /// Contacts are not created until the next time step.
 /// @return the shape id for accessing the shape
-CreateCircleShape :: (bodyId: BodyId, def: *ShapeDef, circle: *Circle) -> ShapeId #foreign box2d_release "b2CreateCircleShape";
+CreateCircleShape :: (bodyId: BodyId, def: *ShapeDef, circle: *Circle) -> ShapeId #foreign box2d "b2CreateCircleShape";
 
 /// Create a line segment shape and attach it to a body. The shape definition and geometry are fully cloned.
 /// Contacts are not created until the next time step.
 /// @return the shape id for accessing the shape
-CreateSegmentShape :: (bodyId: BodyId, def: *ShapeDef, segment: *Segment) -> ShapeId #foreign box2d_release "b2CreateSegmentShape";
+CreateSegmentShape :: (bodyId: BodyId, def: *ShapeDef, segment: *Segment) -> ShapeId #foreign box2d "b2CreateSegmentShape";
 
 /// Create a capsule shape and attach it to a body. The shape definition and geometry are fully cloned.
 /// Contacts are not created until the next time step.
 /// @return the shape id for accessing the shape
-CreateCapsuleShape :: (bodyId: BodyId, def: *ShapeDef, capsule: *Capsule) -> ShapeId #foreign box2d_release "b2CreateCapsuleShape";
+CreateCapsuleShape :: (bodyId: BodyId, def: *ShapeDef, capsule: *Capsule) -> ShapeId #foreign box2d "b2CreateCapsuleShape";
 
 /// Create a polygon shape and attach it to a body. The shape definition and geometry are fully cloned.
 /// Contacts are not created until the next time step.
 /// @return the shape id for accessing the shape
-CreatePolygonShape :: (bodyId: BodyId, def: *ShapeDef, polygon: *Polygon) -> ShapeId #foreign box2d_release "b2CreatePolygonShape";
+CreatePolygonShape :: (bodyId: BodyId, def: *ShapeDef, polygon: *Polygon) -> ShapeId #foreign box2d "b2CreatePolygonShape";
 
 /// Destroy a shape. You may defer the body mass update which can improve performance if several shapes on a
 ///	body are destroyed at once.
 ///	@see b2Body_ApplyMassFromShapes
-DestroyShape :: (shapeId: ShapeId, updateBodyMass: bool) -> void #foreign box2d_release "b2DestroyShape";
+DestroyShape :: (shapeId: ShapeId, updateBodyMass: bool) -> void #foreign box2d "b2DestroyShape";
 
 /// Shape identifier validation. Provides validation for up to 64K allocations.
-Shape_IsValid :: (id: ShapeId) -> bool #foreign box2d_release "b2Shape_IsValid";
+Shape_IsValid :: (id: ShapeId) -> bool #foreign box2d "b2Shape_IsValid";
 
 /// Get the type of a shape
-Shape_GetType :: (shapeId: ShapeId) -> ShapeType #foreign box2d_release "b2Shape_GetType";
+Shape_GetType :: (shapeId: ShapeId) -> ShapeType #foreign box2d "b2Shape_GetType";
 
 /// Get the id of the body that a shape is attached to
-Shape_GetBody :: (shapeId: ShapeId) -> BodyId #foreign box2d_release "b2Shape_GetBody";
+Shape_GetBody :: (shapeId: ShapeId) -> BodyId #foreign box2d "b2Shape_GetBody";
 
 /// Get the world that owns this shape
-Shape_GetWorld :: (shapeId: ShapeId) -> WorldId #foreign box2d_release "b2Shape_GetWorld";
+Shape_GetWorld :: (shapeId: ShapeId) -> WorldId #foreign box2d "b2Shape_GetWorld";
 
 /// Returns true if the shape is a sensor. It is not possible to change a shape
 /// from sensor to solid dynamically because this breaks the contract for
 /// sensor events.
-Shape_IsSensor :: (shapeId: ShapeId) -> bool #foreign box2d_release "b2Shape_IsSensor";
+Shape_IsSensor :: (shapeId: ShapeId) -> bool #foreign box2d "b2Shape_IsSensor";
 
 /// Set the user data for a shape
-Shape_SetUserData :: (shapeId: ShapeId, userData: *void) -> void #foreign box2d_release "b2Shape_SetUserData";
+Shape_SetUserData :: (shapeId: ShapeId, userData: *void) -> void #foreign box2d "b2Shape_SetUserData";
 
 /// Get the user data for a shape. This is useful when you get a shape id
 /// from an event or query.
-Shape_GetUserData :: (shapeId: ShapeId) -> *void #foreign box2d_release "b2Shape_GetUserData";
+Shape_GetUserData :: (shapeId: ShapeId) -> *void #foreign box2d "b2Shape_GetUserData";
 
 /// Set the mass density of a shape, usually in kg/m^2.
 /// This will optionally update the mass properties on the parent body.
 /// @see b2ShapeDef::density, b2Body_ApplyMassFromShapes
-Shape_SetDensity :: (shapeId: ShapeId, density: float, updateBodyMass: bool) -> void #foreign box2d_release "b2Shape_SetDensity";
+Shape_SetDensity :: (shapeId: ShapeId, density: float, updateBodyMass: bool) -> void #foreign box2d "b2Shape_SetDensity";
 
 /// Get the density of a shape, usually in kg/m^2
-Shape_GetDensity :: (shapeId: ShapeId) -> float #foreign box2d_release "b2Shape_GetDensity";
+Shape_GetDensity :: (shapeId: ShapeId) -> float #foreign box2d "b2Shape_GetDensity";
 
 /// Set the friction on a shape
 /// @see b2ShapeDef::friction
-Shape_SetFriction :: (shapeId: ShapeId, friction: float) -> void #foreign box2d_release "b2Shape_SetFriction";
+Shape_SetFriction :: (shapeId: ShapeId, friction: float) -> void #foreign box2d "b2Shape_SetFriction";
 
 /// Get the friction of a shape
-Shape_GetFriction :: (shapeId: ShapeId) -> float #foreign box2d_release "b2Shape_GetFriction";
+Shape_GetFriction :: (shapeId: ShapeId) -> float #foreign box2d "b2Shape_GetFriction";
 
 /// Set the shape restitution (bounciness)
 /// @see b2ShapeDef::restitution
-Shape_SetRestitution :: (shapeId: ShapeId, restitution: float) -> void #foreign box2d_release "b2Shape_SetRestitution";
+Shape_SetRestitution :: (shapeId: ShapeId, restitution: float) -> void #foreign box2d "b2Shape_SetRestitution";
 
 /// Get the shape restitution
-Shape_GetRestitution :: (shapeId: ShapeId) -> float #foreign box2d_release "b2Shape_GetRestitution";
+Shape_GetRestitution :: (shapeId: ShapeId) -> float #foreign box2d "b2Shape_GetRestitution";
 
 /// Set the shape material identifier
 /// @see b2ShapeDef::material
-Shape_SetMaterial :: (shapeId: ShapeId, material: s32) -> void #foreign box2d_release "b2Shape_SetMaterial";
+Shape_SetMaterial :: (shapeId: ShapeId, material: s32) -> void #foreign box2d "b2Shape_SetMaterial";
 
 /// Get the shape material identifier
-Shape_GetMaterial :: (shapeId: ShapeId) -> s32 #foreign box2d_release "b2Shape_GetMaterial";
+Shape_GetMaterial :: (shapeId: ShapeId) -> s32 #foreign box2d "b2Shape_GetMaterial";
 
 /// Set the shape surface material
-Shape_SetSurfaceMaterial :: (shapeId: ShapeId, surfaceMaterial: SurfaceMaterial) -> void #foreign box2d_release "b2Shape_SetSurfaceMaterial";
+Shape_SetSurfaceMaterial :: (shapeId: ShapeId, surfaceMaterial: SurfaceMaterial) -> void #foreign box2d "b2Shape_SetSurfaceMaterial";
 
 /// Get the shape surface material
-Shape_GetSurfaceMaterial :: (shapeId: ShapeId) -> SurfaceMaterial #foreign box2d_release "b2Shape_GetSurfaceMaterial";
+Shape_GetSurfaceMaterial :: (shapeId: ShapeId) -> SurfaceMaterial #foreign box2d "b2Shape_GetSurfaceMaterial";
 
 /// Get the shape filter
-Shape_GetFilter :: (shapeId: ShapeId) -> Filter #foreign box2d_release "b2Shape_GetFilter";
+Shape_GetFilter :: (shapeId: ShapeId) -> Filter #foreign box2d "b2Shape_GetFilter";
 
 /// Set the current filter. This is almost as expensive as recreating the shape. This may cause
 /// contacts to be immediately destroyed. However contacts are not created until the next world step.
 /// Sensor overlap state is also not updated until the next world step.
 /// @see b2ShapeDef::filter
-Shape_SetFilter :: (shapeId: ShapeId, filter: Filter) -> void #foreign box2d_release "b2Shape_SetFilter";
+Shape_SetFilter :: (shapeId: ShapeId, filter: Filter) -> void #foreign box2d "b2Shape_SetFilter";
 
 /// Enable sensor events for this shape.
 /// @see b2ShapeDef::enableSensorEvents
-Shape_EnableSensorEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d_release "b2Shape_EnableSensorEvents";
+Shape_EnableSensorEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d "b2Shape_EnableSensorEvents";
 
 /// Returns true if sensor events are enabled.
-Shape_AreSensorEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d_release "b2Shape_AreSensorEventsEnabled";
+Shape_AreSensorEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d "b2Shape_AreSensorEventsEnabled";
 
 /// Enable contact events for this shape. Only applies to kinematic and dynamic bodies. Ignored for sensors.
 /// @see b2ShapeDef::enableContactEvents
 /// @warning changing this at run-time may lead to lost begin/end events
-Shape_EnableContactEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d_release "b2Shape_EnableContactEvents";
+Shape_EnableContactEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d "b2Shape_EnableContactEvents";
 
 /// Returns true if contact events are enabled
-Shape_AreContactEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d_release "b2Shape_AreContactEventsEnabled";
+Shape_AreContactEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d "b2Shape_AreContactEventsEnabled";
 
 /// Enable pre-solve contact events for this shape. Only applies to dynamic bodies. These are expensive
 /// and must be carefully handled due to multithreading. Ignored for sensors.
 /// @see b2PreSolveFcn
-Shape_EnablePreSolveEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d_release "b2Shape_EnablePreSolveEvents";
+Shape_EnablePreSolveEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d "b2Shape_EnablePreSolveEvents";
 
 /// Returns true if pre-solve events are enabled
-Shape_ArePreSolveEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d_release "b2Shape_ArePreSolveEventsEnabled";
+Shape_ArePreSolveEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d "b2Shape_ArePreSolveEventsEnabled";
 
 /// Enable contact hit events for this shape. Ignored for sensors.
 /// @see b2WorldDef.hitEventThreshold
-Shape_EnableHitEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d_release "b2Shape_EnableHitEvents";
+Shape_EnableHitEvents :: (shapeId: ShapeId, flag: bool) -> void #foreign box2d "b2Shape_EnableHitEvents";
 
 /// Returns true if hit events are enabled
-Shape_AreHitEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d_release "b2Shape_AreHitEventsEnabled";
+Shape_AreHitEventsEnabled :: (shapeId: ShapeId) -> bool #foreign box2d "b2Shape_AreHitEventsEnabled";
 
 /// Test a point for overlap with a shape
-Shape_TestPoint :: (shapeId: ShapeId, point: Vec2) -> bool #foreign box2d_release "b2Shape_TestPoint";
+Shape_TestPoint :: (shapeId: ShapeId, point: Vec2) -> bool #foreign box2d "b2Shape_TestPoint";
 
 /// Ray cast a shape directly
-Shape_RayCast :: (shapeId: ShapeId, input: *RayCastInput) -> CastOutput #foreign box2d_release "b2Shape_RayCast";
+Shape_RayCast :: (shapeId: ShapeId, input: *RayCastInput) -> CastOutput #foreign box2d "b2Shape_RayCast";
 
 /// Get a copy of the shape's circle. Asserts the type is correct.
-Shape_GetCircle :: (shapeId: ShapeId) -> Circle #foreign box2d_release "b2Shape_GetCircle";
+Shape_GetCircle :: (shapeId: ShapeId) -> Circle #foreign box2d "b2Shape_GetCircle";
 
 /// Get a copy of the shape's line segment. Asserts the type is correct.
-Shape_GetSegment :: (shapeId: ShapeId) -> Segment #foreign box2d_release "b2Shape_GetSegment";
+Shape_GetSegment :: (shapeId: ShapeId) -> Segment #foreign box2d "b2Shape_GetSegment";
 
 /// Get a copy of the shape's chain segment. These come from chain shapes.
 /// Asserts the type is correct.
-Shape_GetChainSegment :: (shapeId: ShapeId) -> ChainSegment #foreign box2d_release "b2Shape_GetChainSegment";
+Shape_GetChainSegment :: (shapeId: ShapeId) -> ChainSegment #foreign box2d "b2Shape_GetChainSegment";
 
 /// Get a copy of the shape's capsule. Asserts the type is correct.
-Shape_GetCapsule :: (shapeId: ShapeId) -> Capsule #foreign box2d_release "b2Shape_GetCapsule";
+Shape_GetCapsule :: (shapeId: ShapeId) -> Capsule #foreign box2d "b2Shape_GetCapsule";
 
 /// Get a copy of the shape's convex polygon. Asserts the type is correct.
-Shape_GetPolygon :: (shapeId: ShapeId) -> Polygon #foreign box2d_release "b2Shape_GetPolygon";
+Shape_GetPolygon :: (shapeId: ShapeId) -> Polygon #foreign box2d "b2Shape_GetPolygon";
 
 /// Allows you to change a shape to be a circle or update the current circle.
 /// This does not modify the mass properties.
 /// @see b2Body_ApplyMassFromShapes
-Shape_SetCircle :: (shapeId: ShapeId, circle: *Circle) -> void #foreign box2d_release "b2Shape_SetCircle";
+Shape_SetCircle :: (shapeId: ShapeId, circle: *Circle) -> void #foreign box2d "b2Shape_SetCircle";
 
 /// Allows you to change a shape to be a capsule or update the current capsule.
 /// This does not modify the mass properties.
 /// @see b2Body_ApplyMassFromShapes
-Shape_SetCapsule :: (shapeId: ShapeId, capsule: *Capsule) -> void #foreign box2d_release "b2Shape_SetCapsule";
+Shape_SetCapsule :: (shapeId: ShapeId, capsule: *Capsule) -> void #foreign box2d "b2Shape_SetCapsule";
 
 /// Allows you to change a shape to be a segment or update the current segment.
-Shape_SetSegment :: (shapeId: ShapeId, segment: *Segment) -> void #foreign box2d_release "b2Shape_SetSegment";
+Shape_SetSegment :: (shapeId: ShapeId, segment: *Segment) -> void #foreign box2d "b2Shape_SetSegment";
 
 /// Allows you to change a shape to be a polygon or update the current polygon.
 /// This does not modify the mass properties.
 /// @see b2Body_ApplyMassFromShapes
-Shape_SetPolygon :: (shapeId: ShapeId, polygon: *Polygon) -> void #foreign box2d_release "b2Shape_SetPolygon";
+Shape_SetPolygon :: (shapeId: ShapeId, polygon: *Polygon) -> void #foreign box2d "b2Shape_SetPolygon";
 
 /// Get the parent chain id if the shape type is a chain segment, otherwise
 /// returns b2_nullChainId.
-Shape_GetParentChain :: (shapeId: ShapeId) -> ChainId #foreign box2d_release "b2Shape_GetParentChain";
+Shape_GetParentChain :: (shapeId: ShapeId) -> ChainId #foreign box2d "b2Shape_GetParentChain";
 
 /// Get the maximum capacity required for retrieving all the touching contacts on a shape
-Shape_GetContactCapacity :: (shapeId: ShapeId) -> s32 #foreign box2d_release "b2Shape_GetContactCapacity";
+Shape_GetContactCapacity :: (shapeId: ShapeId) -> s32 #foreign box2d "b2Shape_GetContactCapacity";
 
 /// Get the touching contact data for a shape. The provided shapeId will be either shapeIdA or shapeIdB on the contact data.
 /// @note Box2D uses speculative collision so some contact points may be separated.
 /// @returns the number of elements filled in the provided array
 /// @warning do not ignore the return value, it specifies the valid number of elements
-Shape_GetContactData :: (shapeId: ShapeId, contactData: *ContactData, capacity: s32) -> s32 #foreign box2d_release "b2Shape_GetContactData";
+Shape_GetContactData :: (shapeId: ShapeId, contactData: *ContactData, capacity: s32) -> s32 #foreign box2d "b2Shape_GetContactData";
 
 /// Get the maximum capacity required for retrieving all the overlapped shapes on a sensor shape.
 /// This returns 0 if the provided shape is not a sensor.
 /// @param shapeId the id of a sensor shape
 /// @returns the required capacity to get all the overlaps in b2Shape_GetSensorOverlaps
-Shape_GetSensorCapacity :: (shapeId: ShapeId) -> s32 #foreign box2d_release "b2Shape_GetSensorCapacity";
+Shape_GetSensorCapacity :: (shapeId: ShapeId) -> s32 #foreign box2d "b2Shape_GetSensorCapacity";
 
 /// Get the overlapped shapes for a sensor shape.
 /// @param shapeId the id of a sensor shape
@@ -3085,506 +3087,506 @@ Shape_GetSensorCapacity :: (shapeId: ShapeId) -> s32 #foreign box2d_release "b2S
 /// @returns the number of elements filled in the provided array
 /// @warning do not ignore the return value, it specifies the valid number of elements
 /// @warning overlaps may contain destroyed shapes so use b2Shape_IsValid to confirm each overlap
-Shape_GetSensorOverlaps :: (shapeId: ShapeId, overlaps: *ShapeId, capacity: s32) -> s32 #foreign box2d_release "b2Shape_GetSensorOverlaps";
+Shape_GetSensorOverlaps :: (shapeId: ShapeId, overlaps: *ShapeId, capacity: s32) -> s32 #foreign box2d "b2Shape_GetSensorOverlaps";
 
 /// Get the current world AABB
-Shape_GetAABB :: (shapeId: ShapeId) -> AABB #foreign box2d_release "b2Shape_GetAABB";
+Shape_GetAABB :: (shapeId: ShapeId) -> AABB #foreign box2d "b2Shape_GetAABB";
 
 /// Get the mass data for a shape
-Shape_GetMassData :: (shapeId: ShapeId) -> MassData #foreign box2d_release "b2Shape_GetMassData";
+Shape_GetMassData :: (shapeId: ShapeId) -> MassData #foreign box2d "b2Shape_GetMassData";
 
 /// Get the closest point on a shape to a target point. Target and result are in world space.
 /// todo need sample
-Shape_GetClosestPoint :: (shapeId: ShapeId, target: Vec2) -> Vec2 #foreign box2d_release "b2Shape_GetClosestPoint";
+Shape_GetClosestPoint :: (shapeId: ShapeId, target: Vec2) -> Vec2 #foreign box2d "b2Shape_GetClosestPoint";
 
 /// Create a chain shape
 /// @see b2ChainDef for details
-CreateChain :: (bodyId: BodyId, def: *ChainDef) -> ChainId #foreign box2d_release "b2CreateChain";
+CreateChain :: (bodyId: BodyId, def: *ChainDef) -> ChainId #foreign box2d "b2CreateChain";
 
 /// Destroy a chain shape
-DestroyChain :: (chainId: ChainId) -> void #foreign box2d_release "b2DestroyChain";
+DestroyChain :: (chainId: ChainId) -> void #foreign box2d "b2DestroyChain";
 
 /// Get the world that owns this chain shape
-Chain_GetWorld :: (chainId: ChainId) -> WorldId #foreign box2d_release "b2Chain_GetWorld";
+Chain_GetWorld :: (chainId: ChainId) -> WorldId #foreign box2d "b2Chain_GetWorld";
 
 /// Get the number of segments on this chain
-Chain_GetSegmentCount :: (chainId: ChainId) -> s32 #foreign box2d_release "b2Chain_GetSegmentCount";
+Chain_GetSegmentCount :: (chainId: ChainId) -> s32 #foreign box2d "b2Chain_GetSegmentCount";
 
 /// Fill a user array with chain segment shape ids up to the specified capacity. Returns
 /// the actual number of segments returned.
-Chain_GetSegments :: (chainId: ChainId, segmentArray: *ShapeId, capacity: s32) -> s32 #foreign box2d_release "b2Chain_GetSegments";
+Chain_GetSegments :: (chainId: ChainId, segmentArray: *ShapeId, capacity: s32) -> s32 #foreign box2d "b2Chain_GetSegments";
 
 /// Set the chain friction
 /// @see b2ChainDef::friction
-Chain_SetFriction :: (chainId: ChainId, friction: float) -> void #foreign box2d_release "b2Chain_SetFriction";
+Chain_SetFriction :: (chainId: ChainId, friction: float) -> void #foreign box2d "b2Chain_SetFriction";
 
 /// Get the chain friction
-Chain_GetFriction :: (chainId: ChainId) -> float #foreign box2d_release "b2Chain_GetFriction";
+Chain_GetFriction :: (chainId: ChainId) -> float #foreign box2d "b2Chain_GetFriction";
 
 /// Set the chain restitution (bounciness)
 /// @see b2ChainDef::restitution
-Chain_SetRestitution :: (chainId: ChainId, restitution: float) -> void #foreign box2d_release "b2Chain_SetRestitution";
+Chain_SetRestitution :: (chainId: ChainId, restitution: float) -> void #foreign box2d "b2Chain_SetRestitution";
 
 /// Get the chain restitution
-Chain_GetRestitution :: (chainId: ChainId) -> float #foreign box2d_release "b2Chain_GetRestitution";
+Chain_GetRestitution :: (chainId: ChainId) -> float #foreign box2d "b2Chain_GetRestitution";
 
 /// Set the chain material
 /// @see b2ChainDef::material
-Chain_SetMaterial :: (chainId: ChainId, material: s32) -> void #foreign box2d_release "b2Chain_SetMaterial";
+Chain_SetMaterial :: (chainId: ChainId, material: s32) -> void #foreign box2d "b2Chain_SetMaterial";
 
 /// Get the chain material
-Chain_GetMaterial :: (chainId: ChainId) -> s32 #foreign box2d_release "b2Chain_GetMaterial";
+Chain_GetMaterial :: (chainId: ChainId) -> s32 #foreign box2d "b2Chain_GetMaterial";
 
 /// Chain identifier validation. Provides validation for up to 64K allocations.
-Chain_IsValid :: (id: ChainId) -> bool #foreign box2d_release "b2Chain_IsValid";
+Chain_IsValid :: (id: ChainId) -> bool #foreign box2d "b2Chain_IsValid";
 
 /// Destroy a joint
-DestroyJoint :: (jointId: JointId) -> void #foreign box2d_release "b2DestroyJoint";
+DestroyJoint :: (jointId: JointId) -> void #foreign box2d "b2DestroyJoint";
 
 /// Joint identifier validation. Provides validation for up to 64K allocations.
-Joint_IsValid :: (id: JointId) -> bool #foreign box2d_release "b2Joint_IsValid";
+Joint_IsValid :: (id: JointId) -> bool #foreign box2d "b2Joint_IsValid";
 
 /// Get the joint type
-Joint_GetType :: (jointId: JointId) -> JointType #foreign box2d_release "b2Joint_GetType";
+Joint_GetType :: (jointId: JointId) -> JointType #foreign box2d "b2Joint_GetType";
 
 /// Get body A id on a joint
-Joint_GetBodyA :: (jointId: JointId) -> BodyId #foreign box2d_release "b2Joint_GetBodyA";
+Joint_GetBodyA :: (jointId: JointId) -> BodyId #foreign box2d "b2Joint_GetBodyA";
 
 /// Get body B id on a joint
-Joint_GetBodyB :: (jointId: JointId) -> BodyId #foreign box2d_release "b2Joint_GetBodyB";
+Joint_GetBodyB :: (jointId: JointId) -> BodyId #foreign box2d "b2Joint_GetBodyB";
 
 /// Get the world that owns this joint
-Joint_GetWorld :: (jointId: JointId) -> WorldId #foreign box2d_release "b2Joint_GetWorld";
+Joint_GetWorld :: (jointId: JointId) -> WorldId #foreign box2d "b2Joint_GetWorld";
 
 /// Set the local anchor on bodyA
-Joint_SetLocalAnchorA :: (jointId: JointId, localAnchor: Vec2) -> void #foreign box2d_release "b2Joint_SetLocalAnchorA";
+Joint_SetLocalAnchorA :: (jointId: JointId, localAnchor: Vec2) -> void #foreign box2d "b2Joint_SetLocalAnchorA";
 
 /// Get the local anchor on bodyA
-Joint_GetLocalAnchorA :: (jointId: JointId) -> Vec2 #foreign box2d_release "b2Joint_GetLocalAnchorA";
+Joint_GetLocalAnchorA :: (jointId: JointId) -> Vec2 #foreign box2d "b2Joint_GetLocalAnchorA";
 
 /// Set the local anchor on bodyB
-Joint_SetLocalAnchorB :: (jointId: JointId, localAnchor: Vec2) -> void #foreign box2d_release "b2Joint_SetLocalAnchorB";
+Joint_SetLocalAnchorB :: (jointId: JointId, localAnchor: Vec2) -> void #foreign box2d "b2Joint_SetLocalAnchorB";
 
 /// Get the local anchor on bodyB
-Joint_GetLocalAnchorB :: (jointId: JointId) -> Vec2 #foreign box2d_release "b2Joint_GetLocalAnchorB";
+Joint_GetLocalAnchorB :: (jointId: JointId) -> Vec2 #foreign box2d "b2Joint_GetLocalAnchorB";
 
 /// Get the joint reference angle in radians (revolute, prismatic, and weld)
-Joint_GetReferenceAngle :: (jointId: JointId) -> float #foreign box2d_release "b2Joint_GetReferenceAngle";
+Joint_GetReferenceAngle :: (jointId: JointId) -> float #foreign box2d "b2Joint_GetReferenceAngle";
 
 /// Set the joint reference angle in radians, must be in [-pi,pi]. (revolute, prismatic, and weld)
-Joint_SetReferenceAngle :: (jointId: JointId, angleInRadians: float) -> void #foreign box2d_release "b2Joint_SetReferenceAngle";
+Joint_SetReferenceAngle :: (jointId: JointId, angleInRadians: float) -> void #foreign box2d "b2Joint_SetReferenceAngle";
 
 /// Set the local axis on bodyA (prismatic and wheel)
-Joint_SetLocalAxisA :: (jointId: JointId, localAxis: Vec2) -> void #foreign box2d_release "b2Joint_SetLocalAxisA";
+Joint_SetLocalAxisA :: (jointId: JointId, localAxis: Vec2) -> void #foreign box2d "b2Joint_SetLocalAxisA";
 
 /// Get the local axis on bodyA (prismatic and wheel)
-Joint_GetLocalAxisA :: (jointId: JointId) -> Vec2 #foreign box2d_release "b2Joint_GetLocalAxisA";
+Joint_GetLocalAxisA :: (jointId: JointId) -> Vec2 #foreign box2d "b2Joint_GetLocalAxisA";
 
 /// Toggle collision between connected bodies
-Joint_SetCollideConnected :: (jointId: JointId, shouldCollide: bool) -> void #foreign box2d_release "b2Joint_SetCollideConnected";
+Joint_SetCollideConnected :: (jointId: JointId, shouldCollide: bool) -> void #foreign box2d "b2Joint_SetCollideConnected";
 
 /// Is collision allowed between connected bodies?
-Joint_GetCollideConnected :: (jointId: JointId) -> bool #foreign box2d_release "b2Joint_GetCollideConnected";
+Joint_GetCollideConnected :: (jointId: JointId) -> bool #foreign box2d "b2Joint_GetCollideConnected";
 
 /// Set the user data on a joint
-Joint_SetUserData :: (jointId: JointId, userData: *void) -> void #foreign box2d_release "b2Joint_SetUserData";
+Joint_SetUserData :: (jointId: JointId, userData: *void) -> void #foreign box2d "b2Joint_SetUserData";
 
 /// Get the user data on a joint
-Joint_GetUserData :: (jointId: JointId) -> *void #foreign box2d_release "b2Joint_GetUserData";
+Joint_GetUserData :: (jointId: JointId) -> *void #foreign box2d "b2Joint_GetUserData";
 
 /// Wake the bodies connect to this joint
-Joint_WakeBodies :: (jointId: JointId) -> void #foreign box2d_release "b2Joint_WakeBodies";
+Joint_WakeBodies :: (jointId: JointId) -> void #foreign box2d "b2Joint_WakeBodies";
 
 /// Get the current constraint force for this joint. Usually in Newtons.
-Joint_GetConstraintForce :: (jointId: JointId) -> Vec2 #foreign box2d_release "b2Joint_GetConstraintForce";
+Joint_GetConstraintForce :: (jointId: JointId) -> Vec2 #foreign box2d "b2Joint_GetConstraintForce";
 
 /// Get the current constraint torque for this joint. Usually in Newton * meters.
-Joint_GetConstraintTorque :: (jointId: JointId) -> float #foreign box2d_release "b2Joint_GetConstraintTorque";
+Joint_GetConstraintTorque :: (jointId: JointId) -> float #foreign box2d "b2Joint_GetConstraintTorque";
 
 /// Get the current linear separation error for this joint. Does not consider admissible movement. Usually in meters.
-Joint_GetLinearSeparation :: (jointId: JointId) -> float #foreign box2d_release "b2Joint_GetLinearSeparation";
+Joint_GetLinearSeparation :: (jointId: JointId) -> float #foreign box2d "b2Joint_GetLinearSeparation";
 
 /// Get the current angular separation error for this joint. Does not consider admissible movement. Usually in meters.
-Joint_GetAngularSeparation :: (jointId: JointId) -> float #foreign box2d_release "b2Joint_GetAngularSeparation";
+Joint_GetAngularSeparation :: (jointId: JointId) -> float #foreign box2d "b2Joint_GetAngularSeparation";
 
 /// Get the joint constraint tuning. Advanced feature.
-Joint_GetConstraintTuning :: (jointId: JointId, hertz: *float, dampingRatio: *float) -> void #foreign box2d_release "b2Joint_GetConstraintTuning";
+Joint_GetConstraintTuning :: (jointId: JointId, hertz: *float, dampingRatio: *float) -> void #foreign box2d "b2Joint_GetConstraintTuning";
 
 /// Set the joint constraint tuning. Advanced feature.
 /// @param jointId the joint
 /// @param hertz the stiffness in Hertz (cycles per second)
 /// @param dampingRatio the non-dimensional damping ratio (one for critical damping)
-Joint_SetConstraintTuning :: (jointId: JointId, hertz: float, dampingRatio: float) -> void #foreign box2d_release "b2Joint_SetConstraintTuning";
+Joint_SetConstraintTuning :: (jointId: JointId, hertz: float, dampingRatio: float) -> void #foreign box2d "b2Joint_SetConstraintTuning";
 
 /// Create a distance joint
 /// @see b2DistanceJointDef for details
-CreateDistanceJoint :: (worldId: WorldId, def: *DistanceJointDef) -> JointId #foreign box2d_release "b2CreateDistanceJoint";
+CreateDistanceJoint :: (worldId: WorldId, def: *DistanceJointDef) -> JointId #foreign box2d "b2CreateDistanceJoint";
 
 /// Set the rest length of a distance joint
 /// @param jointId The id for a distance joint
 /// @param length The new distance joint length
-DistanceJoint_SetLength :: (jointId: JointId, length: float) -> void #foreign box2d_release "b2DistanceJoint_SetLength";
+DistanceJoint_SetLength :: (jointId: JointId, length: float) -> void #foreign box2d "b2DistanceJoint_SetLength";
 
 /// Get the rest length of a distance joint
-DistanceJoint_GetLength :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetLength";
+DistanceJoint_GetLength :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetLength";
 
 /// Enable/disable the distance joint spring. When disabled the distance joint is rigid.
-DistanceJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d_release "b2DistanceJoint_EnableSpring";
+DistanceJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d "b2DistanceJoint_EnableSpring";
 
 /// Is the distance joint spring enabled?
-DistanceJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2DistanceJoint_IsSpringEnabled";
+DistanceJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d "b2DistanceJoint_IsSpringEnabled";
 
 /// Set the spring stiffness in Hertz
-DistanceJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d_release "b2DistanceJoint_SetSpringHertz";
+DistanceJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d "b2DistanceJoint_SetSpringHertz";
 
 /// Set the spring damping ratio, non-dimensional
-DistanceJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d_release "b2DistanceJoint_SetSpringDampingRatio";
+DistanceJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d "b2DistanceJoint_SetSpringDampingRatio";
 
 /// Get the spring Hertz
-DistanceJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetSpringHertz";
+DistanceJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetSpringHertz";
 
 /// Get the spring damping ratio
-DistanceJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetSpringDampingRatio";
+DistanceJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetSpringDampingRatio";
 
 /// Enable joint limit. The limit only works if the joint spring is enabled. Otherwise the joint is rigid
 /// and the limit has no effect.
-DistanceJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d_release "b2DistanceJoint_EnableLimit";
+DistanceJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d "b2DistanceJoint_EnableLimit";
 
 /// Is the distance joint limit enabled?
-DistanceJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2DistanceJoint_IsLimitEnabled";
+DistanceJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d "b2DistanceJoint_IsLimitEnabled";
 
 /// Set the minimum and maximum length parameters of a distance joint
-DistanceJoint_SetLengthRange :: (jointId: JointId, minLength: float, maxLength: float) -> void #foreign box2d_release "b2DistanceJoint_SetLengthRange";
+DistanceJoint_SetLengthRange :: (jointId: JointId, minLength: float, maxLength: float) -> void #foreign box2d "b2DistanceJoint_SetLengthRange";
 
 /// Get the distance joint minimum length
-DistanceJoint_GetMinLength :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetMinLength";
+DistanceJoint_GetMinLength :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetMinLength";
 
 /// Get the distance joint maximum length
-DistanceJoint_GetMaxLength :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetMaxLength";
+DistanceJoint_GetMaxLength :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetMaxLength";
 
 /// Get the current length of a distance joint
-DistanceJoint_GetCurrentLength :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetCurrentLength";
+DistanceJoint_GetCurrentLength :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetCurrentLength";
 
 /// Enable/disable the distance joint motor
-DistanceJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d_release "b2DistanceJoint_EnableMotor";
+DistanceJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d "b2DistanceJoint_EnableMotor";
 
 /// Is the distance joint motor enabled?
-DistanceJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2DistanceJoint_IsMotorEnabled";
+DistanceJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d "b2DistanceJoint_IsMotorEnabled";
 
 /// Set the distance joint motor speed, usually in meters per second
-DistanceJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d_release "b2DistanceJoint_SetMotorSpeed";
+DistanceJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d "b2DistanceJoint_SetMotorSpeed";
 
 /// Get the distance joint motor speed, usually in meters per second
-DistanceJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetMotorSpeed";
+DistanceJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetMotorSpeed";
 
 /// Set the distance joint maximum motor force, usually in newtons
-DistanceJoint_SetMaxMotorForce :: (jointId: JointId, force: float) -> void #foreign box2d_release "b2DistanceJoint_SetMaxMotorForce";
+DistanceJoint_SetMaxMotorForce :: (jointId: JointId, force: float) -> void #foreign box2d "b2DistanceJoint_SetMaxMotorForce";
 
 /// Get the distance joint maximum motor force, usually in newtons
-DistanceJoint_GetMaxMotorForce :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetMaxMotorForce";
+DistanceJoint_GetMaxMotorForce :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetMaxMotorForce";
 
 /// Get the distance joint current motor force, usually in newtons
-DistanceJoint_GetMotorForce :: (jointId: JointId) -> float #foreign box2d_release "b2DistanceJoint_GetMotorForce";
+DistanceJoint_GetMotorForce :: (jointId: JointId) -> float #foreign box2d "b2DistanceJoint_GetMotorForce";
 
 /// Create a motor joint
 /// @see b2MotorJointDef for details
-CreateMotorJoint :: (worldId: WorldId, def: *MotorJointDef) -> JointId #foreign box2d_release "b2CreateMotorJoint";
+CreateMotorJoint :: (worldId: WorldId, def: *MotorJointDef) -> JointId #foreign box2d "b2CreateMotorJoint";
 
 /// Set the motor joint linear offset target
-MotorJoint_SetLinearOffset :: (jointId: JointId, linearOffset: Vec2) -> void #foreign box2d_release "b2MotorJoint_SetLinearOffset";
+MotorJoint_SetLinearOffset :: (jointId: JointId, linearOffset: Vec2) -> void #foreign box2d "b2MotorJoint_SetLinearOffset";
 
 /// Get the motor joint linear offset target
-MotorJoint_GetLinearOffset :: (jointId: JointId) -> Vec2 #foreign box2d_release "b2MotorJoint_GetLinearOffset";
+MotorJoint_GetLinearOffset :: (jointId: JointId) -> Vec2 #foreign box2d "b2MotorJoint_GetLinearOffset";
 
 /// Set the motor joint angular offset target in radians. This angle will be unwound
 /// so the motor will drive along the shortest arc.
-MotorJoint_SetAngularOffset :: (jointId: JointId, angularOffset: float) -> void #foreign box2d_release "b2MotorJoint_SetAngularOffset";
+MotorJoint_SetAngularOffset :: (jointId: JointId, angularOffset: float) -> void #foreign box2d "b2MotorJoint_SetAngularOffset";
 
 /// Get the motor joint angular offset target in radians
-MotorJoint_GetAngularOffset :: (jointId: JointId) -> float #foreign box2d_release "b2MotorJoint_GetAngularOffset";
+MotorJoint_GetAngularOffset :: (jointId: JointId) -> float #foreign box2d "b2MotorJoint_GetAngularOffset";
 
 /// Set the motor joint maximum force, usually in newtons
-MotorJoint_SetMaxForce :: (jointId: JointId, maxForce: float) -> void #foreign box2d_release "b2MotorJoint_SetMaxForce";
+MotorJoint_SetMaxForce :: (jointId: JointId, maxForce: float) -> void #foreign box2d "b2MotorJoint_SetMaxForce";
 
 /// Get the motor joint maximum force, usually in newtons
-MotorJoint_GetMaxForce :: (jointId: JointId) -> float #foreign box2d_release "b2MotorJoint_GetMaxForce";
+MotorJoint_GetMaxForce :: (jointId: JointId) -> float #foreign box2d "b2MotorJoint_GetMaxForce";
 
 /// Set the motor joint maximum torque, usually in newton-meters
-MotorJoint_SetMaxTorque :: (jointId: JointId, maxTorque: float) -> void #foreign box2d_release "b2MotorJoint_SetMaxTorque";
+MotorJoint_SetMaxTorque :: (jointId: JointId, maxTorque: float) -> void #foreign box2d "b2MotorJoint_SetMaxTorque";
 
 /// Get the motor joint maximum torque, usually in newton-meters
-MotorJoint_GetMaxTorque :: (jointId: JointId) -> float #foreign box2d_release "b2MotorJoint_GetMaxTorque";
+MotorJoint_GetMaxTorque :: (jointId: JointId) -> float #foreign box2d "b2MotorJoint_GetMaxTorque";
 
 /// Set the motor joint correction factor, usually in [0, 1]
-MotorJoint_SetCorrectionFactor :: (jointId: JointId, correctionFactor: float) -> void #foreign box2d_release "b2MotorJoint_SetCorrectionFactor";
+MotorJoint_SetCorrectionFactor :: (jointId: JointId, correctionFactor: float) -> void #foreign box2d "b2MotorJoint_SetCorrectionFactor";
 
 /// Get the motor joint correction factor, usually in [0, 1]
-MotorJoint_GetCorrectionFactor :: (jointId: JointId) -> float #foreign box2d_release "b2MotorJoint_GetCorrectionFactor";
+MotorJoint_GetCorrectionFactor :: (jointId: JointId) -> float #foreign box2d "b2MotorJoint_GetCorrectionFactor";
 
 /// Create a mouse joint
 /// @see b2MouseJointDef for details
-CreateMouseJoint :: (worldId: WorldId, def: *MouseJointDef) -> JointId #foreign box2d_release "b2CreateMouseJoint";
+CreateMouseJoint :: (worldId: WorldId, def: *MouseJointDef) -> JointId #foreign box2d "b2CreateMouseJoint";
 
 /// Set the mouse joint target
-MouseJoint_SetTarget :: (jointId: JointId, target: Vec2) -> void #foreign box2d_release "b2MouseJoint_SetTarget";
+MouseJoint_SetTarget :: (jointId: JointId, target: Vec2) -> void #foreign box2d "b2MouseJoint_SetTarget";
 
 /// Get the mouse joint target
-MouseJoint_GetTarget :: (jointId: JointId) -> Vec2 #foreign box2d_release "b2MouseJoint_GetTarget";
+MouseJoint_GetTarget :: (jointId: JointId) -> Vec2 #foreign box2d "b2MouseJoint_GetTarget";
 
 /// Set the mouse joint spring stiffness in Hertz
-MouseJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d_release "b2MouseJoint_SetSpringHertz";
+MouseJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d "b2MouseJoint_SetSpringHertz";
 
 /// Get the mouse joint spring stiffness in Hertz
-MouseJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d_release "b2MouseJoint_GetSpringHertz";
+MouseJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d "b2MouseJoint_GetSpringHertz";
 
 /// Set the mouse joint spring damping ratio, non-dimensional
-MouseJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d_release "b2MouseJoint_SetSpringDampingRatio";
+MouseJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d "b2MouseJoint_SetSpringDampingRatio";
 
 /// Get the mouse joint damping ratio, non-dimensional
-MouseJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d_release "b2MouseJoint_GetSpringDampingRatio";
+MouseJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d "b2MouseJoint_GetSpringDampingRatio";
 
 /// Set the mouse joint maximum force, usually in newtons
-MouseJoint_SetMaxForce :: (jointId: JointId, maxForce: float) -> void #foreign box2d_release "b2MouseJoint_SetMaxForce";
+MouseJoint_SetMaxForce :: (jointId: JointId, maxForce: float) -> void #foreign box2d "b2MouseJoint_SetMaxForce";
 
 /// Get the mouse joint maximum force, usually in newtons
-MouseJoint_GetMaxForce :: (jointId: JointId) -> float #foreign box2d_release "b2MouseJoint_GetMaxForce";
+MouseJoint_GetMaxForce :: (jointId: JointId) -> float #foreign box2d "b2MouseJoint_GetMaxForce";
 
 /// Create a filter joint.
 /// @see b2FilterJointDef for details
-CreateFilterJoint :: (worldId: WorldId, def: *FilterJointDef) -> JointId #foreign box2d_release "b2CreateFilterJoint";
+CreateFilterJoint :: (worldId: WorldId, def: *FilterJointDef) -> JointId #foreign box2d "b2CreateFilterJoint";
 
 /// Create a prismatic (slider) joint.
 /// @see b2PrismaticJointDef for details
-CreatePrismaticJoint :: (worldId: WorldId, def: *PrismaticJointDef) -> JointId #foreign box2d_release "b2CreatePrismaticJoint";
+CreatePrismaticJoint :: (worldId: WorldId, def: *PrismaticJointDef) -> JointId #foreign box2d "b2CreatePrismaticJoint";
 
 /// Enable/disable the joint spring.
-PrismaticJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d_release "b2PrismaticJoint_EnableSpring";
+PrismaticJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d "b2PrismaticJoint_EnableSpring";
 
 /// Is the prismatic joint spring enabled or not?
-PrismaticJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2PrismaticJoint_IsSpringEnabled";
+PrismaticJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d "b2PrismaticJoint_IsSpringEnabled";
 
 /// Set the prismatic joint stiffness in Hertz.
 /// This should usually be less than a quarter of the simulation rate. For example, if the simulation
 /// runs at 60Hz then the joint stiffness should be 15Hz or less.
-PrismaticJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d_release "b2PrismaticJoint_SetSpringHertz";
+PrismaticJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d "b2PrismaticJoint_SetSpringHertz";
 
 /// Get the prismatic joint stiffness in Hertz
-PrismaticJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetSpringHertz";
+PrismaticJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetSpringHertz";
 
 /// Set the prismatic joint damping ratio (non-dimensional)
-PrismaticJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d_release "b2PrismaticJoint_SetSpringDampingRatio";
+PrismaticJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d "b2PrismaticJoint_SetSpringDampingRatio";
 
 /// Get the prismatic spring damping ratio (non-dimensional)
-PrismaticJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetSpringDampingRatio";
+PrismaticJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetSpringDampingRatio";
 
 /// Set the prismatic joint spring target angle, usually in meters
-PrismaticJoint_SetTargetTranslation :: (jointId: JointId, translation: float) -> void #foreign box2d_release "b2PrismaticJoint_SetTargetTranslation";
+PrismaticJoint_SetTargetTranslation :: (jointId: JointId, translation: float) -> void #foreign box2d "b2PrismaticJoint_SetTargetTranslation";
 
 /// Get the prismatic joint spring target translation, usually in meters
-PrismaticJoint_GetTargetTranslation :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetTargetTranslation";
+PrismaticJoint_GetTargetTranslation :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetTargetTranslation";
 
 /// Enable/disable a prismatic joint limit
-PrismaticJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d_release "b2PrismaticJoint_EnableLimit";
+PrismaticJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d "b2PrismaticJoint_EnableLimit";
 
 /// Is the prismatic joint limit enabled?
-PrismaticJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2PrismaticJoint_IsLimitEnabled";
+PrismaticJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d "b2PrismaticJoint_IsLimitEnabled";
 
 /// Get the prismatic joint lower limit
-PrismaticJoint_GetLowerLimit :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetLowerLimit";
+PrismaticJoint_GetLowerLimit :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetLowerLimit";
 
 /// Get the prismatic joint upper limit
-PrismaticJoint_GetUpperLimit :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetUpperLimit";
+PrismaticJoint_GetUpperLimit :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetUpperLimit";
 
 /// Set the prismatic joint limits
-PrismaticJoint_SetLimits :: (jointId: JointId, lower: float, upper: float) -> void #foreign box2d_release "b2PrismaticJoint_SetLimits";
+PrismaticJoint_SetLimits :: (jointId: JointId, lower: float, upper: float) -> void #foreign box2d "b2PrismaticJoint_SetLimits";
 
 /// Enable/disable a prismatic joint motor
-PrismaticJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d_release "b2PrismaticJoint_EnableMotor";
+PrismaticJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d "b2PrismaticJoint_EnableMotor";
 
 /// Is the prismatic joint motor enabled?
-PrismaticJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2PrismaticJoint_IsMotorEnabled";
+PrismaticJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d "b2PrismaticJoint_IsMotorEnabled";
 
 /// Set the prismatic joint motor speed, usually in meters per second
-PrismaticJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d_release "b2PrismaticJoint_SetMotorSpeed";
+PrismaticJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d "b2PrismaticJoint_SetMotorSpeed";
 
 /// Get the prismatic joint motor speed, usually in meters per second
-PrismaticJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetMotorSpeed";
+PrismaticJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetMotorSpeed";
 
 /// Set the prismatic joint maximum motor force, usually in newtons
-PrismaticJoint_SetMaxMotorForce :: (jointId: JointId, force: float) -> void #foreign box2d_release "b2PrismaticJoint_SetMaxMotorForce";
+PrismaticJoint_SetMaxMotorForce :: (jointId: JointId, force: float) -> void #foreign box2d "b2PrismaticJoint_SetMaxMotorForce";
 
 /// Get the prismatic joint maximum motor force, usually in newtons
-PrismaticJoint_GetMaxMotorForce :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetMaxMotorForce";
+PrismaticJoint_GetMaxMotorForce :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetMaxMotorForce";
 
 /// Get the prismatic joint current motor force, usually in newtons
-PrismaticJoint_GetMotorForce :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetMotorForce";
+PrismaticJoint_GetMotorForce :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetMotorForce";
 
 /// Get the current joint translation, usually in meters.
-PrismaticJoint_GetTranslation :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetTranslation";
+PrismaticJoint_GetTranslation :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetTranslation";
 
 /// Get the current joint translation speed, usually in meters per second.
-PrismaticJoint_GetSpeed :: (jointId: JointId) -> float #foreign box2d_release "b2PrismaticJoint_GetSpeed";
+PrismaticJoint_GetSpeed :: (jointId: JointId) -> float #foreign box2d "b2PrismaticJoint_GetSpeed";
 
 /// Create a revolute joint
 /// @see b2RevoluteJointDef for details
-CreateRevoluteJoint :: (worldId: WorldId, def: *RevoluteJointDef) -> JointId #foreign box2d_release "b2CreateRevoluteJoint";
+CreateRevoluteJoint :: (worldId: WorldId, def: *RevoluteJointDef) -> JointId #foreign box2d "b2CreateRevoluteJoint";
 
 /// Enable/disable the revolute joint spring
-RevoluteJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d_release "b2RevoluteJoint_EnableSpring";
+RevoluteJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d "b2RevoluteJoint_EnableSpring";
 
 /// It the revolute angular spring enabled?
-RevoluteJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2RevoluteJoint_IsSpringEnabled";
+RevoluteJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d "b2RevoluteJoint_IsSpringEnabled";
 
 /// Set the revolute joint spring stiffness in Hertz
-RevoluteJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d_release "b2RevoluteJoint_SetSpringHertz";
+RevoluteJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d "b2RevoluteJoint_SetSpringHertz";
 
 /// Get the revolute joint spring stiffness in Hertz
-RevoluteJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetSpringHertz";
+RevoluteJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetSpringHertz";
 
 /// Set the revolute joint spring damping ratio, non-dimensional
-RevoluteJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d_release "b2RevoluteJoint_SetSpringDampingRatio";
+RevoluteJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d "b2RevoluteJoint_SetSpringDampingRatio";
 
 /// Get the revolute joint spring damping ratio, non-dimensional
-RevoluteJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetSpringDampingRatio";
+RevoluteJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetSpringDampingRatio";
 
 /// Set the revolute joint spring target angle, radians
-RevoluteJoint_SetTargetAngle :: (jointId: JointId, angle: float) -> void #foreign box2d_release "b2RevoluteJoint_SetTargetAngle";
+RevoluteJoint_SetTargetAngle :: (jointId: JointId, angle: float) -> void #foreign box2d "b2RevoluteJoint_SetTargetAngle";
 
 /// Get the revolute joint spring target angle, radians
-RevoluteJoint_GetTargetAngle :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetTargetAngle";
+RevoluteJoint_GetTargetAngle :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetTargetAngle";
 
 /// Get the revolute joint current angle in radians relative to the reference angle
 /// @see b2RevoluteJointDef::referenceAngle
-RevoluteJoint_GetAngle :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetAngle";
+RevoluteJoint_GetAngle :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetAngle";
 
 /// Enable/disable the revolute joint limit
-RevoluteJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d_release "b2RevoluteJoint_EnableLimit";
+RevoluteJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d "b2RevoluteJoint_EnableLimit";
 
 /// Is the revolute joint limit enabled?
-RevoluteJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2RevoluteJoint_IsLimitEnabled";
+RevoluteJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d "b2RevoluteJoint_IsLimitEnabled";
 
 /// Get the revolute joint lower limit in radians
-RevoluteJoint_GetLowerLimit :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetLowerLimit";
+RevoluteJoint_GetLowerLimit :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetLowerLimit";
 
 /// Get the revolute joint upper limit in radians
-RevoluteJoint_GetUpperLimit :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetUpperLimit";
+RevoluteJoint_GetUpperLimit :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetUpperLimit";
 
 /// Set the revolute joint limits in radians. It is expected that lower <= upper
 /// and that -0.99 * B2_PI <= lower && upper <= -0.99 * B2_PI.
-RevoluteJoint_SetLimits :: (jointId: JointId, lower: float, upper: float) -> void #foreign box2d_release "b2RevoluteJoint_SetLimits";
+RevoluteJoint_SetLimits :: (jointId: JointId, lower: float, upper: float) -> void #foreign box2d "b2RevoluteJoint_SetLimits";
 
 /// Enable/disable a revolute joint motor
-RevoluteJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d_release "b2RevoluteJoint_EnableMotor";
+RevoluteJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d "b2RevoluteJoint_EnableMotor";
 
 /// Is the revolute joint motor enabled?
-RevoluteJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2RevoluteJoint_IsMotorEnabled";
+RevoluteJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d "b2RevoluteJoint_IsMotorEnabled";
 
 /// Set the revolute joint motor speed in radians per second
-RevoluteJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d_release "b2RevoluteJoint_SetMotorSpeed";
+RevoluteJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d "b2RevoluteJoint_SetMotorSpeed";
 
 /// Get the revolute joint motor speed in radians per second
-RevoluteJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetMotorSpeed";
+RevoluteJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetMotorSpeed";
 
 /// Get the revolute joint current motor torque, usually in newton-meters
-RevoluteJoint_GetMotorTorque :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetMotorTorque";
+RevoluteJoint_GetMotorTorque :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetMotorTorque";
 
 /// Set the revolute joint maximum motor torque, usually in newton-meters
-RevoluteJoint_SetMaxMotorTorque :: (jointId: JointId, torque: float) -> void #foreign box2d_release "b2RevoluteJoint_SetMaxMotorTorque";
+RevoluteJoint_SetMaxMotorTorque :: (jointId: JointId, torque: float) -> void #foreign box2d "b2RevoluteJoint_SetMaxMotorTorque";
 
 /// Get the revolute joint maximum motor torque, usually in newton-meters
-RevoluteJoint_GetMaxMotorTorque :: (jointId: JointId) -> float #foreign box2d_release "b2RevoluteJoint_GetMaxMotorTorque";
+RevoluteJoint_GetMaxMotorTorque :: (jointId: JointId) -> float #foreign box2d "b2RevoluteJoint_GetMaxMotorTorque";
 
 /// Create a weld joint
 /// @see b2WeldJointDef for details
-CreateWeldJoint :: (worldId: WorldId, def: *WeldJointDef) -> JointId #foreign box2d_release "b2CreateWeldJoint";
+CreateWeldJoint :: (worldId: WorldId, def: *WeldJointDef) -> JointId #foreign box2d "b2CreateWeldJoint";
 
 /// Set the weld joint linear stiffness in Hertz. 0 is rigid.
-WeldJoint_SetLinearHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d_release "b2WeldJoint_SetLinearHertz";
+WeldJoint_SetLinearHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d "b2WeldJoint_SetLinearHertz";
 
 /// Get the weld joint linear stiffness in Hertz
-WeldJoint_GetLinearHertz :: (jointId: JointId) -> float #foreign box2d_release "b2WeldJoint_GetLinearHertz";
+WeldJoint_GetLinearHertz :: (jointId: JointId) -> float #foreign box2d "b2WeldJoint_GetLinearHertz";
 
 /// Set the weld joint linear damping ratio (non-dimensional)
-WeldJoint_SetLinearDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d_release "b2WeldJoint_SetLinearDampingRatio";
+WeldJoint_SetLinearDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d "b2WeldJoint_SetLinearDampingRatio";
 
 /// Get the weld joint linear damping ratio (non-dimensional)
-WeldJoint_GetLinearDampingRatio :: (jointId: JointId) -> float #foreign box2d_release "b2WeldJoint_GetLinearDampingRatio";
+WeldJoint_GetLinearDampingRatio :: (jointId: JointId) -> float #foreign box2d "b2WeldJoint_GetLinearDampingRatio";
 
 /// Set the weld joint angular stiffness in Hertz. 0 is rigid.
-WeldJoint_SetAngularHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d_release "b2WeldJoint_SetAngularHertz";
+WeldJoint_SetAngularHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d "b2WeldJoint_SetAngularHertz";
 
 /// Get the weld joint angular stiffness in Hertz
-WeldJoint_GetAngularHertz :: (jointId: JointId) -> float #foreign box2d_release "b2WeldJoint_GetAngularHertz";
+WeldJoint_GetAngularHertz :: (jointId: JointId) -> float #foreign box2d "b2WeldJoint_GetAngularHertz";
 
 /// Set weld joint angular damping ratio, non-dimensional
-WeldJoint_SetAngularDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d_release "b2WeldJoint_SetAngularDampingRatio";
+WeldJoint_SetAngularDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d "b2WeldJoint_SetAngularDampingRatio";
 
 /// Get the weld joint angular damping ratio, non-dimensional
-WeldJoint_GetAngularDampingRatio :: (jointId: JointId) -> float #foreign box2d_release "b2WeldJoint_GetAngularDampingRatio";
+WeldJoint_GetAngularDampingRatio :: (jointId: JointId) -> float #foreign box2d "b2WeldJoint_GetAngularDampingRatio";
 
 /// Create a wheel joint
 /// @see b2WheelJointDef for details
-CreateWheelJoint :: (worldId: WorldId, def: *WheelJointDef) -> JointId #foreign box2d_release "b2CreateWheelJoint";
+CreateWheelJoint :: (worldId: WorldId, def: *WheelJointDef) -> JointId #foreign box2d "b2CreateWheelJoint";
 
 /// Enable/disable the wheel joint spring
-WheelJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d_release "b2WheelJoint_EnableSpring";
+WheelJoint_EnableSpring :: (jointId: JointId, enableSpring: bool) -> void #foreign box2d "b2WheelJoint_EnableSpring";
 
 /// Is the wheel joint spring enabled?
-WheelJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2WheelJoint_IsSpringEnabled";
+WheelJoint_IsSpringEnabled :: (jointId: JointId) -> bool #foreign box2d "b2WheelJoint_IsSpringEnabled";
 
 /// Set the wheel joint stiffness in Hertz
-WheelJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d_release "b2WheelJoint_SetSpringHertz";
+WheelJoint_SetSpringHertz :: (jointId: JointId, hertz: float) -> void #foreign box2d "b2WheelJoint_SetSpringHertz";
 
 /// Get the wheel joint stiffness in Hertz
-WheelJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d_release "b2WheelJoint_GetSpringHertz";
+WheelJoint_GetSpringHertz :: (jointId: JointId) -> float #foreign box2d "b2WheelJoint_GetSpringHertz";
 
 /// Set the wheel joint damping ratio, non-dimensional
-WheelJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d_release "b2WheelJoint_SetSpringDampingRatio";
+WheelJoint_SetSpringDampingRatio :: (jointId: JointId, dampingRatio: float) -> void #foreign box2d "b2WheelJoint_SetSpringDampingRatio";
 
 /// Get the wheel joint damping ratio, non-dimensional
-WheelJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d_release "b2WheelJoint_GetSpringDampingRatio";
+WheelJoint_GetSpringDampingRatio :: (jointId: JointId) -> float #foreign box2d "b2WheelJoint_GetSpringDampingRatio";
 
 /// Enable/disable the wheel joint limit
-WheelJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d_release "b2WheelJoint_EnableLimit";
+WheelJoint_EnableLimit :: (jointId: JointId, enableLimit: bool) -> void #foreign box2d "b2WheelJoint_EnableLimit";
 
 /// Is the wheel joint limit enabled?
-WheelJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2WheelJoint_IsLimitEnabled";
+WheelJoint_IsLimitEnabled :: (jointId: JointId) -> bool #foreign box2d "b2WheelJoint_IsLimitEnabled";
 
 /// Get the wheel joint lower limit
-WheelJoint_GetLowerLimit :: (jointId: JointId) -> float #foreign box2d_release "b2WheelJoint_GetLowerLimit";
+WheelJoint_GetLowerLimit :: (jointId: JointId) -> float #foreign box2d "b2WheelJoint_GetLowerLimit";
 
 /// Get the wheel joint upper limit
-WheelJoint_GetUpperLimit :: (jointId: JointId) -> float #foreign box2d_release "b2WheelJoint_GetUpperLimit";
+WheelJoint_GetUpperLimit :: (jointId: JointId) -> float #foreign box2d "b2WheelJoint_GetUpperLimit";
 
 /// Set the wheel joint limits
-WheelJoint_SetLimits :: (jointId: JointId, lower: float, upper: float) -> void #foreign box2d_release "b2WheelJoint_SetLimits";
+WheelJoint_SetLimits :: (jointId: JointId, lower: float, upper: float) -> void #foreign box2d "b2WheelJoint_SetLimits";
 
 /// Enable/disable the wheel joint motor
-WheelJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d_release "b2WheelJoint_EnableMotor";
+WheelJoint_EnableMotor :: (jointId: JointId, enableMotor: bool) -> void #foreign box2d "b2WheelJoint_EnableMotor";
 
 /// Is the wheel joint motor enabled?
-WheelJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d_release "b2WheelJoint_IsMotorEnabled";
+WheelJoint_IsMotorEnabled :: (jointId: JointId) -> bool #foreign box2d "b2WheelJoint_IsMotorEnabled";
 
 /// Set the wheel joint motor speed in radians per second
-WheelJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d_release "b2WheelJoint_SetMotorSpeed";
+WheelJoint_SetMotorSpeed :: (jointId: JointId, motorSpeed: float) -> void #foreign box2d "b2WheelJoint_SetMotorSpeed";
 
 /// Get the wheel joint motor speed in radians per second
-WheelJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d_release "b2WheelJoint_GetMotorSpeed";
+WheelJoint_GetMotorSpeed :: (jointId: JointId) -> float #foreign box2d "b2WheelJoint_GetMotorSpeed";
 
 /// Set the wheel joint maximum motor torque, usually in newton-meters
-WheelJoint_SetMaxMotorTorque :: (jointId: JointId, torque: float) -> void #foreign box2d_release "b2WheelJoint_SetMaxMotorTorque";
+WheelJoint_SetMaxMotorTorque :: (jointId: JointId, torque: float) -> void #foreign box2d "b2WheelJoint_SetMaxMotorTorque";
 
 /// Get the wheel joint maximum motor torque, usually in newton-meters
-WheelJoint_GetMaxMotorTorque :: (jointId: JointId) -> float #foreign box2d_release "b2WheelJoint_GetMaxMotorTorque";
+WheelJoint_GetMaxMotorTorque :: (jointId: JointId) -> float #foreign box2d "b2WheelJoint_GetMaxMotorTorque";
 
 /// Get the wheel joint current motor torque, usually in newton-meters
-WheelJoint_GetMotorTorque :: (jointId: JointId) -> float #foreign box2d_release "b2WheelJoint_GetMotorTorque";
+WheelJoint_GetMotorTorque :: (jointId: JointId) -> float #foreign box2d "b2WheelJoint_GetMotorTorque";
 
 #scope_file
 
 #import "Basic"; // For assert
 
-box2d_release :: #library,no_dll "./windows/box2d_release";
+box2d :: #library,no_dll "./windows/box2d";
 
 #run {
     {
